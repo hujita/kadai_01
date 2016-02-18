@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		96B7E2701C75512500C6340F /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B7E26F1C75512500C6340F /* SDL2_ttf.framework */; };
+		96B7E2721C75C69300C6340F /* puzzle_block.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96B7E2711C75C69300C6340F /* puzzle_block.jpg */; };
 		96F64E541C74558200496683 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E531C74558200496683 /* AppDelegate.m */; };
 		96F64E561C74558200496683 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E551C74558200496683 /* main.mm */; };
 		96F64E581C74558200496683 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E571C74558200496683 /* Images.xcassets */; };
@@ -15,7 +16,6 @@
 		96F64E671C74558200496683 /* puzzle_test_01Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E661C74558200496683 /* puzzle_test_01Tests.m */; };
 		96F64E711C74559F00496683 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F64E701C74559F00496683 /* SDL2.framework */; };
 		96F64E731C7455A300496683 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F64E721C7455A300496683 /* SDL2_image.framework */; };
-		96F64E761C74560C00496683 /* puzzle_block.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E751C74560C00496683 /* puzzle_block.png */; };
 		96F64E7A1C745C2800496683 /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E791C745C2800496683 /* background.gif */; };
 		96F64EB61C746C8E00496683 /* AquaKana.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 96F64EB51C746C8E00496683 /* AquaKana.ttc */; };
 /* End PBXBuildFile section */
@@ -32,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		96B7E26F1C75512500C6340F /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Volumes/SDL2_ttf/SDL2_ttf.framework; sourceTree = "<group>"; };
+		96B7E2711C75C69300C6340F /* puzzle_block.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = puzzle_block.jpg; sourceTree = "<group>"; };
 		96F64E4D1C74558200496683 /* puzzle_test_01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F64E511C74558200496683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F64E521C74558200496683 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,7 +45,6 @@
 		96F64E661C74558200496683 /* puzzle_test_01Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = puzzle_test_01Tests.m; sourceTree = "<group>"; };
 		96F64E701C74559F00496683 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Volumes/SDL2/SDL2.framework; sourceTree = "<group>"; };
 		96F64E721C7455A300496683 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Volumes/SDL2_image/SDL2_image.framework; sourceTree = "<group>"; };
-		96F64E751C74560C00496683 /* puzzle_block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = puzzle_block.png; sourceTree = "<group>"; };
 		96F64E791C745C2800496683 /* background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background.gif; sourceTree = "<group>"; };
 		96F64EB51C746C8E00496683 /* AquaKana.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaKana.ttc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,8 +134,8 @@
 		96F64E741C7455E500496683 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96B7E2711C75C69300C6340F /* puzzle_block.jpg */,
 				96F64E791C745C2800496683 /* background.gif */,
-				96F64E751C74560C00496683 /* puzzle_block.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -230,9 +230,9 @@
 			files = (
 				96F64E581C74558200496683 /* Images.xcassets in Resources */,
 				96F64EB61C746C8E00496683 /* AquaKana.ttc in Resources */,
-				96F64E761C74560C00496683 /* puzzle_block.png in Resources */,
 				96F64E7A1C745C2800496683 /* background.gif in Resources */,
 				96F64E5B1C74558200496683 /* MainMenu.xib in Resources */,
+				96B7E2721C75C69300C6340F /* puzzle_block.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,10 @@
 #include <string>
 #include <string.h>
 #include <boost/format.hpp>
+#include <boost/random.hpp>
+
+#define MAX_BLOCK_TYPE_COUNT 9
+#define MAX_BLOCK_COUNT 90
 
 /* 入力データ */
 typedef struct {
@@ -32,6 +36,29 @@ typedef struct {
     int button2;
 } InputData;
 
+typedef struct {
+    double x, y;        /* 出力先座標 */
+    int type;           /* 0:doctor, 1:girl, 2:hanamiju, 3:madam, 4:boy, 5:UMA, 6:woman, 7:worker, 8:yankee */
+} Block;
+
+typedef struct {
+    double x, y, w, h;        /* 取得先ノ座標幅高 */
+} BlockType;
+
+/* ブロック数。最大で9*(9+1)=90 */
+Block blocks[90];
+/* 元画像の座標 */
+BlockType block_types[9] = {
+    {13, 35, 90, 90},       /* 1.1 */
+    {255, 35, 90, 90},       /* 1.4 */
+    {336, 35, 90, 90},       /* 1.5 */
+    {13, 127, 90, 90},       /* 2.1 */
+    {174, 127, 100, 100},       /* 2.3 */
+    {255, 127, 100, 100},       /* 2.4 */
+    {336, 127, 100, 100},       /* 2.5 */
+    {13, 200, 100, 100},       /* 3.1 */
+    {174, 200, 100, 100},       /* 3.3 */
+};
 
 InputData current_input, prev_input;        /* 入力データ */
 
@@ -79,6 +106,23 @@ void UpdateInput(void)
     current_input.button2 = keys[SDL_SCANCODE_LCTRL] | keys[SDL_SCANCODE_X];    /* 左Ctrl, [X] */
 }
 
+/* lower 以上 upper 以下の乱数を返す */
+int Random(int lower, int upper, int cnt)
+{
+    using namespace boost;
+    //return ((double)rand() / RAND_MAX) * (upper - lower) + lower;
+    // 「メルセンヌツイスター」( Seed=現在時刻 ) で
+    // 「小さな整数の一様乱数」( 1～6 ) を生成
+    // 現在時刻なので1秒間に60回呼び出されるので60個同じ数値が連続で生まれてしまう…
+    mt19937            gen( SDL_GetTicks() * cnt );
+    uniform_smallint<> dst( lower, upper );
+    variate_generator<
+    mt19937&, uniform_smallint<>
+    > rand( gen, dst );
+    
+    return rand();
+}
+
 
 /* 更新する */
 void Update(void)
@@ -120,11 +164,112 @@ void UpdateTop(void)
 {
 }
 
+void DrawBlock(int index){
+    SDL_Rect srcrect;
+    SDL_Rect desrect = { (int)blocks[index].x, (int)blocks[index].y };
+    switch (blocks[index].type) {
+        case 0:
+            srcrect.x = block_types[0].x;
+            srcrect.y = block_types[0].y;
+            srcrect.w = block_types[0].w;
+            srcrect.h = block_types[0].h;
+            break;
+        case 1:
+            srcrect.x = block_types[1].x;
+            srcrect.y = block_types[1].y;
+            srcrect.w = block_types[1].w;
+            srcrect.h = block_types[1].h;
+            break;
+        case 2:
+            srcrect.x = block_types[2].x;
+            srcrect.y = block_types[2].y;
+            srcrect.w = block_types[2].w;
+            srcrect.h = block_types[2].h;
+            break;
+        case 3:
+            srcrect.x = block_types[3].x;
+            srcrect.y = block_types[3].y;
+            srcrect.w = block_types[3].w;
+            srcrect.h = block_types[3].h;
+            break;
+        case 4:
+            srcrect.x = block_types[4].x;
+            srcrect.y = block_types[4].y;
+            srcrect.w = block_types[4].w;
+            srcrect.h = block_types[4].h;
+            break;
+        case 5:
+            srcrect.x = block_types[5].x;
+            srcrect.y = block_types[5].y;
+            srcrect.w = block_types[5].w;
+            srcrect.h = block_types[5].h;
+            break;
+        case 6:
+            srcrect.x = block_types[6].x;
+            srcrect.y = block_types[6].y;
+            srcrect.w = block_types[6].w;
+            srcrect.h = block_types[6].h;
+            break;
+        case 7:
+            srcrect.x = block_types[7].x;
+            srcrect.y = block_types[7].y;
+            srcrect.w = block_types[7].w;
+            srcrect.h = block_types[7].h;
+            break;
+        case 8:
+            srcrect.x = block_types[8].x;
+            srcrect.y = block_types[8].y;
+            srcrect.w = block_types[8].w;
+            srcrect.h = block_types[8].h;
+            break;
+    }
+    //std::cout << block_types[0].w << std::endl;
+    SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
+}
+
+
+//int CreateBlock(double x, double y, int rdm_type){
+//    int i;
+ //
+//    /* 死んでるブロックを探す */
+//    for (i = 0; i < MAX_BLOCK_COUNT; ++i) {
+//        if (!blocks[i].alive)
+//            break;
+//    }
+//    if (i < MAX_BLOCK_COUNT) {   /* 見つかった */
+//        blocks[i].alive = 1;
+//        blocks[i].x = x;
+//        blocks[i].y = y;
+//        blocks[i].type = rdm_type;
+//        return i;
+//    } else {                        /* 見つからなかった */
+//        return -1;
+//    }
+//}
+
+void InitBlock(){
+    int i;
+    int j;
+    int cnt = 0;
+    for (i = 0; i < line; ++i){
+        for (j = 0; j < row; ++j){
+            blocks[cnt].x = (95 * i);
+            blocks[cnt].y = (95 * j);
+            blocks[cnt].type = Random(0, type - 1, cnt);
+            ++cnt;
+        }
+    }
+    std::cout << line << std::endl;
+    std::cout << row << std::endl;
+}
+
 /* PLAY画面更新 */
 void UpdatePlay(void)
 {
+    
+    //InitBlock();
+    //CreateBlock(320, 240, Random(0, 8));
 }
-
 /* 描画する */
 void Draw(void)
 {
@@ -164,7 +309,12 @@ void Draw(void)
     /* PLAY画面の描画 */
     if (view_type == PLAY_VIEW){
         /* ブロックを描画する */
-        SDL_BlitSurface(puzzle_block, NULL, screen, NULL);
+        int i;
+        //SDL_BlitSurface(puzzle_block, NULL, screen, NULL);
+        for (i = 0; i < line * row; ++i) {
+            DrawBlock(i);
+        }
+        //DrawBlock(2);
     }
     
     /* 画面を更新する */
@@ -186,7 +336,7 @@ int Initialize(void)
         return -1;
     }
 
-    window = SDL_CreateWindow("My Family become Puzzle", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1000,850,0);
+    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1000,850,0);
     screen = SDL_GetWindowSurface(window);
     if (screen == NULL) {
         fprintf(stderr, "画面の初期化に失敗しました：%s\n", SDL_GetError());
@@ -201,7 +351,7 @@ int Initialize(void)
         SDL_Quit();
         return -1;
     }
-    puzzle_block = IMG_Load("puzzle_block.png");
+    puzzle_block = IMG_Load("puzzle_block.jpg");
     if (puzzle_block == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
         SDL_Quit();
@@ -223,7 +373,7 @@ int Initialize(void)
     word_2 = TTF_RenderUTF8_Blended(font, "ブロックの種類数を指定してください", white);
     word_3 = TTF_RenderUTF8_Blended(font, "ブロックを繋げるべき数を指定してください", white);
     word_4 = TTF_RenderUTF8_Blended(font, "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了", white);
-
+    
     return 0;
 }
 
@@ -326,7 +476,9 @@ void MainLoop(void)
                         ConfigTopInput(9);
                         break;
                     case SDLK_RETURN:
-                        if (config_phase == 4) {
+                        if (config_phase >= 4) {
+                            /* 初期ブロック配置 */
+                            InitBlock();
                             view_type = PLAY_VIEW;
                             break;
                         }
