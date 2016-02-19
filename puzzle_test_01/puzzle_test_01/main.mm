@@ -39,6 +39,7 @@ typedef struct {
 typedef struct {
     double x, y;        /* 出力先座標 */
     int type;           /* 0:doctor, 1:girl, 2:hanamiju, 3:madam, 4:boy, 5:UMA, 6:woman, 7:worker, 8:yankee */
+    int place;    /* 現在の整列順 */
 } Block;
 
 typedef struct {
@@ -47,6 +48,8 @@ typedef struct {
 
 /* ブロック数。最大で9*(9+1)=90 */
 Block blocks[90];
+/* 入れ替わり対象 */
+Block block_target[1];
 /* 元画像の座標 */
 BlockType block_types[9] = {
     {13, 35, 90, 90},       /* 1.1 */
@@ -91,6 +94,12 @@ int chain = 0;                                /* 必要連鎖数 */
 double x, y;                                /* 音符の座標 */
 const int TOP_VIEW = 0;
 const int PLAY_VIEW = 1;
+int current_block_index = 999;                    /* 現在マークしているブロックのインデックス。初期値は999で何もマークしていない */
+double current_block_x = 0;
+double current_block_y = 0;
+double current_block_x_diff = 0;
+double current_block_y_diff = 0;
+int block_state = 0;
 
 /* 入力データを更新する */
 void UpdateInput(void)
@@ -113,8 +122,7 @@ int Random(int lower, int upper, int cnt)
     //return ((double)rand() / RAND_MAX) * (upper - lower) + lower;
     // 「メルセンヌツイスター」( Seed=現在時刻 ) で
     // 「小さな整数の一様乱数」( 1～6 ) を生成
-    // 現在時刻なので1秒間に60回呼び出されるので60個同じ数値が連続で生まれてしまう…
-    mt19937            gen( SDL_GetTicks() * cnt );
+    mt19937            gen( (int)static_cast<unsigned long>(time(0)) * (cnt + 1));
     uniform_smallint<> dst( lower, upper );
     variate_generator<
     mt19937&, uniform_smallint<>
@@ -167,6 +175,9 @@ void UpdateTop(void)
 void DrawBlock(int index){
     SDL_Rect srcrect;
     SDL_Rect desrect = { (int)blocks[index].x, (int)blocks[index].y };
+    if (index == current_block_index){
+        desrect = { (int)(current_block_x - current_block_x_diff), (int)(current_block_y - current_block_y_diff) };
+    }
     switch (blocks[index].type) {
         case 0:
             srcrect.x = block_types[0].x;
@@ -223,7 +234,6 @@ void DrawBlock(int index){
             srcrect.h = block_types[8].h;
             break;
     }
-    //std::cout << block_types[0].w << std::endl;
     SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
 }
 
@@ -256,11 +266,12 @@ void InitBlock(){
             blocks[cnt].x = (95 * i);
             blocks[cnt].y = (95 * j);
             blocks[cnt].type = Random(0, type - 1, cnt);
+            blocks[cnt].place = i;
+            //std::cout << blocks[cnt].type << std::endl;
             ++cnt;
         }
     }
-    std::cout << line << std::endl;
-    std::cout << row << std::endl;
+    std::cout << blocks[0].type << std::endl;
 }
 
 /* PLAY画面更新 */
@@ -312,9 +323,11 @@ void Draw(void)
         int i;
         //SDL_BlitSurface(puzzle_block, NULL, screen, NULL);
         for (i = 0; i < line * row; ++i) {
-            DrawBlock(i);
+            if (i != current_block_index)
+                DrawBlock(i);
         }
-        //DrawBlock(2);
+        if (current_block_index != 999)
+            DrawBlock(current_block_index);
     }
     
     /* 画面を更新する */
@@ -430,6 +443,141 @@ void ConfigTop(SDL_Event event){
     ++config_phase;
 }
 
+void ChooseBlock(double x, double y){
+    std::cout << "x,y=" << x << "," << y << std::endl;
+    
+    int i;
+    for (i = 0; i < line * row; ++i) {
+        if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
+            current_block_index = i;
+            //for (i = 0; i < line * row; ++i) {
+              //  if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
+                    current_block_x_diff = (x - blocks[i].x);
+                    current_block_y_diff = (y - blocks[i].y);
+                    current_block_x = x;
+                    current_block_y = y;
+                //}
+            //}
+        }
+    }
+    std::cout << "x,y=" << x << "," << y << std::endl;
+    std::cout << "current_block_index=" << current_block_index << std::endl;
+}
+
+/* 指を離した */
+void ReleaseBlock(double x, double y){
+    if (x >= row * 95) {
+        x = row * 95 - 10;
+        //ReleaseBlock(x, y);
+    }
+    if (y >= line * 95){
+        y = line * 95 -10;
+        //ReleaseBlock(x, y);
+    }
+    
+    // 位置を整える
+    int i;
+    for (i = 0; i < line * row; ++i) {
+        if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
+            current_block_index = i;
+            //for (i = 0; i < line * row; ++i) {
+                //if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
+                    current_block_x_diff = (x - blocks[i].x);
+                    current_block_y_diff = (y - blocks[i].y);
+                    current_block_x = x;
+                    current_block_y = y;
+                //}
+            //}
+        }
+    }
+    block_state = 0;
+}
+
+void OverBlock(double x, double y){
+    // 位置を整える
+//    int i;
+//    int j;
+//    int n;
+    /* x座標が超えた場合 */
+//    if (row * 95 <= x){
+//        for (i = 0; i < line; ++i){
+//            for (j = 0; j < line * row; ++j){
+//                if (blocks[j].place == i){
+//                    if (blocks[j].y <= y && y <= (blocks[j].y + 90)){
+//                        std::cout << "j=" << j << std::endl;
+//                        /* 一番外 */
+//                        int last_index = i + (line * row - (row - 1));
+//                        for (n = 0; n < line * row; ++n){
+//                            if (blocks[n].place == last_index){
+//                                std::cout << "n=" << n << std::endl;
+//                                current_block_x = (blocks[n].x + current_block_x_diff);
+//                                current_block_y = (blocks[n].y + current_block_y_diff);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        //current_block_x_diff = (x - blocks[i].x);
+        //current_block_y_diff = (y - blocks[i].y);
+        //current_block_x = x;
+        //current_block_y = y;
+//    }
+    //current_block_index = 999;
+}
+
+void MoveBlock(double x, double y){
+    //座標が他のブロックに入ったら配列の中身を交換
+    if (x >= row * 95) {
+        x = row * 95 - 10;
+        //ReleaseBlock(x, y);
+    }
+    if (y >= line * 95){
+        y = line * 95 -10;
+        //ReleaseBlock(x, y);
+    }
+    
+    current_block_x = x;
+    current_block_y = y;
+    int i;
+    double target_x = 0;
+    double target_y = 0;
+    int target_place = 0;
+
+    /* パズルの枠外にでたら指を離したと見做す */
+    //if (x > row * 95 || y > line * 95){
+    //    OverBlock(x, y);
+    //    block_state = 0;
+    //}
+    
+    /* 他の石の領域に侵入したら交換 */
+    for (i = 0; i < line * row; ++i) {
+        if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
+            if (i != current_block_index){
+                target_x = blocks[i].x;
+                target_y = blocks[i].y;
+                target_place = blocks[i].place;
+                
+                blocks[i].x = blocks[current_block_index].x;
+                blocks[i].y = blocks[current_block_index].y;
+                blocks[i].place = blocks[current_block_index].place;
+                
+                blocks[current_block_index].x = target_x;
+                blocks[current_block_index].y = target_y;
+                blocks[current_block_index].place = target_place;
+            }
+            //current_block_x_diff = (x - blocks[i].x);
+            //current_block_y_diff = (y - blocks[i].y);
+            //current_block_x = x;
+            //current_block_y = y;
+            //std::cout << i << std::endl;
+            //std::cout << x << std::endl;
+            //std::cout << current_block_x_diff << std::endl;
+            //std::cout << current_block_index << std::endl;
+        }
+    }
+
+}
 
 /* メインループ */
 void MainLoop(void)
@@ -484,14 +632,39 @@ void MainLoop(void)
                         }
                 }
             }
+            /* PLAY画面でのマウスイベント */
+            if (view_type == PLAY_VIEW)
+                switch(event.type){
+                    case SDL_MOUSEBUTTONDOWN:
+                        if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED){
+                            ChooseBlock(event.button.x, event.button.y);
+                            block_state = 1;
+                            std::cout << "左ボタン押した" << std::endl;
+                        }
+                        break;
+                    case SDL_MOUSEBUTTONUP:
+                        if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_RELEASED){
+                            ReleaseBlock(event.button.x, event.button.y);
+                            std::cout << "左ボタンはなした" << std::endl;
+                        }
+                        break;
+                    case SDL_MOUSEMOTION:
+                        if (block_state == 1) {
+                            MoveBlock(event.button.x, event.button.y);
+                            std::cout << "動かした" << std::endl;
+                        }
+                        break;
+                }
             /* 全画面共通のキー入力 */
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RSHIFT){
+                /* 初期化 */
                 line = 0;
                 row = 0;
                 type = 0;
                 chain = 0;
                 config_phase = 0;
                 view_type = TOP_VIEW;
+                current_block_index = 999;
             }
         }
         /* 1秒間に60回Updateされるようにする */
