@@ -22,6 +22,7 @@
 #include <string.h>
 #include <boost/format.hpp>
 #include <boost/random.hpp>
+#include <vector>
 
 #define MAX_BLOCK_TYPE_COUNT 9
 #define MAX_BLOCK_COUNT 90
@@ -39,7 +40,8 @@ typedef struct {
 typedef struct {
     double x, y;        /* 出力先座標 */
     int type;           /* 0:doctor, 1:girl, 2:hanamiju, 3:madam, 4:boy, 5:UMA, 6:woman, 7:worker, 8:yankee */
-    int place;    /* 現在の整列順 */
+    int place;    /* 現在何番目のブロックか */
+    int alive = 0; /* 0:消滅中, 1:生存中 */
 } Block;
 
 typedef struct {
@@ -100,6 +102,7 @@ double current_block_y = 0;
 double current_block_x_diff = 0;
 double current_block_y_diff = 0;
 int block_state = 0;
+int blocks_index[9];
 
 /* 入力データを更新する */
 void UpdateInput(void)
@@ -234,7 +237,9 @@ void DrawBlock(int index){
             srcrect.h = block_types[8].h;
             break;
     }
-    SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
+    //std::cout << "i,type,place=" << index << "," << blocks[index].type << "," << blocks[index].place << std::endl;
+    if (blocks[index].alive == 1)
+        SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
 }
 
 
@@ -266,7 +271,8 @@ void InitBlock(){
             blocks[cnt].x = (95 * i);
             blocks[cnt].y = (95 * j);
             blocks[cnt].type = Random(0, type - 1, cnt);
-            blocks[cnt].place = i;
+            blocks[cnt].place = cnt;
+            blocks[cnt].alive = 1;
             //std::cout << blocks[cnt].type << std::endl;
             ++cnt;
         }
@@ -464,15 +470,107 @@ void ChooseBlock(double x, double y){
     std::cout << "current_block_index=" << current_block_index << std::endl;
 }
 
+// 縦の連結チェック
+int CheckRowChain(int before_index){
+    int i;
+    for (i = 0; i < line * row; ++i){
+        if (blocks[i].place == (blocks[before_index].place  - 1) && blocks[before_index].place % row != 0){
+            if (blocks[i].type == blocks[before_index].type){
+                return i;
+            }
+            
+        }
+    }
+    return 999;
+}
+
+// 横の連結チェック
+int CheckLineChain(int before_index){
+    int i;
+    for (i = 0; i < line * row; ++i){
+        if (blocks[i].place == (blocks[before_index].place  - line) && blocks[before_index].place % line != 0){
+            if (blocks[i].type == blocks[before_index].type){
+                //std::cout << "i=" << i << std::endl;
+                return i;
+            }
+            
+        }
+    }
+    return 999;
+}
+
+void CheckChain(){
+    // 縦方向に連結していたらブロック消滅
+    int i;
+    int j;
+    int cnt;
+    for (i = 0; i < line * row; ++i){
+        int chain_result = i;
+        std::vector<int> ary;
+        // i番目のブロックの連結について確認
+        // 指定されたchain数だけ確認する
+        for (j = 0; j < chain; ++j){
+            // 連結が終わっていたら処理しない
+            if (chain_result != 999){
+                // 最初の一つ目は配列に加える
+                if (j == 0)
+                    ary.push_back(i);
+                // 真上のブロックが同じ種類なら真上のブロックのインデックスを返す
+                chain_result = CheckRowChain(chain_result);
+                // 真上のブロックが同じ種類なら配列にインデックスを追加
+                if (chain_result != 999)
+                    ary.push_back(chain_result);
+                // 必要連結回数目もchain_resultが999になっていなければ配列内のブロックを全て消滅させる
+                if (j == (chain - 1)){
+                    for (cnt = 0; cnt < chain; ++cnt){
+                        //std::cout << ary[cnt] << std::endl;
+                        blocks[ary[cnt]].alive = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // 横方向に連結していたらブロック消滅
+    int i2;
+    int j2;
+    int cnt2;
+    for (i2 = 0; i2 < line * row; ++i2){
+        int chain_result = i2;
+        std::vector<int> ary2;
+        // i番目のブロックの連結について確認
+        // 指定されたchain数だけ確認する
+        for (j2 = 0; j2 < chain; ++j2){
+            // 連結が終わっていたら処理しない
+            if (chain_result != 999){
+                // 最初の一つ目は配列に加える
+                if (j2 == 0)
+                    ary2.push_back(i2);
+                // 左隣のブロックが同じ種類なら左と也のブロックのインデックスを返す
+                chain_result = CheckLineChain(chain_result);
+                // 左隣のブロックが同じ種類なら配列にインデックスを追加
+                if (chain_result != 999)
+                    ary2.push_back(chain_result);
+                // 必要連結回数目もchain_resultが999になっていなければ配列内のブロックを全て消滅させる
+                if (j2 == (chain - 1)){
+                    for (cnt2 = 0; cnt2 < chain; ++cnt2){
+                        //std::cout << ary[cnt] << std::endl;
+                        blocks[ary2[cnt2]].alive = 0;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
 /* 指を離した */
 void ReleaseBlock(double x, double y){
     if (x >= row * 95) {
         x = row * 95 - 10;
-        //ReleaseBlock(x, y);
     }
     if (y >= line * 95){
         y = line * 95 -10;
-        //ReleaseBlock(x, y);
     }
     
     // 位置を整える
@@ -480,17 +578,14 @@ void ReleaseBlock(double x, double y){
     for (i = 0; i < line * row; ++i) {
         if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
             current_block_index = i;
-            //for (i = 0; i < line * row; ++i) {
-                //if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
                     current_block_x_diff = (x - blocks[i].x);
                     current_block_y_diff = (y - blocks[i].y);
                     current_block_x = x;
                     current_block_y = y;
-                //}
-            //}
         }
     }
     block_state = 0;
+    CheckChain();
 }
 
 void OverBlock(double x, double y){
