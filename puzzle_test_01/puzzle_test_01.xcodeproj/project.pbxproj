@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		96B7E2721C75C69300C6340F /* puzzle_block.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96B7E2711C75C69300C6340F /* puzzle_block.jpg */; };
-		96B98F991C7ACD8800F1D14E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F64E701C74559F00496683 /* SDL2.framework */; };
-		96B98F9A1C7ACD8D00F1D14E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F64E721C7455A300496683 /* SDL2_image.framework */; };
-		96B98F9B1C7ACD9100F1D14E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B7E26F1C75512500C6340F /* SDL2_ttf.framework */; };
+		96B98F9F1C7B11E800F1D14E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98F9E1C7B11E800F1D14E /* SDL2.framework */; };
+		96B98FA11C7B121600F1D14E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA01C7B121600F1D14E /* SDL2_image.framework */; };
+		96B98FA31C7B122100F1D14E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */; };
 		96F64E541C74558200496683 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E531C74558200496683 /* AppDelegate.m */; };
 		96F64E561C74558200496683 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E551C74558200496683 /* main.mm */; };
 		96F64E581C74558200496683 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E571C74558200496683 /* Images.xcassets */; };
@@ -31,8 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		96B7E26F1C75512500C6340F /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Volumes/SDL2_ttf/SDL2_ttf.framework; sourceTree = "<group>"; };
 		96B7E2711C75C69300C6340F /* puzzle_block.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = puzzle_block.jpg; sourceTree = "<group>"; };
+		96B98F9E1C7B11E800F1D14E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		96B98FA01C7B121600F1D14E /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
+		96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_ttf.framework; sourceTree = "<group>"; };
 		96F64E4D1C74558200496683 /* puzzle_test_01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F64E511C74558200496683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F64E521C74558200496683 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -43,8 +45,6 @@
 		96F64E601C74558200496683 /* puzzle_test_01Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = puzzle_test_01Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F64E651C74558200496683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F64E661C74558200496683 /* puzzle_test_01Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = puzzle_test_01Tests.m; sourceTree = "<group>"; };
-		96F64E701C74559F00496683 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Volumes/SDL2/SDL2.framework; sourceTree = "<group>"; };
-		96F64E721C7455A300496683 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Volumes/SDL2_image/SDL2_image.framework; sourceTree = "<group>"; };
 		96F64E791C745C2800496683 /* background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background.gif; sourceTree = "<group>"; };
 		96F64EB51C746C8E00496683 /* AquaKana.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaKana.ttc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,9 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96B98F991C7ACD8800F1D14E /* SDL2.framework in Frameworks */,
-				96B98F9A1C7ACD8D00F1D14E /* SDL2_image.framework in Frameworks */,
-				96B98F9B1C7ACD9100F1D14E /* SDL2_ttf.framework in Frameworks */,
+				96B98F9F1C7B11E800F1D14E /* SDL2.framework in Frameworks */,
+				96B98FA31C7B122100F1D14E /* SDL2_ttf.framework in Frameworks */,
+				96B98FA11C7B121600F1D14E /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,9 +73,9 @@
 		96F64E441C74558200496683 = {
 			isa = PBXGroup;
 			children = (
-				96B7E26F1C75512500C6340F /* SDL2_ttf.framework */,
-				96F64E721C7455A300496683 /* SDL2_image.framework */,
-				96F64E701C74559F00496683 /* SDL2.framework */,
+				96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */,
+				96B98FA01C7B121600F1D14E /* SDL2_image.framework */,
+				96B98F9E1C7B11E800F1D14E /* SDL2.framework */,
 				96F64E4F1C74558200496683 /* puzzle_test_01 */,
 				96F64E631C74558200496683 /* puzzle_test_01Tests */,
 				96F64E4E1C74558200496683 /* Products */,
@@ -368,9 +368,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Volumes/SDL2,
-					/Volumes/SDL2_image,
-					/Volumes/SDL2_ttf,
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -393,9 +391,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Volumes/SDL2,
-					/Volumes/SDL2_image,
-					/Volumes/SDL2_ttf,
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
