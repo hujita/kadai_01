@@ -11,7 +11,6 @@
 		96B98F9F1C7B11E800F1D14E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98F9E1C7B11E800F1D14E /* SDL2.framework */; };
 		96B98FA11C7B121600F1D14E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA01C7B121600F1D14E /* SDL2_image.framework */; };
 		96B98FA31C7B122100F1D14E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */; };
-		96F64E541C74558200496683 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E531C74558200496683 /* AppDelegate.m */; };
 		96F64E561C74558200496683 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E551C74558200496683 /* main.mm */; };
 		96F64E581C74558200496683 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E571C74558200496683 /* Images.xcassets */; };
 		96F64E5B1C74558200496683 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E591C74558200496683 /* MainMenu.xib */; };
@@ -37,8 +36,6 @@
 		96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_ttf.framework; sourceTree = "<group>"; };
 		96F64E4D1C74558200496683 /* puzzle_test_01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F64E511C74558200496683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96F64E521C74558200496683 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		96F64E531C74558200496683 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		96F64E551C74558200496683 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		96F64E571C74558200496683 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		96F64E5A1C74558200496683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -96,8 +93,6 @@
 			children = (
 				96F64EB41C746C8300496683 /* Fonts */,
 				96F64E741C7455E500496683 /* Resources */,
-				96F64E521C74558200496683 /* AppDelegate.h */,
-				96F64E531C74558200496683 /* AppDelegate.m */,
 				96F64E571C74558200496683 /* Images.xcassets */,
 				96F64E591C74558200496683 /* MainMenu.xib */,
 				96F64E501C74558200496683 /* Supporting Files */,
@@ -251,7 +246,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F64E561C74558200496683 /* main.mm in Sources */,
-				96F64E541C74558200496683 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
