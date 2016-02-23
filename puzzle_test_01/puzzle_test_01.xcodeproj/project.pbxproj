@@ -11,6 +11,9 @@
 		96B98F9F1C7B11E800F1D14E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98F9E1C7B11E800F1D14E /* SDL2.framework */; };
 		96B98FA11C7B121600F1D14E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA01C7B121600F1D14E /* SDL2_image.framework */; };
 		96B98FA31C7B122100F1D14E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */; };
+		96BB25B11C7C0FCF00435E4D /* view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BB25AF1C7C0FCF00435E4D /* view.cpp */; };
+		96BB25B51C7C2E1000435E4D /* view_play.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BB25B31C7C2E1000435E4D /* view_play.cpp */; };
+		96BB25B81C7C2FCF00435E4D /* view_top.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BB25B61C7C2FCF00435E4D /* view_top.cpp */; };
 		96F64E561C74558200496683 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96F64E551C74558200496683 /* main.mm */; };
 		96F64E581C74558200496683 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E571C74558200496683 /* Images.xcassets */; };
 		96F64E5B1C74558200496683 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F64E591C74558200496683 /* MainMenu.xib */; };
@@ -34,6 +37,12 @@
 		96B98F9E1C7B11E800F1D14E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		96B98FA01C7B121600F1D14E /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
 		96B98FA21C7B122100F1D14E /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_ttf.framework; sourceTree = "<group>"; };
+		96BB25AF1C7C0FCF00435E4D /* view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = view.cpp; sourceTree = "<group>"; };
+		96BB25B01C7C0FCF00435E4D /* view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = view.h; sourceTree = "<group>"; };
+		96BB25B31C7C2E1000435E4D /* view_play.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = view_play.cpp; sourceTree = "<group>"; };
+		96BB25B41C7C2E1000435E4D /* view_play.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = view_play.h; sourceTree = "<group>"; };
+		96BB25B61C7C2FCF00435E4D /* view_top.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = view_top.cpp; sourceTree = "<group>"; };
+		96BB25B71C7C2FCF00435E4D /* view_top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = view_top.h; sourceTree = "<group>"; };
 		96F64E4D1C74558200496683 /* puzzle_test_01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F64E511C74558200496683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F64E551C74558200496683 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -105,6 +114,12 @@
 			children = (
 				96F64E511C74558200496683 /* Info.plist */,
 				96F64E551C74558200496683 /* main.mm */,
+				96BB25AF1C7C0FCF00435E4D /* view.cpp */,
+				96BB25B01C7C0FCF00435E4D /* view.h */,
+				96BB25B31C7C2E1000435E4D /* view_play.cpp */,
+				96BB25B41C7C2E1000435E4D /* view_play.h */,
+				96BB25B61C7C2FCF00435E4D /* view_top.cpp */,
+				96BB25B71C7C2FCF00435E4D /* view_top.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -245,6 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BB25B11C7C0FCF00435E4D /* view.cpp in Sources */,
+				96BB25B51C7C2E1000435E4D /* view_play.cpp in Sources */,
+				96BB25B81C7C2FCF00435E4D /* view_top.cpp in Sources */,
 				96F64E561C74558200496683 /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

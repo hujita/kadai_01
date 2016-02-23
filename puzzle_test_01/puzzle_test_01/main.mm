@@ -14,6 +14,8 @@
 //  Copyright (c) 2016年 hujita. All rights reserved.
 //
 
+#include "view.h"
+#include "view_top.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -67,27 +69,27 @@ BlockType block_types[9] = {
 
 InputData current_input, prev_input;        /* 入力データ */
 
-SDL_Window* window = NULL;                  /* 画面 */
-SDL_Surface* screen = NULL;                 /* 画面の描画領域 */
-SDL_Surface* background_image = NULL;       /* 背景画像 */
-SDL_Surface* puzzle_block = NULL;           /* ブロック */
+//SDL_Window* window = NULL;                  /* 画面 */
+//SDL_Surface* screen = NULL;                 /* 画面の描画領域 */
+//SDL_Surface* background_image = NULL;       /* 背景画像 */
+//SDL_Surface* puzzle_block = NULL;           /* ブロック */
 
-SDL_Surface* word_main = NULL;              /* メインテキスト */
-SDL_Surface* word_sub = NULL;               /* サブテキスト */
-SDL_Surface* word_input = NULL;             /* 入力内容テキスト */
-SDL_Surface* word_0 = NULL;                 /* テキスト */
-SDL_Surface* word_1 = NULL;                 /* テキスト */
-SDL_Surface* word_2 = NULL;                 /* テキスト */
-SDL_Surface* word_3 = NULL;                 /* テキスト */
-SDL_Surface* word_4 = NULL;                 /* テキスト */
+//SDL_Surface* word_main = NULL;              /* メインテキスト */
+//SDL_Surface* word_sub = NULL;               /* サブテキスト */
+//SDL_Surface* word_input = NULL;             /* 入力内容テキスト */
+//SDL_Surface* word_0 = NULL;                 /* テキスト */
+//SDL_Surface* word_1 = NULL;                 /* テキスト */
+//SDL_Surface* word_2 = NULL;                 /* テキスト */
+//SDL_Surface* word_3 = NULL;                 /* テキスト */
+//SDL_Surface* word_4 = NULL;                 /* テキスト */
 
-TTF_Font* font;                             /* フォント */
-SDL_Color white = {0xff, 0xff, 0xff};       /* 色 */
-SDL_Rect destrect_main_word = { 330, 210 }; /* コメント位置 */
-SDL_Rect destrect_sub_word = { 330, 310 };  /* サブコメント位置 */
-SDL_Rect destrect_input_word = { 330, 410 };  /* 入力内容表示位置 */
+//TTF_Font* font;                             /* フォント */
+//SDL_Color white = {0xff, 0xff, 0xff};       /* 色 */
+//SDL_Rect destrect_main_word = { 330, 210 }; /* コメント位置 */
+//SDL_Rect destrect_sub_word = { 330, 310 };  /* サブコメント位置 */
+//SDL_Rect destrect_input_word = { 330, 410 };  /* 入力内容表示位置 */
 
-int view_type = 0;                          /* 0:TOP, 1:Play */
+//int view_type = 0;                          /* 0:TOP, 1:Play */
 int config_phase = 0;                       /* 設定の段階 */
 int line = 0;                               /* 行数 */
 int row = 0;                                /* 列数 */
@@ -238,8 +240,8 @@ void DrawBlock(int index){
             break;
     }
     //std::cout << "i,type,place=" << index << "," << blocks[index].type << "," << blocks[index].place << std::endl;
-    if (blocks[index].alive == 1)
-        SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
+    //if (blocks[index].alive == 1)
+        //SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
 }
 
 
@@ -288,63 +290,70 @@ void UpdatePlay(void)
     //CreateBlock(320, 240, Random(0, 8));
 }
 /* 描画する */
-void Draw(void)
+void Draw(View* view, ViewTop* view_top)
 {
 
     /* 背景を描画する */
-    SDL_BlitSurface(background_image, NULL, screen, NULL);
-    /* TOP画面の描画 */
-    if (view_type == TOP_VIEW) {
-        /* メインテキスト描画 */
-        SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);
-        /* サブテキスト描画 */
-        switch (config_phase) {
-            case 0:
-                word_sub = word_0;
-                break;
-            case 1:
-                word_sub = word_1;
-                break;
-            case 2:
-                word_sub = word_2;
-                break;
-            case 3:
-                word_sub = word_3;
-                break;
-            case 4:
-                word_sub = word_4;
-                break;
-        }
-        SDL_BlitSurface(word_sub, NULL, screen, &destrect_sub_word);
-    
-        /* 入力内容表示テキスト描画 */
-        char buf[50];
-        sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d", line, row, type, chain);
-        word_input = TTF_RenderUTF8_Blended(font, buf, white);
-        SDL_BlitSurface(word_input, NULL, screen, &destrect_input_word);
+//    view->DrawBackGround();
+    //SDL_BlitSurface(background_image, NULL, screen, NULL);
+    /* 画面の描画 */
+    view->Draw();
+
+    if (view->GetViewType() == 0) {
+        // TOP画面描画
+        view_top->Draw(view);
     }
-    /* PLAY画面の描画 */
-    if (view_type == PLAY_VIEW){
-        /* ブロックを描画する */
-        int i;
+//        /* メインテキスト描画 */
+//        SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);
+//        /* サブテキスト描画 */
+//        switch (config_phase) {
+//            case 0:
+//                word_sub = word_0;
+//                break;
+//            case 1:
+//                word_sub = word_1;
+//                break;
+//            case 2:
+//                word_sub = word_2;
+//                break;
+//            case 3:
+//                word_sub = word_3;
+//                break;
+//            case 4:
+//                word_sub = word_4;
+//                break;
+//        }
+//        SDL_BlitSurface(word_sub, NULL, screen, &destrect_sub_word);
+    
+//        /* 入力内容表示テキスト描画 */
+//        char buf[50];
+//        sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d", line, row, type, chain);
+//        word_input = TTF_RenderUTF8_Blended(font, buf, white);
+//        SDL_BlitSurface(word_input, NULL, screen, &destrect_input_word);
+//    }
+//    /* PLAY画面の描画 */
+//    if (view_type == PLAY_VIEW){
+//        /* ブロックを描画する */
+//        int i;
         //SDL_BlitSurface(puzzle_block, NULL, screen, NULL);
-        for (i = 0; i < line * row; ++i) {
-            if (i != current_block_index)
-                DrawBlock(i);
-        }
-        if (current_block_index != 999)
-            DrawBlock(current_block_index);
-    }
-    
-    /* 画面を更新する */
-    SDL_UpdateWindowSurface(window);
+//        for (i = 0; i < line * row; ++i) {
+//            if (i != current_block_index)
+//                DrawBlock(i);
+//        }
+//        if (current_block_index != 999)
+//            DrawBlock(current_block_index);
+//    }
+//
+    // 画面を更新する
+    SDL_UpdateWindowSurface(view->GetWindow());
 }
 
 
 /* 初期化する。
  * 成功したときは0を、失敗したときは-1を返す。
  */
-int Initialize(void)
+/*
+int Initializea(void)
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0) {
         fprintf(stderr, "SDLの初期化に失敗しました：%s\n", SDL_GetError());
@@ -364,6 +373,7 @@ int Initialize(void)
     }
     
     /* 画像を読み込む */
+/*
     background_image = IMG_Load("background.gif");
     if (background_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
@@ -378,6 +388,7 @@ int Initialize(void)
     }
     
     /* フォント読み込み */
+/*
     font = TTF_OpenFont("AquaKana.ttc", 24);
     if (font == NULL) {
         fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
@@ -385,7 +396,7 @@ int Initialize(void)
         return -1;
     }
     
-    /* 文字作成 */
+    /* 文字作成 *//*
     word_main = TTF_RenderUTF8_Blended(font, "パズルの設定(1~9で入力)", white);
     word_0 = TTF_RenderUTF8_Blended(font, "行数を指定してください", white);
     word_1 = TTF_RenderUTF8_Blended(font, "列数を指定してください", white);
@@ -394,7 +405,7 @@ int Initialize(void)
     word_4 = TTF_RenderUTF8_Blended(font, "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了", white);
     
     return 0;
-}
+} */
 
 void ConfigTopInput(int n){
     switch (config_phase){
@@ -675,8 +686,7 @@ void MoveBlock(double x, double y){
 }
 
 /* メインループ */
-void MainLoop(void)
-{
+void MainLoop(View* view, ViewTop* view_top){
     SDL_Event event;
     double next_frame = SDL_GetTicks();
     double wait = 1000.0 / 60;
@@ -689,90 +699,92 @@ void MainLoop(void)
                 (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE))
                 return;
             /* TOP画面でのキー入力 */
-            if (view_type == TOP_VIEW && event.type == SDL_KEYDOWN){
+            if (view->GetViewType() == TOP_VIEW && event.type == SDL_KEYDOWN){
                 switch (event.key.keysym.sym) {
                     case SDLK_1:
-                        ConfigTopInput(1);
+                        view_top->ConfigInput(1);
                         break;
                     case SDLK_2:
-                        ConfigTopInput(2);
+                        view_top->ConfigInput(2);
                         break;
                     case SDLK_3:
-                        ConfigTopInput(3);
+                        view_top->ConfigInput(3);
                         break;
                     case SDLK_4:
-                        ConfigTopInput(4);
+                        view_top->ConfigInput(4);
                         break;
                     case SDLK_5:
-                        ConfigTopInput(5);
+                        view_top->ConfigInput(5);
                         break;
                     case SDLK_6:
-                        ConfigTopInput(6);
+                        view_top->ConfigInput(6);
                         break;
                     case SDLK_7:
-                        ConfigTopInput(7);
+                        view_top->ConfigInput(7);
                         break;
                     case SDLK_8:
-                        ConfigTopInput(8);
+                        view_top->ConfigInput(8);
                         break;
                     case SDLK_9:
-                        ConfigTopInput(9);
+                        view_top->ConfigInput(9);
                         break;
                     case SDLK_RETURN:
-                        if (config_phase >= 4) {
+                        if (view_top->GetConfigPhase() >= 4) {
                             /* 初期ブロック配置 */
-                            InitBlock();
-                            view_type = PLAY_VIEW;
+                            //InitBlock();
+                            view->SetViewType(1);
                             break;
                         }
                 }
             }
             /* PLAY画面でのマウスイベント */
-            if (view_type == PLAY_VIEW)
+            if (view->GetViewType() == 1){
                 switch(event.type){
                     case SDL_MOUSEBUTTONDOWN:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED){
-                            ChooseBlock(event.button.x, event.button.y);
-                            block_state = 1;
+                            //                            ChooseBlock(event.button.x, event.button.y);
+                            //                            block_state = 1;
                             std::cout << "左ボタン押した" << std::endl;
                         }
                         break;
                     case SDL_MOUSEBUTTONUP:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_RELEASED){
-                            ReleaseBlock(event.button.x, event.button.y);
+                            //                           ReleaseBlock(event.button.x, event.button.y);
                             std::cout << "左ボタンはなした" << std::endl;
                         }
                         break;
                     case SDL_MOUSEMOTION:
-                        if (block_state == 1) {
-                            MoveBlock(event.button.x, event.button.y);
-                            std::cout << "動かした" << std::endl;
-                        }
+                        //                       if (block_state == 1) {
+                        //                          MoveBlock(event.button.x, event.button.y);
+                                           std::cout << "動かした" << std::endl;
+                        //                       }
                         break;
                 }
-            /* 全画面共通のキー入力 */
+            }
+            // 全画面共通のキー入力
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RSHIFT){
-                /* 初期化 */
-                line = 0;
-                row = 0;
-                type = 0;
-                chain = 0;
-                config_phase = 0;
-                view_type = TOP_VIEW;
-                current_block_index = 999;
+            // 初期化
+            view_top->InitializeConfig();
+            //           line = 0;
+              //         row = 0;
+                //       type = 0;
+                  //     chain = 0;
+                    //   config_phase = 0;
+                       //view_type = TOP_VIEW;
+                       //current_block_index = 999;
             }
         }
         /* 1秒間に60回Updateされるようにする */
         if (SDL_GetTicks() >= next_frame) {
-            if (view_type == TOP_VIEW) {
-                UpdateTop();
-            } else if (view_type == PLAY_VIEW) {
-                UpdatePlay();
-            };
+            //if (view_type == TOP_VIEW) {
+            //    UpdateTop();
+            //} else if (view_type == PLAY_VIEW) {
+            //    UpdatePlay();
+            //};
             //Update();
             /* 時間がまだあるときはDrawする */
             if (SDL_GetTicks() < next_frame + wait)
-                Draw();
+                Draw(view, view_top);
             next_frame += wait;
             SDL_Delay(0);
         }
@@ -780,12 +792,19 @@ void MainLoop(void)
 }
 
 
+/* 初期化する。
+ * 成功したときは0を、失敗したときは-1を返す。
+ */
+int Initialize(View* view){
+    return view->Initialize();
+}
+
 /* 終了処理を行う */
-void Finalize(void)
+void Finalize(View* view)
 {
-    SDL_FreeSurface(background_image);
-    SDL_FreeSurface(puzzle_block);
-    TTF_CloseFont(font);
+    SDL_FreeSurface(view->GetBackgroundImage());
+    SDL_FreeSurface(view->GetPuzzleBlock());
+    TTF_CloseFont(view->GetFont());
     
     /* 終了する */
     TTF_Quit();
@@ -797,9 +816,13 @@ void Finalize(void)
 /* 初期化 -> メイン処理 -> 終了処理 */
 int main(int argc, char* argv[])
 {
-    if (Initialize() < 0)
+    // 画面インスタンス
+    View view;
+    // TOP画面インスタンス
+    ViewTop view_top;
+    if (Initialize(&view) < 0)
         return -1;
-    MainLoop();
-    Finalize();
+    MainLoop(&view, &view_top);
+    Finalize(&view);
     return 0;
 }
