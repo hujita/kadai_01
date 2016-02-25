@@ -1,0 +1,259 @@
+//
+//  game.cpp
+//  puzzle_test_02
+//
+//  Created by hujita on 2016/02/24.
+//  Copyright (c) 2016年 hujita. All rights reserved.
+//
+
+#include "game.h"
+#include <iostream>
+#include "config.h"
+
+// ゲーム開始
+int Start();
+// ゲーム初期化
+int Initialize();
+// 終了処理
+void Finalize();
+// メイン処理
+void MainLoop();
+// 描画処理
+void Draw();
+
+// クラス初期化
+Game::Game() {
+    // 画面遷移用変数(TOP:0, PLAY:1)
+    view_type = 0;
+    // 設定画面フェイズ
+    config_phase = 0;
+    // 行数
+    line = 0;
+    // 列数
+    row = 0;
+    // ブロック種類数
+    type = 0;
+    // 必要連結数
+    chain = 0;
+
+    
+    // 画面
+    window = NULL;
+    // 画面の描画領域
+    screen = NULL;
+    // 背景画像
+    background_image = NULL;
+    // ブロック画像
+    block_image = NULL;
+    // 設定画面メインテキスト
+    word_main = NULL;
+    // 設定画面サブテキスト
+    word_sub = NULL;
+    // 設定画面入力内容テキスト
+    word_input = NULL;
+    // フォント
+    font = NULL;
+    // 色
+    white = {0xff, 0xff, 0xff};
+    // メインテキスト描画位置
+    destrect_main_word = { 330, 210 };
+    // サブテキスト描画位置
+    destrect_sub_word = { 330, 310 };
+    // 入力内容描画位置
+    destrect_input_word = { 330, 410 };
+}
+
+// ゲーム処理
+// 初期化 -> メイン処理 -> 終了処理
+int Game::Start(){
+    // 初期化
+    if (Initialize() < 0)
+        return -1;
+    // メイン処理
+    MainLoop();
+    // 終了処理
+    Finalize();
+    return 0;
+}
+
+// 初期化する。
+// 成功したときは0を、失敗したときは-1を返す。
+int Game::Initialize(void)
+{
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0) {
+        fprintf(stderr, "SDLの初期化に失敗しました：%s\n", SDL_GetError());
+        return -1;
+    }
+    if (TTF_Init() < 0) {
+        fprintf(stderr, "TTFの初期化に失敗しました：%s\n", TTF_GetError());
+        return -1;
+    }
+    
+    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1000,850,0);
+    screen = SDL_GetWindowSurface(window);
+    if (screen == NULL) {
+        fprintf(stderr, "画面の初期化に失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    
+    /* 画像を読み込む */
+    background_image = IMG_Load("background.gif");
+    if (background_image == NULL) {
+        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    block_image = IMG_Load("block_image.jpg");
+    if (block_image == NULL) {
+        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    
+    /* フォント読み込み */
+    font = TTF_OpenFont("AquaKana.ttc", 24);
+    if (font == NULL) {
+        fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+
+    return 0;
+}
+
+// 終了処理を行う
+void Game::Finalize(void)
+{
+    SDL_FreeSurface(background_image);
+    SDL_FreeSurface(block_image);
+    TTF_CloseFont(font);
+    
+    // 終了する
+    TTF_Quit();
+    SDL_Quit();
+}
+
+// メインループ
+void Game::MainLoop(void)
+{
+    SDL_Event event;
+    // ゲーム設定
+    Config config;
+    // キーボード入力変換機
+    Keyboard keyboard;
+    // ブロック群
+    Block blocks[BLOCK_MAX] = {};
+    // パズル
+    Puzzle puzzle;
+    
+    for (;;) {
+        // すべてのイベントを処理する
+        while (SDL_PollEvent(&event)) {
+            // QUIT イベントが発生するか、ESC キーが押されたら終了する
+            if ((event.type == SDL_QUIT) ||
+                (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE))
+                return;
+            
+            // TOP画面
+            if (view_type == VIEW_TOP){
+                // キーボード操作
+                if (event.type == SDL_KEYDOWN){
+                    // 数値キーなら
+                    // 数値に変換
+                    int input_value = keyboard.CastIntFromKey(event.key.keysym.sym);
+                    // ゲームの設定更新
+                    if (input_value < 10){
+                        config.Set(input_value);
+                    }
+                    // エンターキーなら
+                    if (event.key.keysym.sym == SDLK_RETURN){
+                        // 設定が終了しているなら
+                        if (config.GetState() >= CONFIG_STATE_MAX) {
+                            // 初期ブロック配置
+                            //puzzle.Initialize(blocks, &config);
+                            // PLAY画面へ遷移
+                            view_type = VIEW_PLAY;
+                        }
+                    }
+                }
+            }
+            
+            // PLAY画面
+            if (view_type == VIEW_PLAY){
+                // マウス操作
+                switch(event.type){
+                    case SDL_MOUSEBUTTONDOWN:
+                        if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED){
+                            //ChooseBlock(event.button.x, event.button.y);
+                            //block_state = 1;
+                            //std::cout << "左ボタン押した" << std::endl;
+                        }
+                        break;
+                    case SDL_MOUSEBUTTONUP:
+                        if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_RELEASED){
+                            //ReleaseBlock(event.button.x, event.button.y);
+                            //std::cout << "左ボタンはなした" << std::endl;
+                        }
+                        break;
+                    case SDL_MOUSEMOTION:
+                        //if (block_state == 1) {
+                        //    MoveBlock(event.button.x, event.button.y);
+                        //    std::cout << "動かした" << std::endl;
+                        //}
+                        break;
+                }
+            }
+  
+            // 全画面共通
+            // キーボード操作
+            if (event.type == SDL_KEYDOWN){
+                // 右Shift
+                if (event.key.keysym.sym == SDLK_RSHIFT){
+                    // 設定初期化
+                    config.Reset();
+                    // TOP画面へ遷移
+                    view_type = VIEW_TOP;
+                    //current_block_index = 999;
+                }
+            }
+            
+            // 描画処理
+            Draw(&config, blocks);
+        }
+    }
+}
+
+void Game::Draw(Config* config, Block* blocks){
+    // 背景を描画する
+    SDL_BlitSurface(background_image, NULL, screen, NULL);
+    
+    // TOP画面
+    if (view_type == VIEW_TOP){
+        // メインテキスト用意
+        word_main = TTF_RenderUTF8_Blended(font, "パズルの設定(1~9で入力)", white);
+        // サブテキスト用意
+        word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), white);
+        // 入力内容表示テキスト用意
+        //config->GetResult();戻り値がうまくいかず
+        char buf[50];
+        sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d",
+                config->GetLine(), config->GetRow(), config->GetType(), config->GetChain());
+        word_input = TTF_RenderUTF8_Blended(font, buf, white);
+        
+        // メインテキスト描画
+        SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);
+        // サブテキスト描画
+        SDL_BlitSurface(word_sub, NULL, screen, &destrect_sub_word);
+        // 入力内容表示テキスト描画
+        SDL_BlitSurface(word_input, NULL, screen, &destrect_input_word);
+    }
+    
+    // PLAY画面
+    if (view_type == VIEW_PLAY){
+        // ブロックを描画
+    }
+    
+    // 画面を更新する
+    SDL_UpdateWindowSurface(window);
+}
