@@ -12,8 +12,6 @@
 
 // クラス初期化
 ViewTop::ViewTop() {
-    // 画面遷移用変数(TOP:0, PLAY:1)
-    //view_type = 0;
     // 設定画面フェイズ
     config_phase = 0;
     // 行数
@@ -24,35 +22,12 @@ ViewTop::ViewTop() {
     type = 0;
     // 必要連結数
     chain = 0;
-    // 選択中のブロック
-    //current_block_index = 999;
-    
-    // 画面
-    //window = NULL;
-    // 画面の描画領域
-    //screen = NULL;
-    // 背景画像
-    //background_image = NULL;
-    // ブロック画像
-    //puzzle_block = NULL;
     // 設定画面メインテキスト
     word_main = NULL;
     // 設定画面サブテキスト
     word_sub = NULL;
     // 設定画面入力内容テキスト
     word_input = NULL;
-    // 設定画面質問テキスト
-    //word_0 = NULL;
-    // 設定画面質問テキスト
-    //word_1 = NULL;
-    // 設定画面質問テキスト
-    //word_2 = NULL;
-    // 設定画面質問テキスト
-    //word_3 = NULL;
-    // 設定画面質問テキスト
-    //word_4 = NULL;
-    // フォント
-    //font = NULL;
     // 色
     white = {0xff, 0xff, 0xff};
     // メインテキスト描画位置
@@ -130,4 +105,12 @@ void ViewTop::Draw(View* view){
 
 int ViewTop::GetConfigPhase(){
     return config_phase;
+}
+
+int ViewTop::GetLine(){
+    return line;
+}
+
+int ViewTop::GetRow(){
+    return row;
 }

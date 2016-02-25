@@ -16,6 +16,8 @@
 
 #include "view.h"
 #include "view_top.h"
+#include "view_play.h"
+#include "block.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -39,12 +41,12 @@ typedef struct {
     int button2;
 } InputData;
 
-typedef struct {
-    double x, y;        /* 出力先座標 */
-    int type;           /* 0:doctor, 1:girl, 2:hanamiju, 3:madam, 4:boy, 5:UMA, 6:woman, 7:worker, 8:yankee */
-    int place;    /* 現在何番目のブロックか */
-    int alive = 0; /* 0:消滅中, 1:生存中 */
-} Block;
+//typedef struct {
+//    double x, y;        /* 出力先座標 */
+//    int type;           /* 0:doctor, 1:girl, 2:hanamiju, 3:madam, 4:boy, 5:UMA, 6:woman, 7:worker, 8:yankee */
+//    int place;    /* 現在何番目のブロックか */
+//    int alive = 0; /* 0:消滅中, 1:生存中 */
+//} Block;
 
 typedef struct {
     double x, y, w, h;        /* 取得先ノ座標幅高 */
@@ -120,23 +122,6 @@ void UpdateInput(void)
     current_input.button2 = keys[SDL_SCANCODE_LCTRL] | keys[SDL_SCANCODE_X];    /* 左Ctrl, [X] */
 }
 
-/* lower 以上 upper 以下の乱数を返す */
-int Random(int lower, int upper, int cnt)
-{
-    using namespace boost;
-    //return ((double)rand() / RAND_MAX) * (upper - lower) + lower;
-    // 「メルセンヌツイスター」( Seed=現在時刻 ) で
-    // 「小さな整数の一様乱数」( 1～6 ) を生成
-    mt19937            gen( (int)static_cast<unsigned long>(time(0)) * (cnt + 1));
-    uniform_smallint<> dst( lower, upper );
-    variate_generator<
-    mt19937&, uniform_smallint<>
-    > rand( gen, dst );
-    
-    return rand();
-}
-
-
 /* 更新する */
 void Update(void)
 {
@@ -177,7 +162,7 @@ void UpdateTop(void)
 {
 }
 
-void DrawBlock(int index){
+/* void DrawBlock(int index){
     SDL_Rect srcrect;
     SDL_Rect desrect = { (int)blocks[index].x, (int)blocks[index].y };
     if (index == current_block_index){
@@ -238,11 +223,11 @@ void DrawBlock(int index){
             srcrect.w = block_types[8].w;
             srcrect.h = block_types[8].h;
             break;
-    }
+    } */
     //std::cout << "i,type,place=" << index << "," << blocks[index].type << "," << blocks[index].place << std::endl;
     //if (blocks[index].alive == 1)
         //SDL_BlitSurface(puzzle_block, &srcrect, screen, &desrect);
-}
+//}
 
 
 //int CreateBlock(double x, double y, int rdm_type){
@@ -264,7 +249,7 @@ void DrawBlock(int index){
 //    }
 //}
 
-void InitBlock(){
+/* void InitializeBlock(){
     int i;
     int j;
     int cnt = 0;
@@ -280,8 +265,24 @@ void InitBlock(){
         }
     }
     std::cout << blocks[0].type << std::endl;
-}
+} */
 
+/*Block InitializeBlock(){
+    Block blocks[81] = {};
+    int i;
+    int j;
+    int cnt = 0;
+    for (i = 0; i < line; ++i){
+        for (j = 0; j < row; ++j){
+            Block block;
+            block.Create(i, j, cnt);
+            blocks[cnt] = block;
+            ++cnt;
+        }
+    }
+    return blocks;
+}
+ */
 /* PLAY画面更新 */
 void UpdatePlay(void)
 {
@@ -289,19 +290,23 @@ void UpdatePlay(void)
     //InitBlock();
     //CreateBlock(320, 240, Random(0, 8));
 }
-/* 描画する */
-void Draw(View* view, ViewTop* view_top)
+// 描画する
+void Draw(View* view, ViewTop* view_top, ViewPlay* view_play, Block* blocks)
 {
 
     /* 背景を描画する */
 //    view->DrawBackGround();
     //SDL_BlitSurface(background_image, NULL, screen, NULL);
-    /* 画面の描画 */
+    /* 画面の基礎描画 */
     view->Draw();
 
     if (view->GetViewType() == 0) {
         // TOP画面描画
         view_top->Draw(view);
+    }
+    if (view->GetViewType() == 1){
+        // PLAY画面描画
+        view_play->Draw(view, view_top, blocks);
     }
 //        /* メインテキスト描画 */
 //        SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);
@@ -407,6 +412,7 @@ int Initializea(void)
     return 0;
 } */
 
+/*
 void ConfigTopInput(int n){
     switch (config_phase){
         case 0:
@@ -574,8 +580,8 @@ void CheckChain(){
     }
 
 }
-
-/* 指を離した */
+*/
+/* 指を離した *//*
 void ReleaseBlock(double x, double y){
     if (x >= row * 95) {
         x = row * 95 - 10;
@@ -604,7 +610,7 @@ void OverBlock(double x, double y){
 //    int i;
 //    int j;
 //    int n;
-    /* x座標が超えた場合 */
+    /* x座標が超えた場合 *//*
 //    if (row * 95 <= x){
 //        for (i = 0; i < line; ++i){
 //            for (j = 0; j < line * row; ++j){
@@ -630,6 +636,7 @@ void OverBlock(double x, double y){
         //current_block_y = y;
 //    }
     //current_block_index = 999;
+/*
 }
 
 void MoveBlock(double x, double y){
@@ -650,13 +657,13 @@ void MoveBlock(double x, double y){
     double target_y = 0;
     int target_place = 0;
 
-    /* パズルの枠外にでたら指を離したと見做す */
+    /* パズルの枠外にでたら指を離したと見做す *//*
     //if (x > row * 95 || y > line * 95){
     //    OverBlock(x, y);
     //    block_state = 0;
     //}
     
-    /* 他の石の領域に侵入したら交換 */
+    /* 他の石の領域に侵入したら交換 *//*
     for (i = 0; i < line * row; ++i) {
         if (blocks[i].x <= x && x <= (blocks[i].x + 90) && blocks[i].y <= y && y <= (blocks[i].y + 90)){
             if (i != current_block_index){
@@ -684,12 +691,13 @@ void MoveBlock(double x, double y){
     }
 
 }
-
+*/
 /* メインループ */
-void MainLoop(View* view, ViewTop* view_top){
+void MainLoop(View* view, ViewTop* view_top, ViewPlay* view_play){
     SDL_Event event;
     double next_frame = SDL_GetTicks();
     double wait = 1000.0 / 60;
+    Block blocks[81] = {};
     
     for (;;) {
         /* すべてのイベントを処理する */
@@ -731,7 +739,19 @@ void MainLoop(View* view, ViewTop* view_top){
                     case SDLK_RETURN:
                         if (view_top->GetConfigPhase() >= 4) {
                             /* 初期ブロック配置 */
-                            //InitBlock();
+                            view_play->InitializePuzzle(view_top->GetLine(), view_top->GetRow());
+                            /*int i;
+                            int j;
+                            int cnt = 0;
+                            for (i = 0; i < line; ++i){
+                                for (j = 0; j < row; ++j){
+                                    Block block;
+                                    block.Create(i, j, cnt);
+                                    blocks[cnt] = block;
+                                    ++cnt;
+                                }
+                            }
+                             */
                             view->SetViewType(1);
                             break;
                         }
@@ -784,7 +804,7 @@ void MainLoop(View* view, ViewTop* view_top){
             //Update();
             /* 時間がまだあるときはDrawする */
             if (SDL_GetTicks() < next_frame + wait)
-                Draw(view, view_top);
+                Draw(view, view_top, view_play, blocks);
             next_frame += wait;
             SDL_Delay(0);
         }
@@ -820,9 +840,11 @@ int main(int argc, char* argv[])
     View view;
     // TOP画面インスタンス
     ViewTop view_top;
+    // PLAY画面インスタンス
+    ViewPlay view_play;
     if (Initialize(&view) < 0)
         return -1;
-    MainLoop(&view, &view_top);
+    MainLoop(&view, &view_top, &view_play);
     Finalize(&view);
     return 0;
 }

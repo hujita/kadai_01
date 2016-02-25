@@ -20,8 +20,6 @@
 #include <vector>
 
 class ViewTop {
-    // 画面遷移用変数(TOP:0, PLAY:1)
-    //int view_type;
     // 設定画面フェイズ
     int config_phase;
     // 行数
@@ -32,34 +30,12 @@ class ViewTop {
     int type;
     // 必要連結数
     int chain;
-    // 選択中のブロック
-    //int current_block_index;
-    // 画面
-    //SDL_Window* window;
-    // 画面の描画領域
-    //SDL_Surface* screen;
-    // 背景画像
-    //SDL_Surface* background_image;
-    // ブロック画像
-    //SDL_Surface* puzzle_block;
     // 設定画面メインテキスト
     SDL_Surface* word_main;
     // 設定画面サブテキスト(質問文)
     SDL_Surface* word_sub;
     // 設定画面入力内容テキスト
     SDL_Surface* word_input;
-    // 設定画面質問テキスト
-    //SDL_Surface* word_0;
-    // 設定画面質問テキスト
-    //SDL_Surface* word_1;
-    // 設定画面質問テキスト
-    //SDL_Surface* word_2;
-    // 設定画面質問テキスト
-    //SDL_Surface* word_3;
-    // 設定画面質問テキスト
-    //SDL_Surface* word_4;
-    // フォント
-    //TTF_Font* font;
     // 色
     SDL_Color white;
     // メインテキスト描画位置
@@ -89,6 +65,10 @@ public:
     void DrawPlay();
     // 設定画面フェイズ取得
     int GetConfigPhase();
+    // 行数
+    int GetLine();
+    // 列数
+    int GetRow();
 };
 
 #endif /* defined(__puzzle_test_01__view_top__) */
