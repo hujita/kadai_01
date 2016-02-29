@@ -1,18 +1,15 @@
 //
-//  math.h
+//  my_math.cpp
 //  puzzle_test_02
 //
-//  Created by hujita on 2016/02/25.
+//  Created by hujita on 2016/02/29.
 //  Copyright (c) 2016年 hujita. All rights reserved.
 //
 
-#ifndef __puzzle_test_02__math__
-#define __puzzle_test_02__math__
+#include "my_math.h"
 
-#include <stdio.h>
-#include <boost/random.hpp>
 // lower 以上 upper 以下の乱数を返す
-int Random(int lower, int upper, int cnt){
+int MyMath::Random(int lower, int upper, int cnt){
     using namespace boost;
     //return ((double)rand() / RAND_MAX) * (upper - lower) + lower;
     // 「メルセンヌツイスター」( Seed=現在時刻 ) で
@@ -25,5 +22,3 @@ int Random(int lower, int upper, int cnt){
     
     return rand();
 }
-
-#endif /* defined(__puzzle_test_02__math__) */

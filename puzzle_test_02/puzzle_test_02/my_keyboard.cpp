@@ -1,14 +1,14 @@
 //
-//  keyboard.cpp
+//  my_keyboard.cpp
 //  puzzle_test_02
 //
-//  Created by hujita on 2016/02/25.
+//  Created by hujita on 2016/02/29.
 //  Copyright (c) 2016年 hujita. All rights reserved.
 //
 
-#include "keyboard.h"
+#include "my_keyboard.h"
 
-int Keyboard::CastIntFromKey(int key){
+int MyKeyboard::CastIntFromKey(int key){
     int value = 999;
     switch (key) {
         case SDLK_0:

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96B79D631C7F0DE60063E8AC /* math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B79D611C7F0DE60063E8AC /* math.cpp */; };
 		96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96B860D91C7DB33100E0A8F6 /* main.mm */; };
 		96B860DC1C7DB33100E0A8F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B860DB1C7DB33100E0A8F6 /* Images.xcassets */; };
 		96B860DF1C7DB33100E0A8F6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96B860DD1C7DB33100E0A8F6 /* MainMenu.xib */; };
@@ -21,9 +20,10 @@
 		96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861031C7DBA4400E0A8F6 /* game.cpp */; };
 		96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861061C7DBEBF00E0A8F6 /* settings.cpp */; };
 		96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861091C7DCB0F00E0A8F6 /* config.cpp */; };
-		96BA209C1C7E927000CDE216 /* keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA209A1C7E927000CDE216 /* keyboard.cpp */; };
 		96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA209D1C7EC7D200CDE216 /* block.cpp */; };
 		96BA20A51C7EE66B00CDE216 /* puzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA20A31C7EE66B00CDE216 /* puzzle.cpp */; };
+		96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE6681C83F7060029F2D6 /* my_math.cpp */; };
+		96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		96B79D611C7F0DE60063E8AC /* math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = math.cpp; sourceTree = "<group>"; };
-		96B79D621C7F0DE60063E8AC /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		96B860D11C7DB33100E0A8F6 /* puzzle_test_02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B860D51C7DB33100E0A8F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96B860D91C7DB33100E0A8F6 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -59,12 +57,14 @@
 		96B861071C7DBEBF00E0A8F6 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		96B861091C7DCB0F00E0A8F6 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		96B8610A1C7DCB0F00E0A8F6 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		96BA209A1C7E927000CDE216 /* keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = keyboard.cpp; sourceTree = "<group>"; };
-		96BA209B1C7E927000CDE216 /* keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keyboard.h; sourceTree = "<group>"; };
 		96BA209D1C7EC7D200CDE216 /* block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block.cpp; sourceTree = "<group>"; };
 		96BA209E1C7EC7D200CDE216 /* block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block.h; sourceTree = "<group>"; };
 		96BA20A31C7EE66B00CDE216 /* puzzle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = puzzle.cpp; sourceTree = "<group>"; };
 		96BA20A41C7EE66B00CDE216 /* puzzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puzzle.h; sourceTree = "<group>"; };
+		96BAE6681C83F7060029F2D6 /* my_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_math.cpp; sourceTree = "<group>"; };
+		96BAE6691C83F7060029F2D6 /* my_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_math.h; sourceTree = "<group>"; };
+		96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_keyboard.cpp; sourceTree = "<group>"; };
+		96BAE66C1C83F8900029F2D6 /* my_keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_keyboard.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,14 +130,14 @@
 				96B861071C7DBEBF00E0A8F6 /* settings.h */,
 				96B861091C7DCB0F00E0A8F6 /* config.cpp */,
 				96B8610A1C7DCB0F00E0A8F6 /* config.h */,
-				96BA209A1C7E927000CDE216 /* keyboard.cpp */,
-				96BA209B1C7E927000CDE216 /* keyboard.h */,
 				96BA209D1C7EC7D200CDE216 /* block.cpp */,
 				96BA209E1C7EC7D200CDE216 /* block.h */,
 				96BA20A31C7EE66B00CDE216 /* puzzle.cpp */,
 				96BA20A41C7EE66B00CDE216 /* puzzle.h */,
-				96B79D611C7F0DE60063E8AC /* math.cpp */,
-				96B79D621C7F0DE60063E8AC /* math.h */,
+				96BAE6681C83F7060029F2D6 /* my_math.cpp */,
+				96BAE6691C83F7060029F2D6 /* my_math.h */,
+				96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */,
+				96BAE66C1C83F8900029F2D6 /* my_keyboard.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -289,13 +289,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */,
+				96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */,
 				96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */,
 				96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */,
-				96B79D631C7F0DE60063E8AC /* math.cpp in Sources */,
 				96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */,
 				96BA20A51C7EE66B00CDE216 /* puzzle.cpp in Sources */,
+				96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */,
 				96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */,
-				96BA209C1C7E927000CDE216 /* keyboard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

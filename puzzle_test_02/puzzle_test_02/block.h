@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "settings.h"
 #include "config.h"
-#include "math.h"
+#include "my_math.h"
 
 class Block {
     // 出力元
@@ -25,7 +25,7 @@ class Block {
     double destinaiton_x;
     double destination_y;
     // ブロック種別
-    int type;
+    int block_type;
     // 現在位置している区画(整列番号)
     int section;
     // 生存

@@ -141,7 +141,7 @@ void Game::MainLoop(void)
     // ゲーム設定
     Config config;
     // キーボード入力変換機
-    Keyboard keyboard;
+    MyKeyboard my_keyboard;
     // ブロック群
     Block blocks[BLOCK_MAX] = {};
     // パズル
@@ -161,7 +161,7 @@ void Game::MainLoop(void)
                 if (event.type == SDL_KEYDOWN){
                     // 数値キーなら
                     // 数値に変換
-                    int input_value = keyboard.CastIntFromKey(event.key.keysym.sym);
+                    int input_value = my_keyboard.CastIntFromKey(event.key.keysym.sym);
                     // ゲームの設定更新
                     if (input_value < 10){
                         config.Set(input_value);

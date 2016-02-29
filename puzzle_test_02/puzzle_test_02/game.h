@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "settings.h"
 #include "config.h"
-#include "keyboard.h"
+#include "my_keyboard.h"
 #include "block.h"
 #include "puzzle.h"
 

@@ -19,7 +19,7 @@ Block::Block(){
     destinaiton_x = 0;
     destination_y = 0;
     // ブロック種別
-    type = 0;
+    block_type = 0;
     // 現在位置している区画(整列番号)
     section = 0;
     // 生存
@@ -35,12 +35,14 @@ Block::Block(){
 // [param] i:行番号, j:列番号, cnt:整列番号, config: 設定インスタンス
 // [return] Block
 void Block::Initialize(int i, int j, int cnt, Config* config){
+    MyMath my_math;
+    
     // ブロック種別
-    type = Random(0, config->GetType() - 1, cnt);
+    block_type = my_math.Random(0, config->GetType() - 1, cnt);
     // 出力元
     // 座標 & 高さ &幅
     int position[2] = {};
-    GetSourcePosition(type, position);
+    GetSourcePosition(block_type, position);
     source_x = position[0];
     source_y = position[1];
     source_h = BLOCK_HIGH;
@@ -60,8 +62,8 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
 }
 
 // 出力元画像の座標を取得
-void Block::GetSourcePosition(int type_block, int* position){
-    switch (type_block) {
+void Block::GetSourcePosition(int block_type, int* position){
+    switch (block_type) {
         case 0:
             position[0] = BLOCK_POSITION_00_X;
             position[1] = BLOCK_POSITION_00_Y;
