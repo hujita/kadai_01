@@ -308,6 +308,7 @@ void Draw(View* view, ViewTop* view_top, ViewPlay* view_play, Block* blocks)
         // PLAY画面描画
         view_play->Draw(view, view_top, blocks);
     }
+    //
 //        /* メインテキスト描画 */
 //        SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);
 //        /* サブテキスト描画 */
