@@ -41,8 +41,22 @@ public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
     void SetSourcePosition(int type_block, int* position);
-    int GetActive();
     void Draw(SDL_Surface* screen, SDL_Surface* block_image);
+    // ブロックをactiveにして操作対象にする。座標誤差値も更新する
+    void Choice(double event_button_x, double event_button_y);
+    // ブロックを解放して操作対象ではなくする。
+    void Release();
+    // ブロックの移動による座標の更新
+    void Move(double event_button_x, double event_button_y);
+    // ゲッター
+    int GetActive();
+    double GetDestinationX();
+    double GetDestinationY();
+    int GetTargetSection();
+    // セッター
+    void SetDestinationX(double x);
+    void SetDestinationY(double y);
+    void SetSection(int value);
 };
 
 #endif /* defined(__puzzle_test_02__block__) */

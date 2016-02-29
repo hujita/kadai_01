@@ -120,6 +120,48 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
     SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
 }
 
+void Block::Choice(double event_button_x, double event_button_y){
+    active = ON;
+    // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
+    x_difference = (event_button_x - destination_x);
+    y_difference = (event_button_y - destination_y);
+}
+
+void Block::Release(){
+    active = OFF;
+    // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
+    x_difference = OFF;
+    y_difference = OFF;
+}
+
+void Block::Move(double event_button_x, double event_button_y){
+    destination_x = event_button_x;
+    destination_y = event_button_y;
+}
+
 int Block::GetActive() {
     return active;
+}
+
+double Block::GetDestinationX(){
+    return destination_x;
+}
+
+double Block::GetDestinationY(){
+    return destination_y;
+}
+
+int Block::GetTargetSection(){
+    return section;
+}
+
+// セッター
+void Block::SetDestinationX(double x){
+    destination_x = x;
+}
+void Block::SetDestinationY(double y){
+    destination_y = y;
+}
+void Block::SetSection(int value){
+    section = value;
 }

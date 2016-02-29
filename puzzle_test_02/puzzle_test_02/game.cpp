@@ -185,22 +185,23 @@ void Game::MainLoop(void)
                 switch(event.type){
                     case SDL_MOUSEBUTTONDOWN:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED){
-                            //ChooseBlock(event.button.x, event.button.y);
-                            //block_state = 1;
+                            // 左クリックされた座標から選択されたブロックを探してactiveにする
+                            puzzle.ChoiceBlock(blocks, &config, event.button.x, event.button.y);
                             //std::cout << "左ボタン押した" << std::endl;
                         }
                         break;
                     case SDL_MOUSEBUTTONUP:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_RELEASED){
-                            //ReleaseBlock(event.button.x, event.button.y);
+                            // ブロックを解放する
+                            puzzle.ReleaseBlock(blocks, &config, event.button.x, event.button.y);
                             //std::cout << "左ボタンはなした" << std::endl;
                         }
                         break;
                     case SDL_MOUSEMOTION:
-                        //if (block_state == 1) {
-                        //    MoveBlock(event.button.x, event.button.y);
-                        //    std::cout << "動かした" << std::endl;
-                        //}
+                        if (puzzle.GetStateChoice() == 1) {
+                            puzzle.MoveBlock(blocks, &config, event.button.x, event.button.y);
+                            // std::cout << "動かした" << std::endl;
+                        }
                         break;
                 }
             }
