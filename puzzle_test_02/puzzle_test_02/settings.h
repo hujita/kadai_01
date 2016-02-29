@@ -14,6 +14,7 @@
 // 共通
 const int OFF = 0;
 const int ON = 1;
+const int Invalid = 999;
 // 画面遷移
 const int VIEW_TOP = 0;
 const int VIEW_PLAY = 1;

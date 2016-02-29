@@ -9,6 +9,8 @@
 #ifndef __puzzle_test_02__block__
 #define __puzzle_test_02__block__
 
+#include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include "settings.h"
 #include "config.h"
@@ -22,7 +24,7 @@ class Block {
     double source_h;
     double source_w;
     // 出力先座標
-    double destinaiton_x;
+    double destination_x;
     double destination_y;
     // ブロック種別
     int block_type;
@@ -38,7 +40,9 @@ class Block {
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
-    void GetSourcePosition(int type_block, int* position);
+    void SetSourcePosition(int type_block, int* position);
+    int GetActive();
+    void Draw(SDL_Surface* screen, SDL_Surface* block_image);
 };
 
 #endif /* defined(__puzzle_test_02__block__) */

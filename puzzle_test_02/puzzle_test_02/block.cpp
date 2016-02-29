@@ -16,7 +16,7 @@ Block::Block(){
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
     // 出力先座標
-    destinaiton_x = 0;
+    destination_x = 0;
     destination_y = 0;
     // ブロック種別
     block_type = 0;
@@ -42,13 +42,13 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // 出力元
     // 座標 & 高さ &幅
     int position[2] = {};
-    GetSourcePosition(block_type, position);
+    SetSourcePosition(block_type, position);
     source_x = position[0];
     source_y = position[1];
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
     // 出力先座標
-    destinaiton_x = (SECTION_WIDE * j);
+    destination_x = (SECTION_WIDE * j);
     destination_y = (SECTION_HIGH * i);
     // 現在位置している区画(整列番号)
     section = cnt;
@@ -62,7 +62,7 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
 }
 
 // 出力元画像の座標を取得
-void Block::GetSourcePosition(int block_type, int* position){
+void Block::SetSourcePosition(int block_type, int* position){
     switch (block_type) {
         case 0:
             position[0] = BLOCK_POSITION_00_X;
@@ -103,4 +103,23 @@ void Block::GetSourcePosition(int block_type, int* position){
         default:
             break;
     }
+}
+
+void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
+    SDL_Rect srcrect;
+    SDL_Rect desrect = { (int)destination_x, (int)destination_y };
+    if (active == ON){
+        desrect = { (int)(destination_x - x_difference), (int)(destination_y - y_difference) };
+    }
+
+    srcrect.x = source_x;
+    srcrect.y = source_y;
+    srcrect.w = source_w;
+    srcrect.h = source_h;
+
+    SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
+}
+
+int Block::GetActive() {
+    return active;
 }

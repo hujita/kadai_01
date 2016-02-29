@@ -171,7 +171,7 @@ void Game::MainLoop(void)
                         // 設定が終了しているなら
                         if (config.GetState() >= CONFIG_STATE_MAX) {
                             // 初期ブロック配置
-                            //puzzle.Initialize(blocks, &config);
+                            puzzle.Initialize(blocks, &config);
                             // PLAY画面へ遷移
                             view_type = VIEW_PLAY;
                         }
@@ -252,6 +252,20 @@ void Game::Draw(Config* config, Block* blocks){
     // PLAY画面
     if (view_type == VIEW_PLAY){
         // ブロックを描画
+        int i;
+        // マウスで選択中のブロック
+        int target_i = Invalid;
+        for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
+            if (blocks[i].GetActive() == OFF){
+                blocks[i].Draw(screen, block_image);
+            }
+            if (blocks[i].GetActive() == ON){
+                target_i = i;
+            }
+        }
+        if (target_i != Invalid){
+            blocks[target_i].Draw(screen, block_image);
+        }
     }
     
     // 画面を更新する
