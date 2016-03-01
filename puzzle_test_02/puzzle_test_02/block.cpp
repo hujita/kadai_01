@@ -16,22 +16,22 @@ Block::Block(){
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
     // 出力先座標
-    destination_x = 0;
-    destination_y = 0;
+    //destination_x = 0;
+    //destination_y = 0;
     // ブロック種別
     block_type = 0;
-    // 現在位置している区画(整列番号)
-    section = 0;
+    // 現在位置している区画のインデックス
+    section_index = 0;
     // 生存
     alive = 0;
     // アクティブ(マウス左クリックで選択されている)
     active = 0;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    x_difference = 0;
-    y_difference = 0;
+    difference_x = 0;
+    difference_y = 0;
     // ブロックのクリックされている座標(アクティブ時のみ使用)
-    current_position_x = 0;
-    current_position_y = 0;
+    click_x = 0;
+    click_y = 0;
 }
 
 // ブロック生成
@@ -51,20 +51,20 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
     // 出力先座標
-    destination_x = (SECTION_WIDE * j);
-    destination_y = (SECTION_HIGH * i);
+    //destination_x = (SECTION_WIDE * j);
+    //destination_y = (SECTION_HIGH * i);
     // 現在位置している区画(整列番号)
-    section = cnt;
+    section_index = cnt;
     // 生存
     alive = 0;
     // アクティブ(マウス左クリックで選択されている)
     active = 0;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    x_difference = 0;
-    y_difference = 0;
+    difference_x = 0;
+    difference_y = 0;
     // ブロックのクリックされている座標(アクティブ時のみ使用)
-    current_position_x = 0;
-    current_position_y = 0;
+    click_x = 0;
+    click_y = 0;
 }
 
 // 出力元画像の座標を取得
@@ -111,13 +111,18 @@ void Block::SetSourcePosition(int block_type, int* position){
     }
 }
 
-void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
+void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections){
     SDL_Rect srcrect;
+    // 操作対象でないブロックは、自身が所属している区画の出力座標位置を参考に、自身の出力位置を決める
+    //std::cout << "section_index=" << section_index << std::endl;
+    double destination_x = sections[section_index].GetDestinationX();
+    double destination_y = sections[section_index].GetDestinationY();
     SDL_Rect desrect = { (int)destination_x, (int)destination_y };
+    // 操作中のブロックは、
     if (active == ON){
-        std::cout << "current_position_x =" << current_position_x << std::endl;
-        std::cout << "x_difference =" << x_difference << std::endl;
-        desrect = { (int)(current_position_x - x_difference), (int)(current_position_y - y_difference) };
+        //std::cout << "click_x-difference_x=" << click_x << "-" << difference_x << std::endl;
+        //std::cout << "click_y-difference_y=" << click_y << "-" << difference_y << std::endl;
+        desrect = { (int)(click_x - difference_x), (int)(click_y - difference_y) };
     }
 
     srcrect.x = source_x;
@@ -128,63 +133,39 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
     SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
 }
 
-/* void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, double click_x, double click_y){
-    SDL_Rect srcrect;
-    SDL_Rect desrect = { (int)(click_x - x_difference), (int)(click_y - y_difference) };
-    
-    srcrect.x = source_x;
-    srcrect.y = source_y;
-    srcrect.w = source_w;
-    srcrect.h = source_h;
-    
-    SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
-} */
-
-void Block::Choice(double event_button_x, double event_button_y){
+void Block::Choice(Section* sections, double event_button_x, double event_button_y){
     active = ON;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    x_difference = (event_button_x - destination_x);
-    y_difference = (event_button_y - destination_y);
+    difference_x = (event_button_x - sections[section_index].GetDestinationX());
+    difference_y = (event_button_y - sections[section_index].GetDestinationY());
     // ブロックのクリックされている座標(アクティブ時のみ使用)
-    current_position_x = event_button_x;
-    current_position_y = event_button_x;
+    click_x = event_button_x;
+    click_y = event_button_y;
 }
 
 void Block::Release(){
     active = OFF;
     // 出力先座標とマウスポインタ座標の誤差戻す(アクティブ時のみ使用)
-    x_difference = OFF;
-    y_difference = OFF;
+    difference_x = OFF;
+    difference_y = OFF;
+    // ブロックのクリックされている座標(アクティブ時のみ使用)
+    click_x = OFF;
+    click_y = OFF;
 }
 
 void Block::Move(double event_button_x, double event_button_y){
-    current_position_x = event_button_x;
-    current_position_y = event_button_y;
+    click_x = event_button_x;
+    click_y = event_button_y;
 }
 
 int Block::GetActive() {
     return active;
 }
 
-double Block::GetDestinationX(){
-    return destination_x;
+int Block::GetSectionIndex(){
+    return section_index;
 }
 
-double Block::GetDestinationY(){
-    return destination_y;
-}
-
-int Block::GetTargetSection(){
-    return section;
-}
-
-// セッター
-void Block::SetDestinationX(double x){
-    destination_x = x;
-}
-void Block::SetDestinationY(double y){
-    destination_y = y;
-}
-void Block::SetSection(int value){
-    section = value;
+void Block::SetSectionIndex(int value){
+    section_index = value;
 }

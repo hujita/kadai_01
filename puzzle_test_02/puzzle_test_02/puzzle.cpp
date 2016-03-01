@@ -7,7 +7,7 @@
 //
 
 #include "puzzle.h"
-
+/*
 Puzzle::Puzzle(){
     state_choice = 0;
 }
@@ -128,3 +128,4 @@ int Puzzle::LookForActiveBlock(Block* blocks, Config* config){
 int Puzzle::GetStateChoice(){
     return state_choice;
 }
+*/

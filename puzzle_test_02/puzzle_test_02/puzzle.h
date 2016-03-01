@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "block.h"
-
+/*
 class Puzzle {
     // 選択中のブロックがあるか
     int state_choice;
@@ -33,6 +33,6 @@ public:
     int GetStateChoice();
     int GetTargetSection();
 };
-
+*/
 
 #endif /* defined(__puzzle_test_02__puzzle__) */

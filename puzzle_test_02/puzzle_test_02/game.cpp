@@ -43,6 +43,8 @@ Game::Game() {
     screen = NULL;
     // 背景画像
     background_image = NULL;
+    // 区画画像
+    section_image = NULL;
     // ブロック画像
     block_image = NULL;
     // 設定画面メインテキスト
@@ -104,6 +106,12 @@ int Game::Initialize(void)
         SDL_Quit();
         return -1;
     }
+    section_image = IMG_Load("section_image.png");
+    if (section_image == NULL) {
+        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
     block_image = IMG_Load("block_image.jpg");
     if (block_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
@@ -144,8 +152,12 @@ void Game::MainLoop(void)
     MyKeyboard my_keyboard;
     // ブロック群
     Block blocks[BLOCK_MAX] = {};
+    // パズルの区画やブロックを並べる
+    PuzzleManager puzzle_manager;
+    // 区画
+    Section sections[SECTION_MAX] = {};
     // パズル
-    Puzzle puzzle;
+    //Puzzle puzzle;
     
     for (;;) {
         // すべてのイベントを処理する
@@ -171,7 +183,9 @@ void Game::MainLoop(void)
                         // 設定が終了しているなら
                         if (config.GetState() >= CONFIG_STATE_MAX) {
                             // 初期ブロック配置
-                            puzzle.Initialize(blocks, &config);
+                            //puzzle.Initialize(blocks, &config);
+                            // パズル生成
+                            puzzle_manager.CreatePuzzle(sections, blocks, &config);
                             // PLAY画面へ遷移
                             view_type = VIEW_PLAY;
                         }
@@ -186,20 +200,20 @@ void Game::MainLoop(void)
                     case SDL_MOUSEBUTTONDOWN:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_PRESSED){
                             // 左クリックされた座標から選択されたブロックを探してactiveにする
-                            puzzle.ChoiceBlock(blocks, &config, event.button.x, event.button.y);
+                            puzzle_manager.ChoiceBlock(sections, blocks, &config, event.button.x, event.button.y);
                             //std::cout << "左ボタン押した" << std::endl;
                         }
                         break;
                     case SDL_MOUSEBUTTONUP:
                         if (event.button.button == SDL_BUTTON_LEFT && event.button.state == SDL_RELEASED){
                             // ブロックを解放する
-                            puzzle.ReleaseBlock(blocks, &config, event.button.x, event.button.y);
+                            puzzle_manager.ReleaseBlock(sections, blocks, &config, event.button.x, event.button.y);
                             //std::cout << "左ボタンはなした" << std::endl;
                         }
                         break;
                     case SDL_MOUSEMOTION:
-                        if (puzzle.GetStateChoice() == 1) {
-                            puzzle.MoveBlock(blocks, &config, event.button.x, event.button.y);
+                        if (puzzle_manager.GetStateChoice() == 1) {
+                            puzzle_manager.MoveBlock(sections, blocks, &config, event.button.x, event.button.y);
                             // std::cout << "動かした" << std::endl;
                         }
                         break;
@@ -220,12 +234,12 @@ void Game::MainLoop(void)
             }
             
             // 描画処理
-            Draw(&config, blocks);
+            Draw(&config, sections, blocks);
         }
     }
 }
 
-void Game::Draw(Config* config, Block* blocks){
+void Game::Draw(Config* config, Section* sections, Block* blocks){
     // 背景を描画する
     SDL_BlitSurface(background_image, NULL, screen, NULL);
     
@@ -252,20 +266,26 @@ void Game::Draw(Config* config, Block* blocks){
     
     // PLAY画面
     if (view_type == VIEW_PLAY){
-        // ブロックを描画
+        // 区画を描画
         int i;
+        for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
+            sections[i].Draw(screen, section_image);
+        };
+        
+        // ブロックを描画
+        int j;
         // マウスで選択中のブロック
         int target_index = Invalid;
-        for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-            if (blocks[i].GetActive() == OFF){
-                blocks[i].Draw(screen, block_image);
+        for (j = 0; j < config->GetLine() * config->GetRow(); ++j) {
+            if (blocks[j].GetActive() == OFF){
+                blocks[j].Draw(screen, block_image, sections);
             }
-            if (blocks[i].GetActive() == ON){
-                target_index = i;
+            if (blocks[j].GetActive() == ON){
+                target_index = j;
             }
         }
         if (target_index != Invalid){
-            blocks[target_index].Draw(screen, block_image);
+            blocks[target_index].Draw(screen, block_image,  sections);
         }
     }
     

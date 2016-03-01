@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960B5CF61C85875500B4DE6A /* section_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 960B5CF51C85875500B4DE6A /* section_image.png */; };
+		96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465301C856A4500C02B44 /* puzzle_manager.cpp */; };
+		96B465381C856AD400C02B44 /* section.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465361C856AD400C02B44 /* section.cpp */; };
 		96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96B860D91C7DB33100E0A8F6 /* main.mm */; };
 		96B860DC1C7DB33100E0A8F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B860DB1C7DB33100E0A8F6 /* Images.xcassets */; };
 		96B860DF1C7DB33100E0A8F6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96B860DD1C7DB33100E0A8F6 /* MainMenu.xib */; };
@@ -37,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		960B5CF51C85875500B4DE6A /* section_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section_image.png; sourceTree = "<group>"; };
+		96B465301C856A4500C02B44 /* puzzle_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = puzzle_manager.cpp; sourceTree = "<group>"; };
+		96B465311C856A4500C02B44 /* puzzle_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puzzle_manager.h; sourceTree = "<group>"; };
+		96B465361C856AD400C02B44 /* section.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = section.cpp; sourceTree = "<group>"; };
+		96B465371C856AD400C02B44 /* section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = section.h; sourceTree = "<group>"; };
 		96B860D11C7DB33100E0A8F6 /* puzzle_test_02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = puzzle_test_02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B860D51C7DB33100E0A8F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96B860D91C7DB33100E0A8F6 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -138,6 +146,10 @@
 				96BAE6691C83F7060029F2D6 /* my_math.h */,
 				96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */,
 				96BAE66C1C83F8900029F2D6 /* my_keyboard.h */,
+				96B465301C856A4500C02B44 /* puzzle_manager.cpp */,
+				96B465311C856A4500C02B44 /* puzzle_manager.h */,
+				96B465361C856AD400C02B44 /* section.cpp */,
+				96B465371C856AD400C02B44 /* section.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -172,6 +184,7 @@
 		96B860FB1C7DB3E900E0A8F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				960B5CF51C85875500B4DE6A /* section_image.png */,
 				96B860FE1C7DB43900E0A8F6 /* background.gif */,
 				96B860FC1C7DB41500E0A8F6 /* block_image.jpg */,
 			);
@@ -267,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B860FD1C7DB41500E0A8F6 /* block_image.jpg in Resources */,
+				960B5CF61C85875500B4DE6A /* section_image.png in Resources */,
 				96B861021C7DB44900E0A8F6 /* AquaKana.ttc in Resources */,
 				96B860DC1C7DB33100E0A8F6 /* Images.xcassets in Resources */,
 				96B860FF1C7DB43900E0A8F6 /* background.gif in Resources */,
@@ -291,11 +305,13 @@
 				96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */,
 				96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */,
 				96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */,
+				96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */,
 				96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */,
 				96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */,
 				96BA20A51C7EE66B00CDE216 /* puzzle.cpp in Sources */,
 				96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */,
 				96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */,
+				96B465381C856AD400C02B44 /* section.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

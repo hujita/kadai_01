@@ -18,6 +18,7 @@
 #include "my_keyboard.h"
 #include "block.h"
 #include "puzzle.h"
+#include "puzzle_manager.h"
 
 class Game {
     // 画面遷移用変数(TOP:0, PLAY:1)
@@ -39,6 +40,8 @@ class Game {
     SDL_Surface* screen;
     // 背景画像
     SDL_Surface* background_image;
+    // 区画画像
+    SDL_Surface* section_image;
     // ブロック画像
     SDL_Surface* block_image;
     // 設定画面メインテキスト
@@ -69,7 +72,7 @@ public:
     // メイン処理
     void MainLoop();
     // 描画処理
-    void Draw(Config* config, Block* block);
+    void Draw(Config* config, Section* sectinos, Block* block);
     //void Draw(int config_state, int line, int row, int type, int chain);
 };
 

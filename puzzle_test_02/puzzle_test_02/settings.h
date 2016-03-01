@@ -20,6 +20,8 @@ const int VIEW_TOP = 0;
 const int VIEW_PLAY = 1;
 // 設定
 const int CONFIG_STATE_MAX = 4;
+// 区画
+const int SECTION_MAX = 81;
 // ブロック
 const int BLOCK_MAX = 81;
 const int BLOCK_HIGH = 90;
@@ -43,6 +45,8 @@ const int BLOCK_POSITION_07_Y = 200;
 const int BLOCK_POSITION_08_X = 174;
 const int BLOCK_POSITION_08_Y = 200;
 // パズルボード
+const int SECTION_SOURCE_X = 8;
+const int SECTION_SOURCE_Y = 8;
 const int SECTION_HIGH = 95;
 const int SECTION_WIDE = 95;
 

@@ -15,6 +15,7 @@
 #include "settings.h"
 #include "config.h"
 #include "my_math.h"
+#include "section.h"
 
 class Block {
     // 出力元
@@ -24,43 +25,39 @@ class Block {
     double source_h;
     double source_w;
     // 出力先座標
-    double destination_x;
-    double destination_y;
+    //double destination_x;
+    //double destination_y;
     // ブロック種別
     int block_type;
     // 現在位置している区画(整列番号)
-    int section;
+    int section_index;
     // 生存
     int alive;
     // アクティブ(選択されている)
     int active;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    double x_difference;
-    double y_difference;
+    double difference_x;
+    double difference_y;
     // ブロックのクリックされている座標
-    double current_position_x;
-    double current_position_y;
+    double click_x;
+    double click_y;
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
     void SetSourcePosition(int type_block, int* position);
-    void Draw(SDL_Surface* screen, SDL_Surface* block_image);
+    void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections);
     /* void Draw(SDL_Surface* screen, SDL_Surface* block_image, double click_x, double click_y); */
     // ブロックをactiveにして操作対象にする。座標誤差値も更新する
-    void Choice(double event_button_x, double event_button_y);
+    void Choice(Section* sections, double event_button_x, double event_button_y);
     // ブロックを解放して操作対象ではなくする。
     void Release();
     // ブロックの移動による座標の更新
     void Move(double event_button_x, double event_button_y);
     // ゲッター
     int GetActive();
-    double GetDestinationX();
-    double GetDestinationY();
-    int GetTargetSection();
+    int GetSectionIndex();
     // セッター
-    void SetDestinationX(double x);
-    void SetDestinationY(double y);
-    void SetSection(int value);
+    void SetSectionIndex(int value);
 };
 
 #endif /* defined(__puzzle_test_02__block__) */
