@@ -37,11 +37,15 @@ class Block {
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
     double x_difference;
     double y_difference;
+    // ブロックのクリックされている座標
+    double current_position_x;
+    double current_position_y;
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
     void SetSourcePosition(int type_block, int* position);
     void Draw(SDL_Surface* screen, SDL_Surface* block_image);
+    /* void Draw(SDL_Surface* screen, SDL_Surface* block_image, double click_x, double click_y); */
     // ブロックをactiveにして操作対象にする。座標誤差値も更新する
     void Choice(double event_button_x, double event_button_y);
     // ブロックを解放して操作対象ではなくする。

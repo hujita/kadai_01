@@ -255,17 +255,17 @@ void Game::Draw(Config* config, Block* blocks){
         // ブロックを描画
         int i;
         // マウスで選択中のブロック
-        int target_i = Invalid;
+        int target_index = Invalid;
         for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
             if (blocks[i].GetActive() == OFF){
                 blocks[i].Draw(screen, block_image);
             }
             if (blocks[i].GetActive() == ON){
-                target_i = i;
+                target_index = i;
             }
         }
-        if (target_i != Invalid){
-            blocks[target_i].Draw(screen, block_image);
+        if (target_index != Invalid){
+            blocks[target_index].Draw(screen, block_image);
         }
     }
     

@@ -11,9 +11,8 @@
 // lower 以上 upper 以下の乱数を返す
 int MyMath::Random(int lower, int upper, int cnt){
     using namespace boost;
-    //return ((double)rand() / RAND_MAX) * (upper - lower) + lower;
     // 「メルセンヌツイスター」( Seed=現在時刻 ) で
-    // 「小さな整数の一様乱数」( 1～6 ) を生成
+    // 「小さな整数の一様乱数」( lower ~ upper ) を生成
     mt19937            gen( (int)static_cast<unsigned long>(time(0)) * (cnt + 1));
     uniform_smallint<> dst( lower, upper );
     variate_generator<

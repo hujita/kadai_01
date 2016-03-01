@@ -30,22 +30,13 @@ void Puzzle::Initialize(Block* blocks, Config* config){
 // 左クリックされた座標から選択されたブロックを探してactiveにする
 void Puzzle::ChoiceBlock(Block* blocks, Config* config, double event_button_x, double event_button_y){
     // 左クリックされた座標から選択されたブロックを探す
-    int target_index = LookForTargetBlock(blocks, config, event_button_x, event_button_y);
-    if (target_index != Invalid){
+    int position_index = LookForTargetBlock(blocks, config, event_button_x, event_button_y);
+    if (position_index != Invalid){
         // 選択されたブロックをアクティブにして操作対象と見做す
-        blocks[target_index].Choice(event_button_x, event_button_y);
+        blocks[position_index].Choice(event_button_x, event_button_y);
         // ステータスをブロック操作中にする
         state_choice = ON;
     }
-/*    int i;
-    for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        if (blocks[i].GetDestinationX() <= event_button_x && event_button_x <= (blocks[i].GetDestinationX() + BLOCK_WIDE) && blocks[i].GetDestinationY() <= event_button_y && event_button_y <= (blocks[i].GetDestinationY() + BLOCK_HIGH)){
-            blocks[i].Choice(event_button_x, event_button_y);
-            // ステータスをブロック操作中にする
-            state_choice = ON;
-        }
-    }
-*/
 }
 
 // 左クリックから指を離して操作中のブロックを解放する
@@ -55,7 +46,7 @@ void Puzzle::ReleaseBlock(Block* blocks, Config* config, double event_button_x, 
         event_button_x = config->GetRow() * SECTION_HIGH - 10;
     }
     if (event_button_y >= config->GetLine() * SECTION_WIDE){
-        event_button_y = config->GetLine() * SECTION_WIDE -10;
+        event_button_y = config->GetLine() * SECTION_WIDE - 10;
     }
     
     // パズルの区画内にブロックが収まるように位置を整える
@@ -65,13 +56,6 @@ void Puzzle::ReleaseBlock(Block* blocks, Config* config, double event_button_x, 
         blocks[target_index].Release();
     }
     
-/*    int i;
-    for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        if (blocks[i].GetDestinationX() <= event_button_x && event_button_x <= (blocks[i].GetDestinationX() + BLOCK_WIDE) && blocks[i].GetDestinationY() <= event_button_y && event_button_y <= (blocks[i].GetDestinationY() + BLOCK_HIGH)){
-            blocks[i].Release();
-        }
-    }
-*/
     // ステータスをオフにする
     state_choice = OFF;
     // 連鎖チェック
@@ -85,7 +69,7 @@ void Puzzle::MoveBlock(Block* blocks, Config* config, double event_button_x, dou
         event_button_x = config->GetRow() * SECTION_HIGH - 10;
     }
     if (event_button_y >= config->GetLine() * SECTION_WIDE){
-        event_button_y = config->GetLine() * SECTION_WIDE -10;
+        event_button_y = config->GetLine() * SECTION_WIDE - 10;
     }
     
     // 座標が他のブロックの領域に入ったら配列の中身の値を交換
@@ -100,10 +84,10 @@ void Puzzle::MoveBlock(Block* blocks, Config* config, double event_button_x, dou
     // 現座標に位置するブロックを見つける
     int target_index = LookForTargetBlock(blocks, config, event_button_x, event_button_y);
     // 移動に合わせて出力先座標更新
-    blocks[target_index].Move(event_button_x, event_button_y);
+    blocks[active_index].Move(event_button_x, event_button_y);
     
     // 座標から取得したブロックが操作中のブロックと別のものだったら交換
-    if (blocks[target_index].GetActive() == OFF){
+    if (active_index != target_index){
         // 避難
         target_destination_x = blocks[target_index].GetDestinationX();
         target_destination_y = blocks[target_index].GetDestinationY();
@@ -112,10 +96,10 @@ void Puzzle::MoveBlock(Block* blocks, Config* config, double event_button_x, dou
         blocks[target_index].SetDestinationX(blocks[active_index].GetDestinationX());
         blocks[target_index].SetDestinationY(blocks[active_index].GetDestinationX());
         blocks[target_index].SetSection(blocks[active_index].GetDestinationX());
-                
-        blocks[active_index].SetDestinationX(blocks[target_index].GetDestinationX());
-        blocks[active_index].SetDestinationY(blocks[target_index].GetDestinationX());
-        blocks[active_index].SetSection(blocks[target_index].GetDestinationX());
+
+        blocks[active_index].SetDestinationX(target_destination_x);
+        blocks[active_index].SetDestinationY(target_destination_y);
+        blocks[active_index].SetSection(target_section);
     }
 }
 

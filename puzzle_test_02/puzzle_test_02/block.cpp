@@ -29,6 +29,9 @@ Block::Block(){
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
     x_difference = 0;
     y_difference = 0;
+    // ブロックのクリックされている座標(アクティブ時のみ使用)
+    current_position_x = 0;
+    current_position_y = 0;
 }
 
 // ブロック生成
@@ -59,6 +62,9 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
     x_difference = 0;
     y_difference = 0;
+    // ブロックのクリックされている座標(アクティブ時のみ使用)
+    current_position_x = 0;
+    current_position_y = 0;
 }
 
 // 出力元画像の座標を取得
@@ -109,7 +115,9 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
     SDL_Rect srcrect;
     SDL_Rect desrect = { (int)destination_x, (int)destination_y };
     if (active == ON){
-        desrect = { (int)(destination_x - x_difference), (int)(destination_y - y_difference) };
+        std::cout << "current_position_x =" << current_position_x << std::endl;
+        std::cout << "x_difference =" << x_difference << std::endl;
+        desrect = { (int)(current_position_x - x_difference), (int)(current_position_y - y_difference) };
     }
 
     srcrect.x = source_x;
@@ -120,23 +128,38 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image){
     SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
 }
 
+/* void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, double click_x, double click_y){
+    SDL_Rect srcrect;
+    SDL_Rect desrect = { (int)(click_x - x_difference), (int)(click_y - y_difference) };
+    
+    srcrect.x = source_x;
+    srcrect.y = source_y;
+    srcrect.w = source_w;
+    srcrect.h = source_h;
+    
+    SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
+} */
+
 void Block::Choice(double event_button_x, double event_button_y){
     active = ON;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
     x_difference = (event_button_x - destination_x);
     y_difference = (event_button_y - destination_y);
+    // ブロックのクリックされている座標(アクティブ時のみ使用)
+    current_position_x = event_button_x;
+    current_position_y = event_button_x;
 }
 
 void Block::Release(){
     active = OFF;
-    // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
+    // 出力先座標とマウスポインタ座標の誤差戻す(アクティブ時のみ使用)
     x_difference = OFF;
     y_difference = OFF;
 }
 
 void Block::Move(double event_button_x, double event_button_y){
-    destination_x = event_button_x;
-    destination_y = event_button_y;
+    current_position_x = event_button_x;
+    current_position_y = event_button_y;
 }
 
 int Block::GetActive() {
