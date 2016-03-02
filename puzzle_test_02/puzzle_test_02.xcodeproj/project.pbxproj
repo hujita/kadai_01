@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		960B5CF61C85875500B4DE6A /* section_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 960B5CF51C85875500B4DE6A /* section_image.png */; };
+		968AE5541C86BEF8006FB5B7 /* top.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968AE5521C86BEF8006FB5B7 /* top.cpp */; };
+		968AE5571C86C7B5006FB5B7 /* play.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 968AE5551C86C7B5006FB5B7 /* play.cpp */; };
 		96B117511C868DC300E050E5 /* block_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B117501C868DC300E050E5 /* block_image.png */; };
 		96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465301C856A4500C02B44 /* puzzle_manager.cpp */; };
 		96B465381C856AD400C02B44 /* section.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465361C856AD400C02B44 /* section.cpp */; };
@@ -39,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		960B5CF51C85875500B4DE6A /* section_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section_image.png; sourceTree = "<group>"; };
+		968AE5521C86BEF8006FB5B7 /* top.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top.cpp; sourceTree = "<group>"; };
+		968AE5531C86BEF8006FB5B7 /* top.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top.h; sourceTree = "<group>"; };
+		968AE5551C86C7B5006FB5B7 /* play.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = play.cpp; sourceTree = "<group>"; };
+		968AE5561C86C7B5006FB5B7 /* play.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = play.h; sourceTree = "<group>"; };
 		96B117501C868DC300E050E5 /* block_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_image.png; sourceTree = "<group>"; };
 		96B465301C856A4500C02B44 /* puzzle_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = puzzle_manager.cpp; sourceTree = "<group>"; };
 		96B465311C856A4500C02B44 /* puzzle_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puzzle_manager.h; sourceTree = "<group>"; };
@@ -143,6 +149,10 @@
 				96B465311C856A4500C02B44 /* puzzle_manager.h */,
 				96B465361C856AD400C02B44 /* section.cpp */,
 				96B465371C856AD400C02B44 /* section.h */,
+				968AE5521C86BEF8006FB5B7 /* top.cpp */,
+				968AE5531C86BEF8006FB5B7 /* top.h */,
+				968AE5551C86C7B5006FB5B7 /* play.cpp */,
+				968AE5561C86C7B5006FB5B7 /* play.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -295,11 +305,13 @@
 			files = (
 				96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */,
 				96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */,
+				968AE5571C86C7B5006FB5B7 /* play.cpp in Sources */,
 				96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */,
 				96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */,
 				96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */,
 				96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */,
 				96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */,
+				968AE5541C86BEF8006FB5B7 /* top.cpp in Sources */,
 				96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */,
 				96B465381C856AD400C02B44 /* section.cpp in Sources */,
 			);

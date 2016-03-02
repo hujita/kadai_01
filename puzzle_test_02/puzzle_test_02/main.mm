@@ -6,9 +6,9 @@
 //  Copyright (c) 2016年 hujita. All rights reserved.
 //
 
-#include <stdio.h>
 #include "game.h"
-#include <iostream>
+
+
 
 /* メイン関数 */
 /* 初期化 -> メイン処理 -> 終了処理 */
@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
 {
     // ゲームスタート
     Game game;
+    // 初期化に失敗すると戻り値は -1
     if (game.Start() < 0)
         return -1;
 }

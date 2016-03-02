@@ -1,3 +1,4 @@
+// 設定
 //
 //  config.h
 //  puzzle_test_02
@@ -10,17 +11,11 @@
 #define __puzzle_test_02__config__
 
 #include <stdio.h>
-//#include "config_line.h"
-
-/* class Config {
-    ConfigLine state_;
-public:
-    Config();
-    void Setting(Game* game, int value);
-}; */
 
 class Config {
+    // 進行フェーズ
     int state;
+    // ゲーム設定パラメータ
     int line;
     int row;
     int type;

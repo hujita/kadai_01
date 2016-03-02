@@ -9,7 +9,6 @@
 #ifndef __puzzle_test_02__my_keyboard__
 #define __puzzle_test_02__my_keyboard__
 
-#include "game.h"
 #include <stdio.h>
 
 class MyKeyboard {

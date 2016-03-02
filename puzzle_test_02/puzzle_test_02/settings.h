@@ -1,3 +1,4 @@
+// 定数
 //
 //  settings.h
 //  puzzle_test_02
