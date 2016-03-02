@@ -54,9 +54,7 @@ void PuzzleManager::CheckChain(Config* config, Block* blocks){
                     array.push_back(i);
                 }
                 // 真上のブロックが同じ種類なら真上のブロックのインデックスを返す
-                std::cout << "chain_result=" << chain_result << std::endl;
                 chain_result = CheckRowChain(config, blocks, chain_result);
-                //std::cout << "chain_result=" << chain_result << std::endl;
                 // 真上のブロックが同じ種類なら配列にインデックスを追加
                 if (chain_result != Invalid)
                     array.push_back(chain_result);
@@ -109,13 +107,8 @@ int PuzzleManager::CheckRowChain(Config* config, Block* blocks, int before_index
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
         // 真下のブロックを見つける && そのブロックが次の行の最上段のブロックではない
         if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + 1) && blocks[i].GetSectionIndex() % config->GetRow() != 0){
-            //std::cout << "i=" << i << std::endl;
-            //std::cout << "be_i=" << before_index << std::endl;
-            //std::cout << "i_type=" << blocks[i].GetBlockType() << std::endl;
-            //std::cout << "be_i_type=" << blocks[before_index].GetBlockType() << std::endl;
             // ブロックの種類が同じなら真上のブロックのインデックスを返す
             if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType()){
-                std::cout << "true" << std::endl;
                 return i;
             }
             
@@ -131,13 +124,8 @@ int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_inde
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
         // 右のブロックを見つける && そのブロックが次の列の最左のブロックではない
         if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + config->GetRow()) && blocks[i].GetSectionIndex() % config->GetRow() < config->GetRow()){
-            //std::cout << "i=" << i << std::endl;
-            //std::cout << "be_i=" << before_index << std::endl;
-            //std::cout << "i_type=" << blocks[i].GetBlockType() << std::endl;
-            //std::cout << "be_i_type=" << blocks[before_index].GetBlockType() << std::endl;
             // ブロックの種類が同じなら真上のブロックのインデックスを返す
             if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType()){
-                std::cout << "true" << std::endl;
                 return i;
             }
             
@@ -162,15 +150,15 @@ void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config
 void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // パズルの外枠からブロックが出れないように補正
     if (event_button_x >= config->GetLine() * SECTION_HIGH) {
-        event_button_x = config->GetLine() * SECTION_HIGH - 20;
+        event_button_x = config->GetLine() * SECTION_HIGH - SECTION_LIMIT;
     }
     if (event_button_y >= config->GetRow() * SECTION_WIDE){
-        event_button_y = config->GetRow() * SECTION_WIDE - 20;
+        event_button_y = config->GetRow() * SECTION_WIDE - SECTION_LIMIT;
     }
     
-    // パズルの区画内にブロックが収まるように位置を整える
-    // 左クリックされた座標から選択されたブロックを探す
+    // 操作中のブロックを探す
     int active_index = LookForActiveBlock(blocks, config);
+    // パズルの区画内にブロックが収まるように位置を整える
     if (active_index != Invalid){
         blocks[active_index].Release();
     }
@@ -195,7 +183,6 @@ void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, 
     // 交換のために値を避難
     int target_section_index = Invalid;
     
-    
     // 操作中のブロックを見つける
     int active_index = LookForActiveBlock(blocks, config);
     // 現座標に位置するブロックを見つける
@@ -206,17 +193,15 @@ void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, 
     // 座標から取得したブロックが操作中のブロックと別のものだったら交換
     if (position_index != active_index && position_index != Invalid){
         // 所属する区画インデックスを交換
-
         target_section_index = blocks[position_index].GetSectionIndex();
         blocks[position_index].SetSectionIndex(blocks[active_index].GetSectionIndex());
         blocks[active_index].SetSectionIndex(target_section_index);
     }
 }
 
-// その座標のブロック
+// その座標に在るブロック
 int PuzzleManager::LookForPositionBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     int i;
-
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
         // i番目のブロックの出力座標X
         double destination_x = sections[blocks[i].GetSectionIndex()].GetDestinationX();
@@ -229,7 +214,7 @@ int PuzzleManager::LookForPositionBlock(Section* sections, Block* blocks, Config
     return Invalid;
 }
 
-// アクティブなブロック
+// 操作中のブロックを探す
 int PuzzleManager::LookForActiveBlock(Block* blocks, Config* config){
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
@@ -240,6 +225,5 @@ int PuzzleManager::LookForActiveBlock(Block* blocks, Config* config){
     return Invalid;
 }
 
-int PuzzleManager::GetStateChoice(){
-    return state_choice;
-}
+// Getter
+int PuzzleManager::GetStateChoice(){ return state_choice; }

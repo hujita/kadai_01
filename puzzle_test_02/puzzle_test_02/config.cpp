@@ -35,11 +35,11 @@ void Config::Set(int value){
 }
 
 void Config::Reset(){
-    state = 0;
-    line = 0;
-    row = 0;
-    type = 0;
-    chain = 0;
+    state = OFF;
+    line = OFF;
+    row = OFF;
+    type = OFF;
+    chain = OFF;
 }
 
 char* Config::GetQuestion(){
@@ -75,19 +75,9 @@ char* Config::GetResult(){
 }
 */
 
-// 値を取得
-int Config::GetState(){
-    return state;
-}
-int Config::GetLine(){
-    return line;
-}
-int Config::GetRow(){
-    return row;
-}
-int Config::GetType(){
-    return type;
-}
-int Config::GetChain(){
-    return chain;
-}
+// Getter
+int Config::GetState(){ return state; }
+int Config::GetLine(){ return line; }
+int Config::GetRow(){ return row; }
+int Config::GetType(){ return type; }
+int Config::GetChain(){ return chain; }

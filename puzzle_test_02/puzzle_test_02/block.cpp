@@ -15,9 +15,6 @@ Block::Block(){
     source_y = 0;
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
-    // 出力先座標
-    //destination_x = 0;
-    //destination_y = 0;
     // ブロック種別
     block_type = 0;
     // 現在位置している区画のインデックス
@@ -46,7 +43,7 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // 出力元
     // 座標 & 高さ &幅
     int position[2] = {};
-    SetSourcePosition(block_type, position);
+    SourcePosition(block_type, position);
     source_x = position[0];
     source_y = position[1];
     source_h = BLOCK_HIGH;
@@ -69,7 +66,7 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
 }
 
 // 出力元画像の座標を取得
-void Block::SetSourcePosition(int block_type, int* position){
+void Block::SourcePosition(int block_type, int* position){
     switch (block_type) {
         case 0:
             position[0] = BLOCK_POSITION_00_X;
@@ -158,22 +155,10 @@ void Block::Move(double event_button_x, double event_button_y){
     click_y = event_button_y;
 }
 
-int Block::GetActive() {
-    return active;
-}
-
-int Block::GetSectionIndex(){
-    return section_index;
-}
-
-int Block::GetBlockType(){
-    return block_type;
-}
-
-void Block::SetSectionIndex(int value){
-    section_index = value;
-}
-
-void Block::SetAlive(int value){
-    alive = value;
-}
+// Getter
+int Block::GetActive() { return active; }
+int Block::GetSectionIndex(){ return section_index; }
+int Block::GetBlockType(){ return block_type; }
+// Setter
+void Block::SetSectionIndex(int value){ section_index = value; }
+void Block::SetAlive(int value){ alive = value; }

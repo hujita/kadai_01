@@ -1,4 +1,5 @@
-//
+// 便利な計算機
+
 //  my_math.h
 //  puzzle_test_02
 //

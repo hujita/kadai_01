@@ -40,7 +40,7 @@ public:
     Game();
     // ゲーム開始
     int Start();
-    // ゲーム初期化
+    // ゲーム初期化処理
     int Initialize();
     // 終了処理
     void Finalize();

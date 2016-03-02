@@ -28,14 +28,13 @@ Game::Game() {
 }
 
 // ゲーム処理
-// 初期化 -> メイン処理 -> 終了処理
 int Game::Start() {
     // 初期化
     if (Initialize() < 0)
         return -1;
-    // メイン処理
+    // メインループ
     MainLoop();
-    // 終了処理
+    // 終了
     Finalize();
     return 0;
 }
@@ -117,11 +116,11 @@ void Game::MainLoop(void) {
     for (;;) {
         // すべてのイベントを処理する
         while (SDL_PollEvent(&event)) {
-            // QUIT イベントが発生するか、ESC キーが押されたら終了する
+            // 終了 (QUIT イベントが発生するか、ESC キーが押されたら)
             if ((event.type == SDL_QUIT) ||
                 (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE))
                 return;
-            
+
             // TOP画面
             if (view_type == VIEW_TOP){
                 // イベント処理
@@ -146,15 +145,16 @@ void Game::MainLoop(void) {
                 }
             }
             
-            // 描画処理
+            // 描画
             Draw(&config, sections, &top, &play, blocks);
         }
     }
 }
 
+// 描画
 void Game::Draw(Config* config, Section* sections, Top* top, Play* play, Block* blocks){
     
-    // 背景を描画
+    // 背景
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 192, 203));
     
     // TOP画面

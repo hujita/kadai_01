@@ -1,4 +1,5 @@
-//
+// キーボード入力変換機
+
 //  my_keyboard.h
 //  puzzle_test_02
 //
@@ -9,7 +10,11 @@
 #ifndef __puzzle_test_02__my_keyboard__
 #define __puzzle_test_02__my_keyboard__
 
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
+
 
 class MyKeyboard {
 public:

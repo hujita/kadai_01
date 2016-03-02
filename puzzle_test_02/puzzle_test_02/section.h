@@ -1,4 +1,5 @@
-//
+// 区画
+
 //  section.h
 //  puzzle_test_02
 //
@@ -32,12 +33,9 @@ public:
     void Initialize(int i, int j, int cnt, Config* config);
     // 区画描画
     void Draw(SDL_Surface* screen, SDL_Surface* section_image);
-    // ゲッタ
+    // Getter
     double GetDestinationX();
     double GetDestinationY();
-    // セッタ
-    void SetDestinationX(double x);
-    void SetDestinationY(double y);
 };
 
 #endif /* defined(__puzzle_test_02__section__) */

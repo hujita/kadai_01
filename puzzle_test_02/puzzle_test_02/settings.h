@@ -10,8 +10,6 @@
 #ifndef __puzzle_test_02__settings__
 #define __puzzle_test_02__settings__
 
-#include <stdio.h>
-
 // 共通
 const int OFF = 0;
 const int ON = 1;

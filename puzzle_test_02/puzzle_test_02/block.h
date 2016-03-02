@@ -1,4 +1,5 @@
-//
+// ブロック
+
 //  block.h
 //  puzzle_test_02
 //
@@ -26,7 +27,7 @@ class Block {
     double source_w;
     // ブロック種別
     int block_type;
-    // 現在位置している区画(整列番号)
+    // 現在位置している区画
     int section_index;
     // 生存
     int alive;
@@ -41,20 +42,21 @@ class Block {
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
-    void SetSourcePosition(int type_block, int* position);
+    // ブロック種別から出力元座標を取得
+    void SourcePosition(int type_block, int* position);
+    // 描画
     void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections);
-    /* void Draw(SDL_Surface* screen, SDL_Surface* block_image, double click_x, double click_y); */
     // ブロックをactiveにして操作対象にする。座標誤差値も更新する
     void Choice(Section* sections, double event_button_x, double event_button_y);
     // ブロックを解放して操作対象ではなくする。
     void Release();
     // ブロックの移動による座標の更新
     void Move(double event_button_x, double event_button_y);
-    // ゲッター
+    // Getter
     int GetActive();
     int GetSectionIndex();
     int GetBlockType();
-    // セッター
+    // Setter
     void SetSectionIndex(int value);
     void SetAlive(int value);
 };

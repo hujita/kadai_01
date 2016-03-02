@@ -11,6 +11,7 @@
 #define __puzzle_test_02__config__
 
 #include <stdio.h>
+#include "settings.h"
 
 class Config {
     // 進行フェーズ
@@ -22,11 +23,11 @@ class Config {
     int chain;
 public:
     Config();
-    // 設定を更新する
+    // 更新
     void Set(int value);
-    // 設定を初期化
+    // リセット
     void Reset();
-    // 設定の質問文を取得
+    // 質問文章を取得
     char* GetQuestion();
     // 設定の現在値を取得
     // 戻り値がうまく取得できず

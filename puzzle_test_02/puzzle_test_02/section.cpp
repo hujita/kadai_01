@@ -18,19 +18,10 @@ Section::Section(){
     // 出力先座標
     destination_x = 0;
     destination_y = 0;
-    // 種別(上下左右が行き止まり #=> 0000, 上下左右にまだブロックがある #=> 1111)
 }
 
 // 区画生成
-// [param] i:行番号, j:列番号, cnt:整列番号, config: 設定インスタンス
-// [return] Section
 void Section::Initialize(int i, int j, int cnt, Config* config){
-    // 出力元
-    // 座標 & 高さ &幅
-    //source_x = position[0];
-    //source_y = position[1];
-    //source_h = BLOCK_HIGH;
-    //source_w = BLOCK_WIDE;
     // 出力先座標
     destination_x = (SECTION_WIDE * i);
     destination_y = (SECTION_HIGH * j);
@@ -50,18 +41,5 @@ void Section::Draw(SDL_Surface* screen, SDL_Surface* section_image){
 }
 
 // Getter
-double Section::GetDestinationX(){
-    return destination_x;
-}
-
-double Section::GetDestinationY(){
-    return destination_y;
-}
-
-// Setter
-void Section::SetDestinationX(double x){
-    destination_x = x;
-}
-void Section::SetDestinationY(double y){
-    destination_y = y;
-}
+double Section::GetDestinationX(){ return destination_x; }
+double Section::GetDestinationY(){ return destination_y; }
