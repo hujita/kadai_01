@@ -24,8 +24,10 @@ public:
     void CreatePuzzle(Section* sections, Block* blocks, Config* config);
     // 連鎖成立確認
     void CheckChain(Config* config, Block* blocks);
-    // 真上のブロックが同種か確認
+    // 真下のブロックが同種か確認
     int CheckRowChain(Config* config, Block* blocks, int before_index);
+    // 横のブロックが同種か確認
+    int CheckLineChain(Config* config, Block* blocks, int before_index);
     // 左クリックを押した。座標から選択されたブロックを探してactiveにする
     void ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // 左クリックを離した。座標からブロック位置をパズル区画内に補正する

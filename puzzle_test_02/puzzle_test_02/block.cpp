@@ -35,6 +35,7 @@ Block::Block(){
 }
 
 // ブロック生成
+// 1列目を埋めてから2列目と埋めていく
 // [param] i:行番号, j:列番号, cnt:整列番号, config: 設定インスタンス
 // [return] Block
 void Block::Initialize(int i, int j, int cnt, Config* config){

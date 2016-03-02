@@ -52,6 +52,7 @@ const int SECTION_HIGH = 70;
 const int SECTION_WIDE = 70;
 const int SECTION_SPACE_WIDE = 7;
 const int SECTION_SPACE_HIGH = 7;
+const int SECTION_LIMIT = 20;
 
 /*
 const char* TEXT_TOP_MAIN = "パズルの設定(1~9で入力)";
