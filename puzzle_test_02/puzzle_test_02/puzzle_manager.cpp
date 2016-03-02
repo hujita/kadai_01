@@ -38,61 +38,53 @@ void PuzzleManager::CheckChain(Config* config, Block* blocks){
     int i;
     int j;
     int cnt;
-    // 全ブロックを確認
+    // 全ブロックを順に確認
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        // 連鎖確認の標的
-        int chain_result = i;
+        // 連鎖確認の標的になっているブロックのインデックス
+        int chain_result_row = i;
+        int chain_result_line = i;
         // 連結しているブロックのインデックスを追加していく
-        std::vector<int> array;
-        // i番目のブロックの連結について確認
-        // 指定されたchain数だけ確認する
+        std::vector<int> array_row;
+        std::vector<int> array_line;
+        // 必要連鎖数だけ確認する
+        // タテ
         for (j = 0; j < config->GetChain(); ++j){
             // 連結が終わっていたら処理しない
-            if (chain_result != Invalid){
+            if (chain_result_row != Invalid){
                 // 最初の一つ目は配列に加える
                 if (j == 0){
-                    array.push_back(i);
+                    array_row.push_back(i);
                 }
                 // 真上のブロックが同じ種類なら真上のブロックのインデックスを返す
-                chain_result = CheckRowChain(config, blocks, chain_result);
+                chain_result_row = CheckRowChain(config, blocks, chain_result_row);
                 // 真上のブロックが同じ種類なら配列にインデックスを追加
-                if (chain_result != Invalid)
-                    array.push_back(chain_result);
+                if (chain_result_row != Invalid)
+                    array_row.push_back(chain_result_row);
                 // 必要連結回数目もchain_resultが−1になっていなければ配列内のブロックを全て消滅させる
                 if (j == (config->GetChain() - 1)){
                     for (cnt = 0; cnt < config->GetChain(); ++cnt){
-                        blocks[array[cnt]].SetAlive(OFF);
+                        blocks[array_row[cnt]].SetAlive(OFF);
                     }
                 }
             }
         }
-    }
-    
-    // 横方向に連結していたらブロック消滅
-    // 全ブロックを確認
-    for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        // 連鎖確認の標的
-        int chain_result = i;
-        // 連結しているブロックのインデックスを追加していく
-        std::vector<int> array;
-        // i番目のブロックの連結について確認
-        // 指定されたchain数だけ確認する
+        // ヨコ
         for (j = 0; j < config->GetChain(); ++j){
             // 連結が終わっていたら処理しない
-            if (chain_result != Invalid){
+            if (chain_result_line != Invalid){
                 // 最初の一つ目は配列に加える
                 if (j == 0){
-                    array.push_back(i);
+                    array_line.push_back(i);
                 }
                 // 真上のブロックが同じ種類なら真上のブロックのインデックスを返す
-                chain_result = CheckLineChain(config, blocks, chain_result);
+                chain_result_line = CheckLineChain(config, blocks, chain_result_line);
                 // 真上のブロックが同じ種類なら配列にインデックスを追加
-                if (chain_result != Invalid)
-                    array.push_back(chain_result);
+                if (chain_result_line != Invalid)
+                    array_line.push_back(chain_result_line);
                 // 必要連結回数目もchain_resultが−1になっていなければ配列内のブロックを全て消滅させる
                 if (j == (config->GetChain() - 1)){
                     for (cnt = 0; cnt < config->GetChain(); ++cnt){
-                        blocks[array[cnt]].SetAlive(OFF);
+                        blocks[array_line[cnt]].SetAlive(OFF);
                     }
                 }
             }
