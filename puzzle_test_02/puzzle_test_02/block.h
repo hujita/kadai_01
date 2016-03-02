@@ -39,11 +39,12 @@ class Block {
     // ブロックのクリックされている座標
     double click_x;
     double click_y;
+
+    // ブロック種別から出力元座標を取得
+    void SourcePosition(int type_block, int* position);
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
-    // ブロック種別から出力元座標を取得
-    void SourcePosition(int type_block, int* position);
     // 描画
     void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections);
     // ブロックをactiveにして操作対象にする。座標誤差値も更新する

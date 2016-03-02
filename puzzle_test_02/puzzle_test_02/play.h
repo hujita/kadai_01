@@ -19,8 +19,6 @@
 #include "section.h"
 #include "block.h"
 
-
-
 class Play {
 public:
     // イベント処理

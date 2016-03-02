@@ -20,8 +20,6 @@
 #include "block.h"
 #include "my_keyboard.h"
 
-
-
 class Top {
     // TOP画面メインテキスト(案内)
     SDL_Surface* word_main;

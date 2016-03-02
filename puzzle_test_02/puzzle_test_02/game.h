@@ -35,11 +35,7 @@ class Game {
     SDL_Surface* block_image;
     /// フォント
     TTF_Font* font;
-public:
-    // クラス初期化
-    Game();
-    // ゲーム開始
-    int Start();
+    
     // ゲーム初期化処理
     int Initialize();
     // 終了処理
@@ -48,6 +44,11 @@ public:
     void MainLoop();
     // 描画処理
     void Draw(Config* config, Section* sectinos, Top* top, Play* play, Block* block);
+public:
+    // クラス初期化
+    Game();
+    // ゲーム開始
+    int Start();
 };
 
 #endif /* defined(__puzzle_test_02__game__) */
