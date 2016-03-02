@@ -8,16 +8,6 @@
 
 #include "puzzle_manager.h"
 
-//
-//  puzzle.cpp
-//  puzzle_test_02
-//
-//  Created by hujita on 2016/02/25.
-//  Copyright (c) 2016年 hujita. All rights reserved.
-//
-
-#include "puzzle_manager.h"
-
 PuzzleManager::PuzzleManager(){
     state_choice = 0;
 }
@@ -42,6 +32,66 @@ void PuzzleManager::CreatePuzzle(Section* sections, Block* blocks, Config* confi
     }
 }
 
+// 連鎖成立しているか確認
+void PuzzleManager::CheckChain(Config* config, Block* blocks){
+    // 縦方向に連結していたらブロック消滅
+    int i;
+    int j;
+    int cnt;
+    // 全ブロックを確認
+    for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
+        // 連鎖確認の標的
+        int chain_result = i;
+        // 連結しているブロックのインデックスを追加していく
+        std::vector<int> array;
+        // i番目のブロックの連結について確認
+        // 指定されたchain数だけ確認する
+        for (j = 0; j < config->GetChain(); ++j){
+            // 連結が終わっていたら処理しない
+            if (chain_result != Invalid){
+                // 最初の一つ目は配列に加える
+                if (j == 0){
+                    array.push_back(i);
+                }
+                // 真上のブロックが同じ種類なら真上のブロックのインデックスを返す
+                chain_result = CheckRowChain(config, blocks, chain_result);
+                //std::cout << "chain_result=" << chain_result << std::endl;
+                // 真上のブロックが同じ種類なら配列にインデックスを追加
+                if (chain_result != Invalid)
+                    array.push_back(chain_result);
+                // 必要連結回数目もchain_resultが999になっていなければ配列内のブロックを全て消滅させる
+                if (j == (config->GetChain() - 1)){
+                    for (cnt = 0; cnt < config->GetChain(); ++cnt){
+                        blocks[array[cnt]].SetAlive(OFF);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 縦の連鎖チェック
+int PuzzleManager::CheckRowChain(Config* config, Block* blocks, int before_index){
+    int i;
+    // 全ブロックの中から
+    for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
+        // 真上のブロックを見つける && 真上のブロックが最上段のブロックではない
+        if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() - config->GetLine()) && blocks[before_index].GetSectionIndex() > (config->GetLine() - 1)){
+            std::cout << "i=" << i << std::endl;
+            std::cout << "be_i=" << before_index << std::endl;
+            std::cout << "i_type=" << blocks[i].GetBlockType() << std::endl;
+            std::cout << "be_i_type=" << blocks[before_index].GetBlockType() << std::endl;
+            // ブロックの種類が同じなら真上のブロックのインデックスを返す
+            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType()){
+                std::cout << "true" << std::endl;
+                return i;
+            }
+            
+        }
+    }
+    return Invalid;
+}
+
 // 左クリックされた座標から選択されたブロックを探してactiveにする
 void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // 左クリックされた座標から選択されたブロックを探す
@@ -57,11 +107,11 @@ void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config
 // 左クリックから指を離して操作中のブロックを解放する
 void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // パズルの外枠からブロックが出れないように補正
-    if (event_button_x >= config->GetRow() * SECTION_HIGH) {
-        event_button_x = config->GetRow() * SECTION_HIGH - 10;
+    if (event_button_x >= config->GetLine() * SECTION_HIGH) {
+        event_button_x = config->GetLine() * SECTION_HIGH - 10;
     }
-    if (event_button_y >= config->GetLine() * SECTION_WIDE){
-        event_button_y = config->GetLine() * SECTION_WIDE - 10;
+    if (event_button_y >= config->GetRow() * SECTION_WIDE){
+        event_button_y = config->GetRow() * SECTION_WIDE - 10;
     }
     
     // パズルの区画内にブロックが収まるように位置を整える
@@ -74,17 +124,17 @@ void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* confi
     // ステータスをオフにする
     state_choice = OFF;
     // 連鎖チェック
-    //CheckChain();
+    CheckChain(config, blocks);
 }
 
 // ブロックを操作
 void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // パズルの外枠からブロックが出れないように補正
-    if (event_button_x >= config->GetRow() * SECTION_HIGH) {
-        event_button_x = config->GetRow() * SECTION_HIGH - 10;
+    if (event_button_x >= config->GetLine() * SECTION_HIGH) {
+        event_button_x = config->GetLine() * SECTION_HIGH - 10;
     }
-    if (event_button_y >= config->GetLine() * SECTION_WIDE){
-        event_button_y = config->GetLine() * SECTION_WIDE - 10;
+    if (event_button_y >= config->GetRow() * SECTION_WIDE){
+        event_button_y = config->GetRow() * SECTION_WIDE - 10;
     }
     
     // 座標が他のブロックの領域に入ったら配列の中身の値を交換
@@ -98,9 +148,6 @@ void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, 
     int position_index = LookForPositionBlock(sections, blocks, config, event_button_x, event_button_y);
     // 移動に合わせて出力先座標更新
     blocks[active_index].Move(event_button_x, event_button_y);
-    
-    std::cout << "position_index=" << position_index << std::endl;
-    std::cout << "active_index=" << active_index << std::endl;
     
     // 座標から取得したブロックが操作中のブロックと別のものだったら交換
     if (position_index != active_index && position_index != Invalid){
@@ -117,11 +164,6 @@ int PuzzleManager::LookForPositionBlock(Section* sections, Block* blocks, Config
     int i;
 
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        
-        std::cout << "event_button_x" << event_button_x << std::endl;
-        std::cout << "sections[blocks[i].GetSectionIndex()].GetDestinationX()" << sections[blocks[i].GetSectionIndex()].GetDestinationX() << std::endl;
-        std::cout << "sections[blocks[i].GetSectionIndex()].GetDestinationY()" << sections[blocks[i].GetSectionIndex()].GetDestinationY() << std::endl;
-        
         // i番目のブロックの出力座標X
         double destination_x = sections[blocks[i].GetSectionIndex()].GetDestinationX();
         // i番目のブロックの出力座標Y

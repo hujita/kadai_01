@@ -32,8 +32,8 @@ void Section::Initialize(int i, int j, int cnt, Config* config){
     //source_h = BLOCK_HIGH;
     //source_w = BLOCK_WIDE;
     // 出力先座標
-    destination_x = (SECTION_WIDE * j);
-    destination_y = (SECTION_HIGH * i);
+    destination_x = (SECTION_WIDE * i);
+    destination_y = (SECTION_HIGH * j);
 }
 
 // 区画描画

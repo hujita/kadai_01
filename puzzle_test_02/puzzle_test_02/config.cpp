@@ -58,6 +58,9 @@ char* Config::GetQuestion(){
         case 3:
             word_sub = "ブロックを繋げるべき数を指定してください";
             break;
+        case 4:
+            word_sub = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
+            break;
     }
     return word_sub;
 }

@@ -56,7 +56,7 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // 現在位置している区画(整列番号)
     section_index = cnt;
     // 生存
-    alive = 0;
+    alive = 1;
     // アクティブ(マウス左クリックで選択されている)
     active = 0;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
@@ -114,14 +114,11 @@ void Block::SetSourcePosition(int block_type, int* position){
 void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections){
     SDL_Rect srcrect;
     // 操作対象でないブロックは、自身が所属している区画の出力座標位置を参考に、自身の出力位置を決める
-    //std::cout << "section_index=" << section_index << std::endl;
     double destination_x = sections[section_index].GetDestinationX();
     double destination_y = sections[section_index].GetDestinationY();
-    SDL_Rect desrect = { (int)destination_x, (int)destination_y };
+    SDL_Rect desrect = { (int)(destination_x + SECTION_SPACE_WIDE), (int)(destination_y + SECTION_SPACE_HIGH) };
     // 操作中のブロックは、
     if (active == ON){
-        //std::cout << "click_x-difference_x=" << click_x << "-" << difference_x << std::endl;
-        //std::cout << "click_y-difference_y=" << click_y << "-" << difference_y << std::endl;
         desrect = { (int)(click_x - difference_x), (int)(click_y - difference_y) };
     }
 
@@ -130,7 +127,9 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* section
     srcrect.w = source_w;
     srcrect.h = source_h;
 
-    SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
+    if (alive == ON){
+        SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
+    }
 }
 
 void Block::Choice(Section* sections, double event_button_x, double event_button_y){
@@ -166,6 +165,14 @@ int Block::GetSectionIndex(){
     return section_index;
 }
 
+int Block::GetBlockType(){
+    return block_type;
+}
+
 void Block::SetSectionIndex(int value){
     section_index = value;
+}
+
+void Block::SetAlive(int value){
+    alive = value;
 }

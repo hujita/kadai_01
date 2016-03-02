@@ -17,7 +17,6 @@
 #include "config.h"
 #include "my_keyboard.h"
 #include "block.h"
-#include "puzzle.h"
 #include "puzzle_manager.h"
 
 class Game {
@@ -53,6 +52,7 @@ class Game {
     /// フォント
     TTF_Font* font;
     // 色
+    SDL_Color black;
     SDL_Color white;
     // メインテキスト描画位置
     SDL_Rect destrect_main_word;

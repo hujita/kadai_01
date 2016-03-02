@@ -24,9 +24,6 @@ class Block {
     double source_y;
     double source_h;
     double source_w;
-    // 出力先座標
-    //double destination_x;
-    //double destination_y;
     // ブロック種別
     int block_type;
     // 現在位置している区画(整列番号)
@@ -56,8 +53,10 @@ public:
     // ゲッター
     int GetActive();
     int GetSectionIndex();
+    int GetBlockType();
     // セッター
     void SetSectionIndex(int value);
+    void SetAlive(int value);
 };
 
 #endif /* defined(__puzzle_test_02__block__) */

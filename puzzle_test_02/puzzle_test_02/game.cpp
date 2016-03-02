@@ -56,6 +56,7 @@ Game::Game() {
     // フォント
     font = NULL;
     // 色
+    black = {0x00, 0x00, 0x00};
     white = {0xff, 0xff, 0xff};
     // メインテキスト描画位置
     destrect_main_word = { 330, 210 };
@@ -91,7 +92,7 @@ int Game::Initialize(void)
         return -1;
     }
     
-    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1000,850,0);
+    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1400,850,0);
     screen = SDL_GetWindowSurface(window);
     if (screen == NULL) {
         fprintf(stderr, "画面の初期化に失敗しました：%s\n", SDL_GetError());
@@ -100,19 +101,13 @@ int Game::Initialize(void)
     }
     
     /* 画像を読み込む */
-    background_image = IMG_Load("background.gif");
-    if (background_image == NULL) {
-        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
-        return -1;
-    }
     section_image = IMG_Load("section_image.png");
     if (section_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
         SDL_Quit();
         return -1;
     }
-    block_image = IMG_Load("block_image.jpg");
+    block_image = IMG_Load("block_image.png");
     if (block_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
         SDL_Quit();
@@ -240,21 +235,23 @@ void Game::MainLoop(void)
 }
 
 void Game::Draw(Config* config, Section* sections, Block* blocks){
-    // 背景を描画する
-    SDL_BlitSurface(background_image, NULL, screen, NULL);
+    
+    // 背景を描画
+    //SDL_BlitSurface(background_image, NULL, screen, NULL);
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 192, 203));
     
     // TOP画面
     if (view_type == VIEW_TOP){
         // メインテキスト用意
-        word_main = TTF_RenderUTF8_Blended(font, "パズルの設定(1~9で入力)", white);
+        word_main = TTF_RenderUTF8_Blended(font, "パズルの設定(1~9で入力)", black);
         // サブテキスト用意
-        word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), white);
+        word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), black);
         // 入力内容表示テキスト用意
         //config->GetResult();戻り値がうまくいかず
         char buf[50];
         sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d",
                 config->GetLine(), config->GetRow(), config->GetType(), config->GetChain());
-        word_input = TTF_RenderUTF8_Blended(font, buf, white);
+        word_input = TTF_RenderUTF8_Blended(font, buf, black);
         
         // メインテキスト描画
         SDL_BlitSurface(word_main, NULL, screen, &destrect_main_word);

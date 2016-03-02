@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		960B5CF61C85875500B4DE6A /* section_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 960B5CF51C85875500B4DE6A /* section_image.png */; };
+		96B117511C868DC300E050E5 /* block_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B117501C868DC300E050E5 /* block_image.png */; };
 		96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465301C856A4500C02B44 /* puzzle_manager.cpp */; };
 		96B465381C856AD400C02B44 /* section.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B465361C856AD400C02B44 /* section.cpp */; };
 		96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96B860D91C7DB33100E0A8F6 /* main.mm */; };
@@ -17,14 +18,11 @@
 		96B860F61C7DB39A00E0A8F6 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B860F51C7DB39A00E0A8F6 /* SDL2.framework */; };
 		96B860F81C7DB3A600E0A8F6 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B860F71C7DB3A600E0A8F6 /* SDL2_ttf.framework */; };
 		96B860FA1C7DB3B700E0A8F6 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B860F91C7DB3B700E0A8F6 /* SDL2_image.framework */; };
-		96B860FD1C7DB41500E0A8F6 /* block_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 96B860FC1C7DB41500E0A8F6 /* block_image.jpg */; };
-		96B860FF1C7DB43900E0A8F6 /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 96B860FE1C7DB43900E0A8F6 /* background.gif */; };
 		96B861021C7DB44900E0A8F6 /* AquaKana.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 96B861011C7DB44900E0A8F6 /* AquaKana.ttc */; };
 		96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861031C7DBA4400E0A8F6 /* game.cpp */; };
 		96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861061C7DBEBF00E0A8F6 /* settings.cpp */; };
 		96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861091C7DCB0F00E0A8F6 /* config.cpp */; };
 		96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA209D1C7EC7D200CDE216 /* block.cpp */; };
-		96BA20A51C7EE66B00CDE216 /* puzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA20A31C7EE66B00CDE216 /* puzzle.cpp */; };
 		96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE6681C83F7060029F2D6 /* my_math.cpp */; };
 		96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */; };
 /* End PBXBuildFile section */
@@ -41,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		960B5CF51C85875500B4DE6A /* section_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section_image.png; sourceTree = "<group>"; };
+		96B117501C868DC300E050E5 /* block_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_image.png; sourceTree = "<group>"; };
 		96B465301C856A4500C02B44 /* puzzle_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = puzzle_manager.cpp; sourceTree = "<group>"; };
 		96B465311C856A4500C02B44 /* puzzle_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puzzle_manager.h; sourceTree = "<group>"; };
 		96B465361C856AD400C02B44 /* section.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = section.cpp; sourceTree = "<group>"; };
@@ -56,8 +55,6 @@
 		96B860F51C7DB39A00E0A8F6 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		96B860F71C7DB3A600E0A8F6 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_ttf.framework; sourceTree = "<group>"; };
 		96B860F91C7DB3B700E0A8F6 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
-		96B860FC1C7DB41500E0A8F6 /* block_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = block_image.jpg; sourceTree = "<group>"; };
-		96B860FE1C7DB43900E0A8F6 /* background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background.gif; sourceTree = "<group>"; };
 		96B861011C7DB44900E0A8F6 /* AquaKana.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaKana.ttc; sourceTree = "<group>"; };
 		96B861031C7DBA4400E0A8F6 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		96B861041C7DBA4400E0A8F6 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
@@ -67,8 +64,6 @@
 		96B8610A1C7DCB0F00E0A8F6 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		96BA209D1C7EC7D200CDE216 /* block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block.cpp; sourceTree = "<group>"; };
 		96BA209E1C7EC7D200CDE216 /* block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block.h; sourceTree = "<group>"; };
-		96BA20A31C7EE66B00CDE216 /* puzzle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = puzzle.cpp; sourceTree = "<group>"; };
-		96BA20A41C7EE66B00CDE216 /* puzzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puzzle.h; sourceTree = "<group>"; };
 		96BAE6681C83F7060029F2D6 /* my_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_math.cpp; sourceTree = "<group>"; };
 		96BAE6691C83F7060029F2D6 /* my_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_math.h; sourceTree = "<group>"; };
 		96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_keyboard.cpp; sourceTree = "<group>"; };
@@ -140,8 +135,6 @@
 				96B8610A1C7DCB0F00E0A8F6 /* config.h */,
 				96BA209D1C7EC7D200CDE216 /* block.cpp */,
 				96BA209E1C7EC7D200CDE216 /* block.h */,
-				96BA20A31C7EE66B00CDE216 /* puzzle.cpp */,
-				96BA20A41C7EE66B00CDE216 /* puzzle.h */,
 				96BAE6681C83F7060029F2D6 /* my_math.cpp */,
 				96BAE6691C83F7060029F2D6 /* my_math.h */,
 				96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */,
@@ -184,9 +177,8 @@
 		96B860FB1C7DB3E900E0A8F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96B117501C868DC300E050E5 /* block_image.png */,
 				960B5CF51C85875500B4DE6A /* section_image.png */,
-				96B860FE1C7DB43900E0A8F6 /* background.gif */,
-				96B860FC1C7DB41500E0A8F6 /* block_image.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -279,11 +271,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96B860FD1C7DB41500E0A8F6 /* block_image.jpg in Resources */,
 				960B5CF61C85875500B4DE6A /* section_image.png in Resources */,
 				96B861021C7DB44900E0A8F6 /* AquaKana.ttc in Resources */,
 				96B860DC1C7DB33100E0A8F6 /* Images.xcassets in Resources */,
-				96B860FF1C7DB43900E0A8F6 /* background.gif in Resources */,
+				96B117511C868DC300E050E5 /* block_image.png in Resources */,
 				96B860DF1C7DB33100E0A8F6 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +299,6 @@
 				96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */,
 				96B860DA1C7DB33100E0A8F6 /* main.mm in Sources */,
 				96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */,
-				96BA20A51C7EE66B00CDE216 /* puzzle.cpp in Sources */,
 				96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */,
 				96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */,
 				96B465381C856AD400C02B44 /* section.cpp in Sources */,
