@@ -27,17 +27,17 @@ const int BLOCK_HIGH = 58;
 const int BLOCK_WIDE = 58;
 const int BLOCK_POSITION_00_X = 109;
 const int BLOCK_POSITION_00_Y = 39;
-const int BLOCK_POSITION_01_X = 237;
+const int BLOCK_POSITION_01_X = 365;
 const int BLOCK_POSITION_01_Y = 39;
-const int BLOCK_POSITION_02_X = 365;
+const int BLOCK_POSITION_02_X = 623;
 const int BLOCK_POSITION_02_Y = 39;
-const int BLOCK_POSITION_03_X = 493;
-const int BLOCK_POSITION_03_Y = 39;
-const int BLOCK_POSITION_04_X = 623;
+const int BLOCK_POSITION_03_X = 237;
+const int BLOCK_POSITION_03_Y = 179;
+const int BLOCK_POSITION_04_X = 237;
 const int BLOCK_POSITION_04_Y = 39;
-const int BLOCK_POSITION_05_X = 109;
-const int BLOCK_POSITION_05_Y = 179;
-const int BLOCK_POSITION_06_X = 237;
+const int BLOCK_POSITION_05_X = 493;
+const int BLOCK_POSITION_05_Y = 39;
+const int BLOCK_POSITION_06_X = 109;
 const int BLOCK_POSITION_06_Y = 179;
 const int BLOCK_POSITION_07_X = 365;
 const int BLOCK_POSITION_07_Y = 179;
@@ -53,13 +53,15 @@ const int SECTION_SPACE_WIDE = 7;
 const int SECTION_SPACE_HIGH = 7;
 const int SECTION_LIMIT = 20;
 
-/*
-const char* TEXT_TOP_MAIN = "パズルの設定(1~9で入力)";
-const char* TEXT_TOP_SUB_0 = "行数を指定してください";
-const char* TEXT_TOP_SUB_1 = "列数を指定してください";
-const char* TEXT_TOP_SUB_2 = "ブロックの種類数を指定してください";
-const char* TEXT_TOP_SUB_3 = "ブロックを繋げるべき数を指定してください";
-const char* TEXT_TOP_SUB_4 = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
-*/
+
+//const char word_top_main[] = "パズルの設定(1~9で入力)";
+//const char word_top_sub_0[] = "行数を指定してください";
+//const char word_top_sub_1[] = "列数を指定してください";
+//const char word_top_sub_2[] = "ブロックの種類数を指定してください";
+//const char word_top_sub_3[] = "ブロックを繋げるべき数を指定してください";
+//const char word_top_sub_4[] = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
+
+//const char* TEXT_TOP_SUB_4 = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
+
 
 #endif /* defined(__puzzle_test_02__settings__) */
