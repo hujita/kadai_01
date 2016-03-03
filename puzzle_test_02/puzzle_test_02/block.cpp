@@ -8,7 +8,7 @@
 
 #include "block.h"
 
-Block::Block(){
+Block::Block() {
     // 出力元
     // 座標 & 高さ &幅
     source_x = 0;

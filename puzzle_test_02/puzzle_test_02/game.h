@@ -24,7 +24,6 @@
 class Game {
     // 画面遷移用変数(TOP:0, PLAY:1)
     int view_type;
-
     // 画面
     SDL_Window* window;
     // 画面の描画領域

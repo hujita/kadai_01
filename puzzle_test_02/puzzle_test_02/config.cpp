@@ -8,7 +8,7 @@
 
 #include "config.h"
 
-Config::Config(){
+Config::Config() {
     state = 0;
     line = 0;
     row = 0;
@@ -31,7 +31,8 @@ void Config::Set(int value){
             chain = value;
             break;
     }
-    ++state;
+    if (state < CONFIG_STATE_MAX)
+        ++state;
 }
 
 void Config::Reset(){
@@ -75,8 +76,15 @@ char* Config::GetResult(){
 }
 */
 
+// 全ての設定が完了済みか
+int Config::FlagFinish(){
+    int result = OFF;
+    if (state == CONFIG_STATE_MAX)
+        result = ON;
+    return result;
+}
+
 // Getter
-int Config::GetState(){ return state; }
 int Config::GetLine(){ return line; }
 int Config::GetRow(){ return row; }
 int Config::GetType(){ return type; }

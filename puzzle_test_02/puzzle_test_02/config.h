@@ -32,9 +32,10 @@ public:
     // 設定の現在値を取得
     // 戻り値がうまく取得できず
     //char* GetResult();
+    // 設定終了しているか
+    int FlagFinish();
     
     // Getter
-    int GetState();
     int GetLine();
     int GetRow();
     int GetType();

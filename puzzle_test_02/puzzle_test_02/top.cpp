@@ -27,7 +27,7 @@ Top::Top() {
 
 int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
     // TOP画面での入力が完了したか
-    int next_view = OFF;
+    int view_next = OFF;
     // キーボード入力変換機
     MyKeyboard my_keyboard;
     
@@ -42,16 +42,16 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
         // エンターキーなら
         if (event->key.keysym.sym == SDLK_RETURN){
             // 設定が終了しているなら
-            if (config->GetState() >= CONFIG_STATE_MAX) {
+            if (config->FlagFinish() == ON) {
                 // パズル生成
                 puzzle_manager->CreatePuzzle(sections, blocks, config);
                 // PLAY画面へ遷移
-                next_view = VIEW_PLAY;
+                view_next = ON;
             }
         }
     }
     
-    return next_view;
+    return view_next;
 }
 
 void Top::Draw(SDL_Surface* screen, Config* config, TTF_Font* font){

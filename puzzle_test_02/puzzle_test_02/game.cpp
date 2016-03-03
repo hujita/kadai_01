@@ -14,7 +14,6 @@
 Game::Game() {
     // 画面遷移用変数(TOP:0, PLAY:1)
     view_type = 0;
-    
     // 画面
     window = NULL;
     // 画面の描画領域
@@ -124,7 +123,10 @@ void Game::MainLoop(void) {
             // TOP画面
             if (view_type == VIEW_TOP){
                 // イベント処理
-                view_type = top.Event(&event, &config, &puzzle_manager, sections, blocks);
+                int result = top.Event(&event, &config, &puzzle_manager, sections, blocks);
+                if (result == ON){
+                    view_type = VIEW_PLAY;
+                }
             }
             
             // PLAY画面
