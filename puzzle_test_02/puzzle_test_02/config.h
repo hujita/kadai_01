@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include "settings.h"
+#include "my_text.h"
 
 class Config {
     // 進行フェーズ
@@ -31,9 +32,6 @@ public:
     void Reset();
     // 質問文章を取得
     char* GetQuestion();
-    // 設定の現在値を取得
-    // 戻り値がうまく取得できず
-    //char* GetResult();
     // 設定終了しているか
     int FlagFinish();
     

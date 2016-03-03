@@ -80,28 +80,29 @@ void Config::Reset(){
 }
 
 char* Config::GetQuestion(){
+    MyText my_text;
     // 質問文
     char* word_sub = NULL;
     switch (state){
         case 0:
-            word_sub = "行数を指定してください(1~20)";
+            word_sub = my_text.GetConfigQuestion0();
             break;
         case 1:
-            word_sub = "列数を指定してください(1~12)";
+            word_sub = my_text.GetConfigQuestion1();
             break;
         case 2:
-            word_sub = "ブロックの種類数を指定してください(1~9)";
+            word_sub = my_text.GetConfigQuestion2();
             break;
         case 3:
-            word_sub = "ブロックを繋げるべき数を指定してください(行数列数どちらかよりは小さい数値)";
+            word_sub = my_text.GetConfigQuestion3();
             break;
         case 4:
-            word_sub = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
+            word_sub = my_text.GetConfigQuestionFinish();
             break;
     }
     
-    // questionもword_subの戻り値をstd::coutで出力すると同じ結果になるけど、なぜかquestionは文字化けしてしまう
-    //UTF8じゃないとか？
+    // questionもword_subの戻り値をstd::coutで出力すると同じ文言が出力されるけど、なぜかTTF_RenderUTF8_Blendedで描画するとquestionは文字化けしてしまう
+    //文字コードの問題？
     //char question[100];
     //string word_su;
     //word_su = WORD_TOP_SUB_0;
@@ -116,16 +117,6 @@ char* Config::GetQuestion(){
     
     return word_sub;
 }
-
-/* 戻り値がうまく取得できず
-char* Config::GetResult(){
-    char* word_result = NULL;
-    char buf[50];
-    sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d", line, row, type, chain);
-    word_result = buf;
-    return word_result;
-}
-*/
 
 // 全ての設定が完了済みか
 int Config::FlagFinish(){

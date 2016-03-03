@@ -61,16 +61,14 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
 }
 
 void Top::Draw(SDL_Surface* screen, Config* config, TTF_Font* font){
+    MyText my_text;
     // メインテキスト用意
-    word_main = TTF_RenderUTF8_Blended(font, "パズルの設定", black);
+    word_main = TTF_RenderUTF8_Blended(font, my_text.GetConfigMain(), black);
     // サブテキスト用意
-    //char buff = *config->GetQuestion();
-    //std::cout << "kkk" << config->GetQuestion() << std::endl;
     word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), black);
     // 入力内容表示テキスト用意
-    //config->GetResult();戻り値がうまくいかず
     char buf[150];
-    sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d",
+    sprintf(buf, my_text.GetConfigInputResult(),
             config->GetLine(), config->GetRow(), config->GetType(), config->GetChain());
     word_input = TTF_RenderUTF8_Blended(font, buf, black);
     

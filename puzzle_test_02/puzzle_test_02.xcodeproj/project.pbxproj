@@ -24,6 +24,7 @@
 		96B861051C7DBA4400E0A8F6 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861031C7DBA4400E0A8F6 /* game.cpp */; };
 		96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861061C7DBEBF00E0A8F6 /* settings.cpp */; };
 		96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B861091C7DCB0F00E0A8F6 /* config.cpp */; };
+		96B862311C883C450062B5C7 /* my_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B8622F1C883C450062B5C7 /* my_text.cpp */; };
 		96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA209D1C7EC7D200CDE216 /* block.cpp */; };
 		96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE6681C83F7060029F2D6 /* my_math.cpp */; };
 		96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */; };
@@ -68,6 +69,8 @@
 		96B861071C7DBEBF00E0A8F6 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		96B861091C7DCB0F00E0A8F6 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		96B8610A1C7DCB0F00E0A8F6 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		96B8622F1C883C450062B5C7 /* my_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_text.cpp; sourceTree = "<group>"; };
+		96B862301C883C450062B5C7 /* my_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_text.h; sourceTree = "<group>"; };
 		96BA209D1C7EC7D200CDE216 /* block.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = block.cpp; sourceTree = "<group>"; };
 		96BA209E1C7EC7D200CDE216 /* block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block.h; sourceTree = "<group>"; };
 		96BAE6681C83F7060029F2D6 /* my_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_math.cpp; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 				968AE5531C86BEF8006FB5B7 /* top.h */,
 				968AE5551C86C7B5006FB5B7 /* play.cpp */,
 				968AE5561C86C7B5006FB5B7 /* play.h */,
+				96B8622F1C883C450062B5C7 /* my_text.cpp */,
+				96B862301C883C450062B5C7 /* my_text.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 			files = (
 				96B861081C7DBEBF00E0A8F6 /* settings.cpp in Sources */,
 				96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */,
+				96B862311C883C450062B5C7 /* my_text.cpp in Sources */,
 				968AE5571C86C7B5006FB5B7 /* play.cpp in Sources */,
 				96B8610B1C7DCB0F00E0A8F6 /* config.cpp in Sources */,
 				96B465321C856A4500C02B44 /* puzzle_manager.cpp in Sources */,
