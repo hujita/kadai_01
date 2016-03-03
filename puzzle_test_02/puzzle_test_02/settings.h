@@ -10,6 +10,9 @@
 #ifndef __puzzle_test_02__settings__
 #define __puzzle_test_02__settings__
 
+#include <iostream>
+using namespace std;
+
 // 共通
 const int OFF = 0;
 const int ON = 1;
@@ -19,8 +22,12 @@ const int VIEW_TOP = 0;
 const int VIEW_PLAY = 1;
 // 設定
 const int CONFIG_STATE_MAX = 4;
+const int CONFIG_LINE_MAX = 20;
+const int CONFIG_ROW_MAX = 12;
+const int CONFIG_TYPE_MAX = 9;
+
 // ブロック
-const int BLOCK_MAX = 81;
+const int BLOCK_MAX = 12 * 20;
 const int BLOCK_HIGH = 58;
 const int BLOCK_WIDE = 58;
 const int BLOCK_POSITION_00_X = 109;
@@ -42,7 +49,7 @@ const int BLOCK_POSITION_07_Y = 179;
 const int BLOCK_POSITION_08_X = 493;
 const int BLOCK_POSITION_08_Y = 179;
 // 区画
-const int SECTION_MAX = 81;
+const int SECTION_MAX = 12 * 20;
 const int SECTION_SOURCE_X = 8;
 const int SECTION_SOURCE_Y = 8;
 const int SECTION_HIGH = 70;
@@ -52,12 +59,12 @@ const int SECTION_SPACE_HIGH = 7;
 const int SECTION_LIMIT = 20;
 
 
-const char WORD_TOP_MAIN[] = "パズルの設定(1~9で入力)";
-const char WORD_TOP_SUB_0[] = "行数を指定してください";
-const char WORD_TOP_SUB_1[] = "列数を指定してください";
-const char WORD_TOP_SUB_2[] = "ブロックの種類数を指定してください";
-const char WORD_TOP_SUB_3[] = "ブロックを繋げるべき数を指定してください";
-const char WORD_TOP_SUB_4[] = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
+const string WORD_TOP_MAIN = "パズルの設定(1~9で入力)";
+const string WORD_TOP_SUB_0 = "行数を指定してください";
+const string WORD_TOP_SUB_1 = "列数を指定してください";
+const string WORD_TOP_SUB_2 = "ブロックの種類数を指定してください";
+const string WORD_TOP_SUB_3 = "ブロックを繋げるべき数を指定してください";
+const string WORD_TOP_SUB_FINISH = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
 
 //const char* TEXT_TOP_SUB_4 = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
 

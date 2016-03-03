@@ -35,8 +35,9 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
     if (event->type == SDL_KEYDOWN){
         // 数値キーなら数値に変換
         int input_value = my_keyboard.CastIntFromKey(event->key.keysym.sym);
-        // ゲームの設定更新
-        if (input_value < 10){
+        
+        // ゲームの設定値更新
+        if (input_value > 0 && input_value < 10){
             config->Set(input_value);
         }
         // エンターキーなら
@@ -48,6 +49,11 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
                 // PLAY画面へ遷移
                 view_next = ON;
             }
+            // 設定が終了していないなら
+            if (config->FlagFinish() == OFF){
+                // 設定フェイズの更新
+                config->UpdateState();
+            }
         }
     }
     
@@ -56,12 +62,14 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
 
 void Top::Draw(SDL_Surface* screen, Config* config, TTF_Font* font){
     // メインテキスト用意
-    word_main = TTF_RenderUTF8_Blended(font, "パズルの設定(1~9で入力)", black);
+    word_main = TTF_RenderUTF8_Blended(font, "パズルの設定", black);
     // サブテキスト用意
+    //char buff = *config->GetQuestion();
+    //std::cout << "kkk" << config->GetQuestion() << std::endl;
     word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), black);
     // 入力内容表示テキスト用意
     //config->GetResult();戻り値がうまくいかず
-    char buf[50];
+    char buf[150];
     sprintf(buf, "行数：%d  列数：%d  ブロック：%d  連鎖：%d",
             config->GetLine(), config->GetRow(), config->GetType(), config->GetChain());
     word_input = TTF_RenderUTF8_Blended(font, buf, black);

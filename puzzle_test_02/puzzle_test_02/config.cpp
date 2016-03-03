@@ -16,23 +16,59 @@ Config::Config() {
     chain = 0;
 }
 
+void Config::UpdateState(){
+    // 数値入力する前にエンターキーでこの関数が呼ばれても、stateを更新しない
+    int result = OFF;
+    switch (state){
+        case 0:
+            if (line != 0)
+                result = ON;
+            break;
+        case 1:
+            if (row != 0)
+                result = ON;
+            break;
+        case 2:
+            if (type != 0)
+                result = ON;
+            break;
+        case 3:
+            if (chain != 0)
+                result = ON;
+            break;
+    }
+    if (result == ON && state < CONFIG_STATE_MAX)
+      ++state;
+}
+
+// 多態性のつもり
 void Config::Set(int value){
     switch (state){
         case 0:
-            line = value;
+            line = line * 10 + value;
+            if (line > CONFIG_LINE_MAX){
+                line = CONFIG_LINE_MAX;
+            }
             break;
         case 1:
-            row = value;
+            row = row * 10 + value;
+            if (row > CONFIG_ROW_MAX){
+                row = CONFIG_ROW_MAX;
+            }
             break;
         case 2:
-            type = value;
+            type = type * 10 + value;
+            if (type > CONFIG_TYPE_MAX){
+                type = CONFIG_TYPE_MAX;
+            }
             break;
         case 3:
-            chain = value;
+            chain = chain * 10 + value;
+            if (chain > row && chain > line){
+                chain = line;
+            }
             break;
     }
-    if (state < CONFIG_STATE_MAX)
-        ++state;
 }
 
 void Config::Reset(){
@@ -48,21 +84,36 @@ char* Config::GetQuestion(){
     char* word_sub = NULL;
     switch (state){
         case 0:
-            word_sub = "行数を指定してください";
+            word_sub = "行数を指定してください(1~20)";
             break;
         case 1:
-            word_sub = "列数を指定してください";
+            word_sub = "列数を指定してください(1~12)";
             break;
         case 2:
-            word_sub = "ブロックの種類数を指定してください";
+            word_sub = "ブロックの種類数を指定してください(1~9)";
             break;
         case 3:
-            word_sub = "ブロックを繋げるべき数を指定してください";
+            word_sub = "ブロックを繋げるべき数を指定してください(行数列数どちらかよりは小さい数値)";
             break;
         case 4:
             word_sub = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
             break;
     }
+    
+    // questionもword_subの戻り値をstd::coutで出力すると同じ結果になるけど、なぜかquestionは文字化けしてしまう
+    //UTF8じゃないとか？
+    //char question[100];
+    //string word_su;
+    //word_su = WORD_TOP_SUB_0;
+    //std::sprintf(question, word_su.c_str());
+    //std::cout << "iiiii=" << question << std::endl;
+    //return question;
+    // 文字コードが違う？
+    //if (word_sub == question){
+    //    return "一緒";
+    //}
+    //return "違う";
+    
     return word_sub;
 }
 

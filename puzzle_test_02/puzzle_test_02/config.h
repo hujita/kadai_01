@@ -23,7 +23,9 @@ class Config {
     int chain;
 public:
     Config();
-    // 更新
+    // ステータス更新
+    void UpdateState();
+    // 設定値更新
     void Set(int value);
     // リセット
     void Reset();
