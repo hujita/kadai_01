@@ -37,7 +37,7 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
         int input_value = my_keyboard.CastIntFromKey(event->key.keysym.sym);
         
         // ゲームの設定値更新
-        if (input_value > 0 && input_value < 10){
+        if (input_value < 10){
             config->Set(input_value);
         }
         // エンターキーなら
