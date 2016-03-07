@@ -29,6 +29,10 @@ Block::Block() {
     // ブロックのクリックされている座標(アクティブ時のみ使用)
     click_x = 0;
     click_y = 0;
+    // 落下分誤差
+    drop_difference = 0;
+    // 下方向に死んでるブロックがある
+    count_drop = 0;
 }
 
 // ブロック生成
@@ -54,7 +58,7 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // 現在位置している区画(整列番号)
     section_index = cnt;
     // 生存
-    alive = 1;
+    alive = ON;
     // アクティブ(マウス左クリックで選択されている)
     active = 0;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
@@ -109,12 +113,27 @@ void Block::SourcePosition(int block_type, int* position){
     }
 }
 
+// 描画位置の落下補正
+void Block::DropDraw(){
+    double drop_qty = ((SECTION_HIGH / 60) + (SECTION_HIGH % 60));
+    if (count_drop > 0){
+        drop_difference += drop_qty;
+        count_drop = count_drop - drop_qty;
+    }
+}
+
+// 描画位置の落下補正値のリセット
+void Block::ResetDropDraw(){
+    count_drop = 0;
+    drop_difference = 0;
+}
+
 void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections){
     SDL_Rect srcrect;
     // 操作対象でないブロックは、自身が所属している区画の出力座標位置を参考に、自身の出力位置を決める
     double destination_x = sections[section_index].GetDestinationX();
     double destination_y = sections[section_index].GetDestinationY();
-    SDL_Rect desrect = { (int)(destination_x + SECTION_SPACE_WIDE), (int)(destination_y + SECTION_SPACE_HIGH) };
+    SDL_Rect desrect = { (int)(destination_x + SECTION_SPACE_WIDE), (int)(destination_y + SECTION_SPACE_HIGH + drop_difference) };
     // 操作中のブロックは、
     if (active == ON){
         desrect = { (int)(click_x - difference_x), (int)(click_y - difference_y) };
@@ -155,10 +174,17 @@ void Block::Move(double event_button_x, double event_button_y){
     click_y = event_button_y;
 }
 
+void Block::AddCountDrop(int value){
+    count_drop += value;
+}
+
 // Getter
 int Block::GetActive() { return active; }
 int Block::GetSectionIndex(){ return section_index; }
 int Block::GetBlockType(){ return block_type; }
+int Block::GetAlive(){ return alive; }
+double Block::GetCountDrop(){ return count_drop; }
 // Setter
 void Block::SetSectionIndex(int value){ section_index = value; }
 void Block::SetAlive(int value){ alive = value; }
+

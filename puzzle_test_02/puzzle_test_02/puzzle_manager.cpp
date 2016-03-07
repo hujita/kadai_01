@@ -10,6 +10,8 @@
 
 PuzzleManager::PuzzleManager(){
     state_choice = 0;
+    // ドロップ中は操作不能に
+    state_drop = 0;
 }
 
 // パズル生成
@@ -126,6 +128,100 @@ int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_inde
     return Invalid;
 }
 
+// 自分より下にある死亡ブロックの個数だけ落下回数に + 1
+/*
+void PuzzleManager::CheckDrop(Config *config, Block *blocks){
+    // block[i]とblock[j]は同じ列にあり、iはjよりも上の行に位置する。
+    int i;
+    int j;
+    // blocks[i]
+    for (i = 0; i < config->GetRow() * config->GetLine(); ++i){
+        // blocks[j]
+        for (j = 0; j < config->GetLine() * config->GetRow(); ++j){
+            // blocks[i]より下の行、もしくは右の列、にあるblocks[j]を見つける
+            if (blocks[j].GetSectionIndex() > blocks[i].GetSectionIndex()
+                // blocks[i]とblocoks[j]は同じ列になければいけない
+                && blocks[i].GetSectionIndex() / config->GetRow() == blocks[j].GetSectionIndex() / config->GetRow()){
+                // jが死んでいたらiの落下回数に +1
+                if (blocks[j].GetAlive() == OFF){
+                    blocks[i].AddCountDrop(SECTION_HIGH);
+                }
+            }
+        }
+    }
+}
+
+void PuzzleManager::Drop(Config* config, Section* sections,Block* blocks){
+    int block_index;
+    // 描画位置の落下補正
+    for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index){
+        blocks[block_index].DropDraw();
+    }
+    // 全て落下描画済みなら
+    if (FlagAllDropDrawn(config, blocks) == ON){
+        int droped;
+        int i;
+        // 描画位置落下補正をリセットする
+        for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
+            blocks[i].ResetDropDraw();
+        }
+        // 一段落下を(列数-1)回繰り返す
+        for (droped = 0; droped < config->GetRow(); ++droped){
+            AllDrop(config, blocks);
+        }
+    }
+} */
+
+void PuzzleManager::Drop(Config *config, Section *sections, Block *blocks){
+    int droped;
+    // 一段落下を(列数-1)回繰り返す
+    for (droped = 0; droped < config->GetRow(); ++droped){
+        AllDrop(config, blocks);
+    }
+}
+
+// ドロップシーンの描画が完了しているか
+int PuzzleManager::FlagAllDropDrawn(Config *config, Block *blocks){
+    int result = ON;
+    int block_index;
+    for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index){
+        if (blocks[block_index].GetCountDrop() != 0){
+            result = OFF;
+        }
+    }
+    return result;
+}
+
+// 実際に1段だけ落下させる
+void PuzzleManager::AllDrop(Config *config, Block *blocks){
+    int block_index;
+    int section_index;
+    // 右下から左上に処理していく
+    for (section_index = (config->GetRow() * config->GetLine() - 1); section_index >= 0; --section_index){
+        int block_index_a = Invalid;
+        int block_index_b = Invalid;
+        for (block_index = 0; block_index < config->GetRow() * config->GetLine(); ++block_index) {
+            if (blocks[block_index].GetSectionIndex() == section_index){
+                block_index_a = block_index;
+            }
+            if (blocks[block_index].GetSectionIndex() == (section_index - 1)){
+                block_index_b = block_index;
+            }
+        }
+
+        // 対象となるブロック2つがあったら
+        if (block_index_a != Invalid && block_index_b != Invalid){
+            // 死んでたらブロック上下入れ替える
+            // 最上段だったら入れ替えない
+            if (blocks[block_index_a].GetAlive() == OFF && section_index % config->GetRow() != 0){
+                // 所属区画を交換する
+                blocks[block_index_a].SetSectionIndex(section_index - 1);
+                blocks[block_index_b].SetSectionIndex(section_index);
+            }
+        }
+    }
+}
+
 // 左クリックされた座標から選択されたブロックを探してactiveにする
 void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // 左クリックされた座標から選択されたブロックを探す
@@ -159,6 +255,10 @@ void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* confi
     state_choice = OFF;
     // 連鎖チェック
     CheckChain(config, blocks);
+    // 落下チェック
+    //CheckDrop(config, blocks);
+    // 落下
+    Drop(config, sections, blocks);
 }
 
 // ブロックを操作

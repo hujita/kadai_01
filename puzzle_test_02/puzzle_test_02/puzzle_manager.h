@@ -18,6 +18,8 @@
 class PuzzleManager {
     // 選択中のブロックがあるか
     int state_choice;
+    // ブロック落下中か
+    int state_drop;
     
     // 真下のブロックが同種か確認
     int CheckRowChain(Config* config, Block* blocks, int before_index);
@@ -33,6 +35,14 @@ public:
     void CreatePuzzle(Section* sections, Block* blocks, Config* config);
     // 連鎖成立確認
     void CheckChain(Config* config, Block* blocks);
+    // 落下成立確認
+    void CheckDrop(Config* config, Block* blocks);
+    // 落下描画済みか確認
+    int FlagAllDropDrawn(Config* config, Block* blocks);
+    // 落下させる
+    void AllDrop(Config* config, Block* blocks);
+    // 落下
+    void Drop(Config* config, Section* sections,Block* blocks);
     // 左クリックを押した。座標から選択されたブロックを探してactiveにする
     void ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // 左クリックを離した。操作中のブロックを解放する
