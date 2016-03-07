@@ -44,7 +44,7 @@ class Game {
     // メイン処理
     void MainLoop();
     // 描画処理
-    void Draw(Config* config, Section* sectinos, Top* top, Play* play, Block* block);
+    void Draw(Config* config, Section* sectinos, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* block);
     // 描画更新
     void Update(Config* config, PuzzleManager* puzzle_manager, Section* sectinos, Top* top, Play* play, Block* block);
 public:

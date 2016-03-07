@@ -16,6 +16,7 @@ MyText::MyText(){
     config_question_3 = "ブロックを繋げるべき数を指定してください(行数列数どちらかよりは小さい数値)";
     config_question_finish = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
     config_input_result = "行数：%d  列数：%d  ブロック：%d  連鎖：%d";
+    score = "SCORE：%d";
 }
 
 char* MyText::GetConfigMain(){ return config_main; }
@@ -25,3 +26,4 @@ char* MyText::GetConfigQuestion2(){ return config_question_2; }
 char* MyText::GetConfigQuestion3(){ return config_question_3; }
 char* MyText::GetConfigQuestionFinish(){ return config_question_finish; }
 char* MyText::GetConfigInputResult(){ return config_input_result; }
+char* MyText::GetScore(){ return score; }

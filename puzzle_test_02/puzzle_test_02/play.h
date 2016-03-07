@@ -22,12 +22,18 @@
 class Play {
     // 一度でもブロックを操作したか
     int flag_operated;
+    // 得点テキスト
+    SDL_Surface* word_score;
+    // 色
+    SDL_Color black;
+    // 得点テキスト描画位置
+    SDL_Rect destrect_word_score;
 public:
     Play();
     // イベント処理
     void Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
     // 描画処理
-    void Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, Section* sections, Block* blocks);
+    void Draw(SDL_Surface* screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
     // Getter
     int GetFlagOperated();
     // Setter

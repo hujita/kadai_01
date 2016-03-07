@@ -16,6 +16,8 @@
 #include "block.h"
 
 class PuzzleManager {
+    // 得点
+    int score;
     // 選択中のブロックがあるか
     int state_choice;
     // ブロック落下中か
@@ -53,9 +55,11 @@ public:
     // マウスを動かした。ブロックを操作
     void MoveBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     void AddFreeze(int value);
+    void ResetScore();
     // Getter
     int GetStateChoice();
     int GetFreeze();
+    int GetScore();
 };
 
 #endif /* defined(__puzzle_test_02__puzzle_manager__) */

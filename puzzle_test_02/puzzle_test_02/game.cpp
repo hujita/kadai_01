@@ -155,6 +155,8 @@ void Game::MainLoop(void) {
                     config.Reset();
                     // ブロック未操作
                     play.SetFlagOperated(OFF);
+                    // 得点リセット
+                    puzzle_manager.ResetScore();
                     // TOP画面へ遷移
                     view_type = VIEW_TOP;
                 }
@@ -165,7 +167,7 @@ void Game::MainLoop(void) {
         if (SDL_GetTicks() >= next_frame) {
             Update(&config, &puzzle_manager, sections, &top, &play, blocks);
             // 描画
-            Draw(&config, sections, &top, &play, blocks);
+            Draw(&config, sections, &top, &play, &puzzle_manager, blocks);
             next_frame += wait;
             SDL_Delay(0);
         }
@@ -173,7 +175,7 @@ void Game::MainLoop(void) {
 }
 
 // 描画
-void Game::Draw(Config* config, Section* sections, Top* top, Play* play, Block* blocks){
+void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* blocks){
     
     // 背景
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 192, 203));
@@ -185,7 +187,7 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, Block* 
     
     // PLAY画面
     if (view_type == VIEW_PLAY){
-        play->Draw(screen, section_image, block_image, config, sections, blocks);
+        play->Draw(screen, font, section_image, block_image, config, puzzle_manager, sections, blocks);
     }
 
     // 画面を更新する

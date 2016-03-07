@@ -11,6 +11,12 @@
 Play::Play(){
     // 一度でもブロックを操作したか
     flag_operated = OFF;
+    // 得点テキスト
+    word_score = NULL;
+    // 色
+    black = {0x00, 0x00, 0x00};
+    // 得点テキスト描画位置
+    destrect_word_score = { 700, 400 };
 }
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
@@ -37,7 +43,7 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
     }
 }
 
-void Play::Draw(SDL_Surface *screen, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, Section* sections, Block *blocks) {
+void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks) {
     // 区画を描画
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
@@ -59,6 +65,13 @@ void Play::Draw(SDL_Surface *screen, SDL_Surface* section_image, SDL_Surface* bl
     if (target_index != Invalid){
         blocks[target_index].Draw(screen, block_image, sections);
     }
+    MyText my_text;
+    // 得点テキスト用意
+    char buf[150];
+    sprintf(buf, my_text.GetScore(), puzzle_manager->GetScore());
+    word_score = TTF_RenderUTF8_Blended(font, buf, black);
+    // 得点テキスト描画
+    SDL_BlitSurface(word_score, NULL, screen, &destrect_word_score);
 }
 
 void Play::SetFlagOperated(int value){ flag_operated = value; }

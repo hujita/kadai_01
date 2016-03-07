@@ -9,10 +9,11 @@
 #include "puzzle_manager.h"
 
 PuzzleManager::PuzzleManager(){
+    score = 0;
     state_choice = 0;
     // ドロップ中は操作不能に
     state_drop = 0;
-    int freeze = 0;
+    freeze = 0;
 }
 
 // パズル生成
@@ -179,6 +180,7 @@ void PuzzleManager::ReCreate(Config* config, Block* blocks){
     for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index) {
         if (blocks[block_index].GetAlive() == OFF){
             blocks[block_index].ReCreate(config, block_index);
+            score += 100;
         }
     }
 }
@@ -322,6 +324,11 @@ void PuzzleManager::AddFreeze(int value){
     freeze += value;
 }
 
+void PuzzleManager::ResetScore(){
+    score = 0;
+}
+
 // Getter
 int PuzzleManager::GetStateChoice(){ return state_choice; }
 int PuzzleManager::GetFreeze(){ return freeze; }
+int PuzzleManager::GetScore(){ return score; }

@@ -19,6 +19,7 @@ class MyText {
     char* config_question_3;
     char* config_question_finish;
     char* config_input_result;
+    char* score;
 public:
     MyText();
     char* GetConfigMain();
@@ -28,6 +29,7 @@ public:
     char* GetConfigQuestion3();
     char* GetConfigQuestionFinish();
     char* GetConfigInputResult();
+    char* GetScore();
 };
 
 #endif /* defined(__puzzle_test_02__my_text__) */
