@@ -32,6 +32,8 @@ class Game {
     SDL_Surface* section_image;
     // ブロック画像
     SDL_Surface* block_image;
+    // 粒子画像
+    SDL_Surface* particle_image;
     /// フォント
     TTF_Font* font;
     

@@ -39,6 +39,7 @@ class Block {
     // ブロックのクリックされている座標
     double click_x;
     double click_y;
+    // 下方向の区画に死んでるブロックがあるときに徐々に落ちて行く
 
     // ブロック種別から出力元座標を取得
     void SourcePosition(int type_block, int* position);

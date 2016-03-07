@@ -22,6 +22,8 @@ Game::Game() {
     section_image = NULL;
     // ブロック画像
     block_image = NULL;
+    // 粒子画像
+    particle_image = NULL;
     // フォント
     font = NULL;
 }
@@ -71,6 +73,12 @@ int Game::Initialize(void) {
         SDL_Quit();
         return -1;
     }
+    particle_image = IMG_Load("particle_image.png");
+    if (particle_image == NULL) {
+        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
     
     /* フォント読み込む */
     font = TTF_OpenFont("AquaKana.ttc", 24);
@@ -88,6 +96,7 @@ void Game::Finalize(void) {
     // 解放する
     SDL_FreeSurface(block_image);
     SDL_FreeSurface(section_image);
+    SDL_FreeSurface(particle_image);
     TTF_CloseFont(font);
     
     // 終了する
@@ -99,6 +108,8 @@ void Game::Finalize(void) {
 void Game::MainLoop(void) {
     // イベント
     SDL_Event event;
+    double next_frame = SDL_GetTicks();
+    double wait = 1000.0 / 60;
     // TOP画面
     Top top;
     // PLAY画面
@@ -147,8 +158,13 @@ void Game::MainLoop(void) {
                 }
             }
             
-            // 描画
-            Draw(&config, sections, &top, &play, blocks);
+            // 1秒間に60回Updateされるようにする
+            if (SDL_GetTicks() >= next_frame) {
+                // 描画
+                Draw(&config, sections, &top, &play, blocks);
+                next_frame += wait;
+                SDL_Delay(0);
+            }
         }
     }
 }
