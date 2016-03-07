@@ -42,7 +42,9 @@ public:
     // 落下させる
     void AllDrop(Config* config, Block* blocks);
     // 落下
-    void Drop(Config* config, Section* sections,Block* blocks);
+    void DropBlock(Config* config, Section* sections,Block* blocks);
+    // ブロックの再生
+    void ReCreate(Config* config, Block* blocks);
     // 左クリックを押した。座標から選択されたブロックを探してactiveにする
     void ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // 左クリックを離した。操作中のブロックを解放する

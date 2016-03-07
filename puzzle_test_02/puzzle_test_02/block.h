@@ -48,6 +48,8 @@ class Block {
 public:
     Block();
     void Initialize(int i, int j, int cnt, Config* config);
+    // 再生成
+    void ReCreate(Config* config, int cnt);
     // 描画
     void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections);
     // 見た目上の落下

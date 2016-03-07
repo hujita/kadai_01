@@ -52,9 +52,6 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     source_y = position[1];
     source_h = BLOCK_HIGH;
     source_w = BLOCK_WIDE;
-    // 出力先座標
-    //destination_x = (SECTION_WIDE * j);
-    //destination_y = (SECTION_HIGH * i);
     // 現在位置している区画(整列番号)
     section_index = cnt;
     // 生存
@@ -67,6 +64,22 @@ void Block::Initialize(int i, int j, int cnt, Config* config){
     // ブロックのクリックされている座標(アクティブ時のみ使用)
     click_x = 0;
     click_y = 0;
+}
+
+// ブロック再生成
+void Block::ReCreate(Config* config, int cnt){
+    MyMath my_math;
+    block_type = my_math.Random(0, config->GetType() - 1, cnt);
+    // 出力元
+    // 座標 & 高さ &幅
+    int position[2] = {};
+    SourcePosition(block_type, position);
+    source_x = position[0];
+    source_y = position[1];
+    source_h = BLOCK_HIGH;
+    source_w = BLOCK_WIDE;
+    // 生存
+    alive = ON;
 }
 
 // 出力元画像の座標を取得
@@ -115,7 +128,8 @@ void Block::SourcePosition(int block_type, int* position){
 
 // 描画位置の落下補正
 void Block::DropDraw(){
-    double drop_qty = ((SECTION_HIGH / 60) + (SECTION_HIGH % 60));
+    // 1000ms/60 あたりの落下距離
+    double drop_qty = ((SECTION_HIGH / 60) + (SECTION_HIGH % 60)) / 2.5;
     if (count_drop > 0){
         drop_difference += drop_qty;
         count_drop = count_drop - drop_qty;

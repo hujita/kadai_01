@@ -157,14 +157,15 @@ void Game::MainLoop(void) {
                     view_type = VIEW_TOP;
                 }
             }
-            
-            // 1秒間に60回Updateされるようにする
-            if (SDL_GetTicks() >= next_frame) {
-                // 描画
-                Draw(&config, sections, &top, &play, blocks);
-                next_frame += wait;
-                SDL_Delay(0);
-            }
+        }
+        
+        // 1秒間に60回Updateされるようにする
+        if (SDL_GetTicks() >= next_frame) {
+            Update(&config, &puzzle_manager, sections, &top, &play, blocks);
+            // 描画
+            Draw(&config, sections, &top, &play, blocks);
+            next_frame += wait;
+            SDL_Delay(0);
         }
     }
 }
@@ -184,7 +185,16 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, Block* 
     if (view_type == VIEW_PLAY){
         play->Draw(screen, section_image, block_image, config, sections, blocks);
     }
-    
+
     // 画面を更新する
     SDL_UpdateWindowSurface(window);
+}
+
+// 更新
+void Game::Update(Config* config, PuzzleManager* puzzle_manager, Section* sections, Top* top, Play* play, Block* blocks){
+    // PLAY画面
+    if (view_type == VIEW_PLAY && puzzle_manager->GetStateChoice() == OFF){
+        // ブロック落下
+        puzzle_manager->DropBlock(config, sections, blocks);
+    }
 }

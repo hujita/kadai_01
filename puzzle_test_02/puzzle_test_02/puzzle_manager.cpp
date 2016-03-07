@@ -129,7 +129,6 @@ int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_inde
 }
 
 // 自分より下にある死亡ブロックの個数だけ落下回数に + 1
-/*
 void PuzzleManager::CheckDrop(Config *config, Block *blocks){
     // block[i]とblock[j]は同じ列にあり、iはjよりも上の行に位置する。
     int i;
@@ -151,9 +150,9 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
     }
 }
 
-void PuzzleManager::Drop(Config* config, Section* sections,Block* blocks){
-    int block_index;
+void PuzzleManager::DropBlock(Config* config, Section* sections,Block* blocks){
     // 描画位置の落下補正
+    int block_index;
     for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index){
         blocks[block_index].DropDraw();
     }
@@ -169,14 +168,17 @@ void PuzzleManager::Drop(Config* config, Section* sections,Block* blocks){
         for (droped = 0; droped < config->GetRow(); ++droped){
             AllDrop(config, blocks);
         }
+        // ブロックの蘇生
+        ReCreate(config, blocks);
     }
-} */
+}
 
-void PuzzleManager::Drop(Config *config, Section *sections, Block *blocks){
-    int droped;
-    // 一段落下を(列数-1)回繰り返す
-    for (droped = 0; droped < config->GetRow(); ++droped){
-        AllDrop(config, blocks);
+void PuzzleManager::ReCreate(Config* config, Block* blocks){
+    int block_index;
+    for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index) {
+        if (blocks[block_index].GetAlive() == OFF){
+            blocks[block_index].ReCreate(config, block_index);
+        }
     }
 }
 
@@ -185,7 +187,7 @@ int PuzzleManager::FlagAllDropDrawn(Config *config, Block *blocks){
     int result = ON;
     int block_index;
     for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index){
-        if (blocks[block_index].GetCountDrop() != 0){
+        if (blocks[block_index].GetCountDrop() > 0){
             result = OFF;
         }
     }
@@ -256,9 +258,7 @@ void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* confi
     // 連鎖チェック
     CheckChain(config, blocks);
     // 落下チェック
-    //CheckDrop(config, blocks);
-    // 落下
-    Drop(config, sections, blocks);
+    CheckDrop(config, blocks);
 }
 
 // ブロックを操作

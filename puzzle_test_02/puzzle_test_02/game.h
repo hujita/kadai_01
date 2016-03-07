@@ -45,6 +45,8 @@ class Game {
     void MainLoop();
     // 描画処理
     void Draw(Config* config, Section* sectinos, Top* top, Play* play, Block* block);
+    // 描画更新
+    void Update(Config* config, PuzzleManager* puzzle_manager, Section* sectinos, Top* top, Play* play, Block* block);
 public:
     // クラス初期化
     Game();
