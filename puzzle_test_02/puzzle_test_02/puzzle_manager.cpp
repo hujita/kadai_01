@@ -12,6 +12,7 @@ PuzzleManager::PuzzleManager(){
     state_choice = 0;
     // ドロップ中は操作不能に
     state_drop = 0;
+    int freeze = 0;
 }
 
 // パズル生成
@@ -128,7 +129,7 @@ int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_inde
     return Invalid;
 }
 
-// 自分より下にある死亡ブロックの個数だけ落下回数に + 1
+// 自分より下にある死亡ブロックの個数だけ落下回数に + 区画高さ
 void PuzzleManager::CheckDrop(Config *config, Block *blocks){
     // block[i]とblock[j]は同じ列にあり、iはjよりも上の行に位置する。
     int i;
@@ -256,9 +257,9 @@ void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* confi
     // ステータスをオフにする
     state_choice = OFF;
     // 連鎖チェック
-    CheckChain(config, blocks);
+    //CheckChain(config, blocks);
     // 落下チェック
-    CheckDrop(config, blocks);
+    //CheckDrop(config, blocks);
 }
 
 // ブロックを操作
@@ -317,5 +318,10 @@ int PuzzleManager::LookForActiveBlock(Block* blocks, Config* config){
     return Invalid;
 }
 
+void PuzzleManager::AddFreeze(int value){
+    freeze += value;
+}
+
 // Getter
 int PuzzleManager::GetStateChoice(){ return state_choice; }
+int PuzzleManager::GetFreeze(){ return freeze; }

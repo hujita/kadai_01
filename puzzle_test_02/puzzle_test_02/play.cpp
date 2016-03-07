@@ -8,6 +8,11 @@
 
 #include "play.h"
 
+Play::Play(){
+    // 一度でもブロックを操作したか
+    flag_operated = OFF;
+}
+
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
     // マウス操作
     switch(event->type){
@@ -16,6 +21,7 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                 // 左クリックされた座標から選択されたブロックを探してactiveにする
                 puzzle_manager->ChoiceBlock(sections, blocks, config, event->button.x, event->button.y);
             }
+            flag_operated = ON;
             break;
         case SDL_MOUSEBUTTONUP:
             if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_RELEASED){
@@ -54,3 +60,6 @@ void Play::Draw(SDL_Surface *screen, SDL_Surface* section_image, SDL_Surface* bl
         blocks[target_index].Draw(screen, block_image, sections);
     }
 }
+
+void Play::SetFlagOperated(int value){ flag_operated = value; }
+int Play::GetFlagOperated(){ return flag_operated; }

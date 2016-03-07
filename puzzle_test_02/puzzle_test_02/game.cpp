@@ -153,6 +153,8 @@ void Game::MainLoop(void) {
                 if (event.key.keysym.sym == SDLK_RSHIFT){
                     // 設定初期化
                     config.Reset();
+                    // ブロック未操作
+                    play.SetFlagOperated(OFF);
                     // TOP画面へ遷移
                     view_type = VIEW_TOP;
                 }
@@ -194,7 +196,23 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, Block* 
 void Game::Update(Config* config, PuzzleManager* puzzle_manager, Section* sections, Top* top, Play* play, Block* blocks){
     // PLAY画面
     if (view_type == VIEW_PLAY && puzzle_manager->GetStateChoice() == OFF){
-        // ブロック落下
-        puzzle_manager->DropBlock(config, sections, blocks);
+        if (play->GetFlagOperated() == ON) {
+            // ブロック落下
+            puzzle_manager->DropBlock(config, sections, blocks);
+            // 連鎖が早すぎて見づらいので止める
+            if (puzzle_manager->GetFreeze() == 0){
+                puzzle_manager->AddFreeze(50);
+            }
+            puzzle_manager->AddFreeze(-1);
+            // 全て描画済みなら次の描画を始める
+            if (puzzle_manager->FlagAllDropDrawn(config, blocks) == ON && puzzle_manager->GetFreeze() == 0){
+                // 連鎖チェック
+                puzzle_manager->CheckChain(config, blocks);
+                // 描画位置落下補正準備
+                puzzle_manager->CheckDrop(config, blocks);
+                // 落下処理
+                //puzzle_manager->DropBlock(config, sections, blocks);
+            }
+        }
     }
 }

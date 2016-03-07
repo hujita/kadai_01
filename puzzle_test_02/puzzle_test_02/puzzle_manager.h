@@ -20,7 +20,8 @@ class PuzzleManager {
     int state_choice;
     // ブロック落下中か
     int state_drop;
-    
+    // ブロックの消滅から次の連鎖発生までの停止時間
+    int freeze;
     // 真下のブロックが同種か確認
     int CheckRowChain(Config* config, Block* blocks, int before_index);
     // 右横のブロックが同種か確認
@@ -51,8 +52,10 @@ public:
     void ReleaseBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // マウスを動かした。ブロックを操作
     void MoveBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
+    void AddFreeze(int value);
     // Getter
     int GetStateChoice();
+    int GetFreeze();
 };
 
 #endif /* defined(__puzzle_test_02__puzzle_manager__) */

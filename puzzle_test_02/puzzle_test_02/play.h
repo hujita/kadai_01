@@ -20,11 +20,18 @@
 #include "block.h"
 
 class Play {
+    // 一度でもブロックを操作したか
+    int flag_operated;
 public:
+    Play();
     // イベント処理
     void Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
     // 描画処理
     void Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, Section* sections, Block* blocks);
+    // Getter
+    int GetFlagOperated();
+    // Setter
+    void SetFlagOperated(int value);
 };
 
 #endif /* defined(__puzzle_test_02__play__) */
