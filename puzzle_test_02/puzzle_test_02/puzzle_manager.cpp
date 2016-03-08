@@ -242,12 +242,12 @@ void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config
 // 左クリックから指を離して操作中のブロックを解放する
 void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // パズルの外枠からブロックが出れないように補正
-    if (event_button_x >= config->GetLine() * SECTION_HIGH) {
+    /*if (event_button_x >= config->GetLine() * SECTION_HIGH) {
         event_button_x = config->GetLine() * SECTION_HIGH - SECTION_LIMIT;
     }
     if (event_button_y >= config->GetRow() * SECTION_WIDE){
         event_button_y = config->GetRow() * SECTION_WIDE - SECTION_LIMIT;
-    }
+    }*/
     
     // 操作中のブロックを探す
     int active_index = LookForActiveBlock(blocks, config);
@@ -266,12 +266,22 @@ void PuzzleManager::ReleaseBlock(Section* sections, Block* blocks, Config* confi
 
 // ブロックを操作
 void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
+    // パズル全体が中央に寄せられてる差分
+    int x_center_difference = (WINDOW_WIDE / 2) - (((WINDOW_WIDE / 2) / CONFIG_LINE_MAX) * config->GetLine());
+    int y_center_difference = (WINDOW_HIGH / 2) - (((WINDOW_HIGH / 2) / CONFIG_ROW_MAX) * config->GetRow());
+    
     // パズルの外枠からブロックが出れないように補正
-    if (event_button_x >= config->GetLine() * SECTION_HIGH) {
-        event_button_x = config->GetLine() * SECTION_HIGH - SECTION_LIMIT;
+    if (event_button_x >= config->GetLine() * SECTION_HIGH + x_center_difference) {
+        event_button_x = config->GetLine() * SECTION_HIGH - SECTION_LIMIT + x_center_difference;
     }
-    if (event_button_y >= config->GetRow() * SECTION_WIDE){
-        event_button_y = config->GetRow() * SECTION_WIDE - SECTION_LIMIT;
+    if (event_button_x <= x_center_difference) {
+        event_button_x = x_center_difference;
+    }
+    if (event_button_y >= config->GetRow() * SECTION_WIDE + y_center_difference){
+        event_button_y = config->GetRow() * SECTION_WIDE - SECTION_LIMIT + y_center_difference;
+    }
+    if (event_button_y <= y_center_difference) {
+        event_button_y = y_center_difference;
     }
     
     // 座標が他のブロックの領域に入ったら配列の中身の値を交換

@@ -41,9 +41,6 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                     puzzle_manager->ChoiceBlock(sections, blocks, config, event->button.x, event->button.y);
                 }
                 ++number_of_operations;
-                //if (number_of_operations > OPERATION_MAX){
-                //    number_of_operations = OPERATION_MAX;
-                //}
             }
             flag_operated = ON;
             break;

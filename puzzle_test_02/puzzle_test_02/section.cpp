@@ -22,19 +22,19 @@ Section::Section(){
 
 // 区画生成
 void Section::Initialize(int i, int j, int cnt, Config* config){
-    // 出力先座標
-    destination_x = (SECTION_WIDE * i);
-    destination_y = (SECTION_HIGH * j);
-}
-
-// 区画描画
-void Section::Draw(SDL_Surface* screen, SDL_Surface* section_image, Config* config){
     // パズル全体を中央に寄せる
     int x_center_difference = (WINDOW_WIDE / 2) - (((WINDOW_WIDE / 2) / CONFIG_LINE_MAX) * config->GetLine());
     int y_center_difference = (WINDOW_HIGH / 2) - (((WINDOW_HIGH / 2) / CONFIG_ROW_MAX) * config->GetRow());
     
+    // 出力先座標
+    destination_x = (SECTION_WIDE * i + x_center_difference);
+    destination_y = (SECTION_HIGH * j + y_center_difference);
+}
+
+// 区画描画
+void Section::Draw(SDL_Surface* screen, SDL_Surface* section_image, Config* config){
     SDL_Rect srcrect;
-    SDL_Rect desrect = { (int)(destination_x + x_center_difference) , (int)(destination_y + y_center_difference) };
+    SDL_Rect desrect = { (int)(destination_x) , (int)(destination_y) };
     
     srcrect.x = source_x;
     srcrect.y = source_y;
