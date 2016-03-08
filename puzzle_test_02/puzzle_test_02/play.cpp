@@ -68,7 +68,7 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     // 区画を描画
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        sections[i].Draw(screen, section_image);
+        sections[i].Draw(screen, section_image, config);
     };
     
     // ブロックを描画
@@ -77,14 +77,14 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     int target_index = Invalid;
     for (j = 0; j < config->GetLine() * config->GetRow(); ++j) {
         if (blocks[j].GetActive() == OFF){
-            blocks[j].Draw(screen, block_image, sections);
+            blocks[j].Draw(screen, block_image, sections, config);
         }
         if (blocks[j].GetActive() == ON){
             target_index = j;
         }
     }
     if (target_index != Invalid){
-        blocks[target_index].Draw(screen, block_image, sections);
+        blocks[target_index].Draw(screen, block_image, sections, config);
     }
     MyText my_text;
     // 得点テキスト用意

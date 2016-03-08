@@ -51,7 +51,7 @@ public:
     // 再生成
     void ReCreate(Config* config, int cnt);
     // 描画
-    void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections);
+    void Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections, Config* config);
     // 見た目上の落下
     void DropDraw();
     // 見た目上の落下補正のリセット

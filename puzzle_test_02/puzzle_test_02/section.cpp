@@ -28,9 +28,13 @@ void Section::Initialize(int i, int j, int cnt, Config* config){
 }
 
 // 区画描画
-void Section::Draw(SDL_Surface* screen, SDL_Surface* section_image){
+void Section::Draw(SDL_Surface* screen, SDL_Surface* section_image, Config* config){
+    // パズル全体を中央に寄せる
+    int x_center_difference = (WINDOW_WIDE / 2) - (((WINDOW_WIDE / 2) / CONFIG_LINE_MAX) * config->GetLine());
+    int y_center_difference = (WINDOW_HIGH / 2) - (((WINDOW_HIGH / 2) / CONFIG_ROW_MAX) * config->GetRow());
+    
     SDL_Rect srcrect;
-    SDL_Rect desrect = { (int)destination_x, (int)destination_y };
+    SDL_Rect desrect = { (int)(destination_x + x_center_difference) , (int)(destination_y + y_center_difference) };
     
     srcrect.x = source_x;
     srcrect.y = source_y;

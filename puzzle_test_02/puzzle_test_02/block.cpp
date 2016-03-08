@@ -142,15 +142,19 @@ void Block::ResetDropDraw(){
     drop_difference = 0;
 }
 
-void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections){
+void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* sections, Config* config){
+    // パズル全体を中央に寄せる
+    int x_center_difference = (WINDOW_WIDE / 2) - (((WINDOW_WIDE / 2) / CONFIG_LINE_MAX) * config->GetLine());
+    int y_center_difference = (WINDOW_HIGH / 2) - (((WINDOW_HIGH / 2) / CONFIG_ROW_MAX) * config->GetRow());
+    
     SDL_Rect srcrect;
     // 操作対象でないブロックは、自身が所属している区画の出力座標位置を参考に、自身の出力位置を決める
     double destination_x = sections[section_index].GetDestinationX();
     double destination_y = sections[section_index].GetDestinationY();
-    SDL_Rect desrect = { (int)(destination_x + SECTION_SPACE_WIDE), (int)(destination_y + SECTION_SPACE_HIGH + drop_difference) };
+    SDL_Rect desrect = { (int)(destination_x + SECTION_SPACE_WIDE + x_center_difference), (int)(destination_y + SECTION_SPACE_HIGH + drop_difference + y_center_difference) };
     // 操作中のブロックは、
     if (active == ON){
-        desrect = { (int)(click_x - difference_x), (int)(click_y - difference_y) };
+        desrect = { (int)(click_x - difference_x + x_center_difference), (int)(click_y - difference_y + y_center_difference) };
     }
 
     srcrect.x = source_x;

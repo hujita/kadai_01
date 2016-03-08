@@ -32,7 +32,7 @@ public:
     Section();
     void Initialize(int i, int j, int cnt, Config* config);
     // 区画描画
-    void Draw(SDL_Surface* screen, SDL_Surface* section_image);
+    void Draw(SDL_Surface* screen, SDL_Surface* section_image, Config* config);
     // Getter
     double GetDestinationX();
     double GetDestinationY();
