@@ -20,6 +20,10 @@ class MyText {
     char* config_question_finish;
     char* config_input_result;
     char* score;
+    char* operations;
+    char* crear;
+    char* game_over;
+    char* condition;
 public:
     MyText();
     char* GetConfigMain();
@@ -30,6 +34,10 @@ public:
     char* GetConfigQuestionFinish();
     char* GetConfigInputResult();
     char* GetScore();
+    char* GetOperations();
+    char* GetCrear();
+    char* GetGameOver();
+    char* GetCondition();
 };
 
 #endif /* defined(__puzzle_test_02__my_text__) */

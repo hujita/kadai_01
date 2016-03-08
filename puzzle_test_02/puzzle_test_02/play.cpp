@@ -11,12 +11,24 @@
 Play::Play(){
     // 一度でもブロックを操作したか
     flag_operated = OFF;
+    // ブロックを操作した回数
+    number_of_operations = 0;
+    // クリアしたか失敗したか
+    play_result = OFF;
     // 得点テキスト
     word_score = NULL;
+    // クリア
+    word_crear = NULL;
+    // 操作回数テキスト
+    word_operations = NULL;
     // 色
     black = {0x00, 0x00, 0x00};
+    // クリアテキスト描画位置
+    destrect_word_crear = { 700, 350 };
     // 得点テキスト描画位置
     destrect_word_score = { 700, 400 };
+    // 操作回数テキスト描画位置
+    destrect_word_operations = { 700, 450 };
 }
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
@@ -28,6 +40,10 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                     // 左クリックされた座標から選択されたブロックを探してactiveにする
                     puzzle_manager->ChoiceBlock(sections, blocks, config, event->button.x, event->button.y);
                 }
+                ++number_of_operations;
+                //if (number_of_operations > OPERATION_MAX){
+                //    number_of_operations = OPERATION_MAX;
+                //}
             }
             flag_operated = ON;
             break;
@@ -35,6 +51,9 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
             if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_RELEASED){
                 // ブロックを解放する
                 puzzle_manager->ReleaseBlock(sections, blocks, config, event->button.x, event->button.y);
+                if (number_of_operations <= OPERATION_MAX && puzzle_manager->GetScore() >= SCORE_CREAR){
+                    play_result = ON;
+                }
             }
             break;
         case SDL_MOUSEMOTION:
@@ -72,9 +91,36 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     char buf[150];
     sprintf(buf, my_text.GetScore(), puzzle_manager->GetScore());
     word_score = TTF_RenderUTF8_Blended(font, buf, black);
+    // 操作回数テキスト用意
+    char buf_operations[150];
+    int num = number_of_operations;
+    if (num > OPERATION_MAX)
+        num = OPERATION_MAX;
+    sprintf(buf_operations, my_text.GetOperations(), OPERATION_MAX - num);
+    word_operations = TTF_RenderUTF8_Blended(font, buf_operations, black);
+    // クリアテキスト用意
+    if (number_of_operations < OPERATION_MAX){
+        char buf_crear[150];
+        sprintf(buf_crear, my_text.GetCondition(), SCORE_CREAR);
+        word_crear = TTF_RenderUTF8_Blended(font, buf_crear, black);
+    }
+    if (number_of_operations > OPERATION_MAX && play_result == OFF) {
+        word_crear = TTF_RenderUTF8_Blended(font, my_text.GetGameOver(), black);
+    }
+    if (play_result == ON) {
+        word_crear = TTF_RenderUTF8_Blended(font, my_text.GetCrear(), black);
+    }
+    
     // 得点テキスト描画
     SDL_BlitSurface(word_score, NULL, screen, &destrect_word_score);
+    // 操作回数テキスト描画
+    SDL_BlitSurface(word_operations, NULL, screen, &destrect_word_operations);
+    // クリアテキスト描画
+    SDL_BlitSurface(word_crear, NULL, screen, &destrect_word_crear);
 }
 
 void Play::SetFlagOperated(int value){ flag_operated = value; }
+void Play::SetNumberOfOperations(int value){ number_of_operations = value;}
+void Play::SetPlayResult(int value){ play_result = value; }
 int Play::GetFlagOperated(){ return flag_operated; }
+int Play::GetNumberOfOperations(){ return number_of_operations; }

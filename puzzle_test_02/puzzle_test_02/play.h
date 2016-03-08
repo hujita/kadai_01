@@ -22,12 +22,24 @@
 class Play {
     // 一度でもブロックを操作したか
     int flag_operated;
+    // ブロックを操作した回数
+    int number_of_operations;
+    // クリアしたか失敗したか
+    int play_result;
     // 得点テキスト
     SDL_Surface* word_score;
+    // 操作回数テキスト
+    SDL_Surface* word_operations;
+    // クリア
+    SDL_Surface* word_crear;
     // 色
     SDL_Color black;
     // 得点テキスト描画位置
     SDL_Rect destrect_word_score;
+    // 操作回数テキスト描画位置
+    SDL_Rect destrect_word_operations;
+    // 操作回数テキスト描画位置
+    SDL_Rect destrect_word_crear;
 public:
     Play();
     // イベント処理
@@ -36,8 +48,11 @@ public:
     void Draw(SDL_Surface* screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
     // Getter
     int GetFlagOperated();
+    int GetNumberOfOperations();
     // Setter
     void SetFlagOperated(int value);
+    void SetNumberOfOperations(int value);
+    void SetPlayResult(int value);
 };
 
 #endif /* defined(__puzzle_test_02__play__) */

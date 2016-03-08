@@ -157,6 +157,10 @@ void Game::MainLoop(void) {
                     play.SetFlagOperated(OFF);
                     // 得点リセット
                     puzzle_manager.ResetScore();
+                    // 操作回数リセット
+                    play.SetNumberOfOperations(OFF);
+                    // クリア状況リセット
+                    play.SetPlayResult(OFF);
                     // TOP画面へ遷移
                     view_type = VIEW_TOP;
                 }
@@ -198,6 +202,10 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleM
 void Game::Update(Config* config, PuzzleManager* puzzle_manager, Section* sections, Top* top, Play* play, Block* blocks){
     // PLAY画面
     if (view_type == VIEW_PLAY && puzzle_manager->GetStateChoice() == OFF){
+        // クリア
+        if (play->GetNumberOfOperations() <= OPERATION_MAX && puzzle_manager->GetScore() >= SCORE_CREAR){
+            play->SetPlayResult(ON);
+        }
         if (play->GetFlagOperated() == ON) {
             // ブロック落下
             puzzle_manager->DropBlock(config, sections, blocks);

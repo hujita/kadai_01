@@ -26,6 +26,7 @@ const int CONFIG_LINE_MAX = 20;
 const int CONFIG_ROW_MAX = 12;
 const int CONFIG_TYPE_MAX = 9;
 
+
 // ブロック
 const int BLOCK_MAX = 12 * 20;
 const int BLOCK_HIGH = 58;
@@ -58,6 +59,9 @@ const int SECTION_SPACE_WIDE = 7;
 const int SECTION_SPACE_HIGH = 7;
 const int SECTION_LIMIT = 20;
 
+//
+const int OPERATION_MAX = 10;
+const int SCORE_CREAR = 25000;
 
 const string WORD_TOP_MAIN = "パズルの設定(1~9で入力)";
 const string WORD_TOP_SUB_0 = "行数を指定してください";

@@ -17,6 +17,10 @@ MyText::MyText(){
     config_question_finish = "Enter:ゲーム開始 / 右Shift:TOPに戻る / ESC:終了";
     config_input_result = "行数：%d  列数：%d  ブロック：%d  連鎖：%d";
     score = "SCORE：%d";
+    operations = "残り操作回数：%d";
+    crear = "クリアしました";
+    game_over = "ゲームオーバー";
+    condition = "%d点とるとクリア";
 }
 
 char* MyText::GetConfigMain(){ return config_main; }
@@ -27,3 +31,7 @@ char* MyText::GetConfigQuestion3(){ return config_question_3; }
 char* MyText::GetConfigQuestionFinish(){ return config_question_finish; }
 char* MyText::GetConfigInputResult(){ return config_input_result; }
 char* MyText::GetScore(){ return score; }
+char* MyText::GetOperations(){ return operations; }
+char* MyText::GetCrear(){ return crear;}
+char* MyText::GetGameOver(){ return game_over; }
+char* MyText::GetCondition(){ return condition; }
