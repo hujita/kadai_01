@@ -23,9 +23,11 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
     // マウス操作
     switch(event->type){
         case SDL_MOUSEBUTTONDOWN:
-            if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_PRESSED){
-                // 左クリックされた座標から選択されたブロックを探してactiveにする
-                puzzle_manager->ChoiceBlock(sections, blocks, config, event->button.x, event->button.y);
+            if (puzzle_manager->FlagAllDropDrawn(config, blocks)) {
+                if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_PRESSED){
+                    // 左クリックされた座標から選択されたブロックを探してactiveにする
+                    puzzle_manager->ChoiceBlock(sections, blocks, config, event->button.x, event->button.y);
+                }
             }
             flag_operated = ON;
             break;
