@@ -21,6 +21,10 @@
 #include "my_keyboard.h"
 
 class Top {
+    // 移動差分
+    double x_move_difference;
+    // 移動量
+    double x_move_amount;
     // TOP画面メインテキスト(案内)
     SDL_Surface* word_main;
     // TOP画面サブテキスト(質問)
@@ -40,7 +44,7 @@ public:
     // イベント処理
     int Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
     // 描画処理
-    void Draw(SDL_Surface* screen, Config* config, TTF_Font* font);
+    void Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, TTF_Font* font, TTF_Font* big_font);
 };
 
 #endif /* defined(__puzzle_test_02__top__) */

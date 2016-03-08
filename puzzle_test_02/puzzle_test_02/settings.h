@@ -13,6 +13,12 @@
 #include <iostream>
 using namespace std;
 
+
+// 画面
+const int WINDOW_WIDE = 1400;
+const int WINDOW_HIGH = 850;
+const int MOVE_AMOUNT = 3;
+
 // 共通
 const int OFF = 0;
 const int ON = 1;

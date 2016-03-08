@@ -9,6 +9,9 @@
 #include "top.h"
 
 Top::Top() {
+    // 移動差分
+    x_move_difference = 0;
+    x_move_amount = MOVE_AMOUNT;
     // 設定画面メインテキスト
     word_main = NULL;
     // 設定画面サブテキスト
@@ -18,11 +21,11 @@ Top::Top() {
     // 色
     black = {0x00, 0x00, 0x00};
     // メインテキスト(案内)描画位置
-    destrect_main_word = { 330, 210 };
+    destrect_main_word = { 300, 210 };
     // サブテキスト(質問)描画位置
-    destrect_sub_word = { 330, 310 };
+    destrect_sub_word = { 300, 310 };
     // 入力内容描画位置
-    destrect_input_word = { 330, 410 };
+    destrect_input_word = { 300, 390 };
 }
 
 int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
@@ -60,10 +63,56 @@ int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, 
     return view_next;
 }
 
-void Top::Draw(SDL_Surface* screen, Config* config, TTF_Font* font){
+void Top::Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, TTF_Font* font, TTF_Font* big_font){
+    // TOP画面背景用の区画描画
+    int i;
+    int j;
+    for (i = 0; i < CONFIG_LINE_MAX; ++i) {
+        for (j = 0; j < CONFIG_ROW_MAX; ++j) {
+            SDL_Rect srcrect;
+            SDL_Rect desrect = { i * SECTION_WIDE, j * SECTION_HIGH + 10 };
+            SDL_Rect desrect_move = { (int)(i * SECTION_WIDE + x_move_difference), (int)(j * SECTION_HIGH + 10) };
+            
+            srcrect.x = SECTION_SOURCE_X;
+            srcrect.y = SECTION_SOURCE_Y;
+            srcrect.w = SECTION_WIDE;
+            srcrect.h = SECTION_HIGH;
+            
+            if (j >= 8 || (i + j) >= 21) {
+                SDL_BlitSurface(section_image, &srcrect, screen, &desrect);
+            }
+            if (i == 0 && j == 7){
+                SDL_BlitSurface(section_image, &srcrect, screen, &desrect_move);
+            }
+        }
+    }
+    
+    // TOP画面背景用のブロック描画
+    int block_i;
+    int block_j;
+    for (block_i = 0; block_i < CONFIG_LINE_MAX; ++block_i) {
+        for (block_j = 0; block_j < CONFIG_ROW_MAX; ++block_j) {
+            SDL_Rect srcrect;
+            SDL_Rect desrect = { block_i * SECTION_WIDE + SECTION_SPACE_WIDE, block_j * SECTION_HIGH + SECTION_SPACE_HIGH + 10 };
+            SDL_Rect desrect_move = { (int)(block_i * SECTION_WIDE + SECTION_SPACE_WIDE + x_move_difference), block_j * SECTION_HIGH + SECTION_SPACE_HIGH + 10 };
+            
+            srcrect.x = BLOCK_POSITION_00_X;
+            srcrect.y = BLOCK_POSITION_00_Y;
+            srcrect.w = BLOCK_WIDE;
+            srcrect.h = BLOCK_HIGH;
+            
+            if (block_j >=  8 || (block_i + block_j) >= 21) {
+                SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
+            }
+            if (block_i == 0 && block_j == 7){
+                SDL_BlitSurface(block_image, &srcrect, screen, &desrect_move);
+            }
+        }
+    }
+    
     MyText my_text;
     // メインテキスト用意
-    word_main = TTF_RenderUTF8_Blended(font, my_text.GetConfigMain(), black);
+    word_main = TTF_RenderUTF8_Blended(big_font, my_text.GetConfigMain(), black);
     // サブテキスト用意
     word_sub = TTF_RenderUTF8_Blended(font, config->GetQuestion(), black);
     // 入力内容表示テキスト用意
@@ -78,4 +127,14 @@ void Top::Draw(SDL_Surface* screen, Config* config, TTF_Font* font){
     SDL_BlitSurface(word_sub, NULL, screen, &destrect_sub_word);
     // 入力内容表示テキスト描画
     SDL_BlitSurface(word_input, NULL, screen, &destrect_input_word);
+    
+    
+    
+    if (x_move_difference >= WINDOW_WIDE / CONFIG_LINE_MAX * 13) {
+        x_move_amount = -MOVE_AMOUNT;
+    }
+    if (x_move_difference <= 0) {
+        x_move_amount = MOVE_AMOUNT;
+    }
+    x_move_difference += x_move_amount;
 }

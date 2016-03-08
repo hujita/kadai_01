@@ -36,6 +36,8 @@ class Game {
     SDL_Surface* particle_image;
     /// フォント
     TTF_Font* font;
+    /// フォント
+    TTF_Font* big_font;
     
     // ゲーム初期化処理
     int Initialize();

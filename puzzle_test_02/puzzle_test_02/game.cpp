@@ -26,6 +26,7 @@ Game::Game() {
     particle_image = NULL;
     // フォント
     font = NULL;
+    big_font = NULL;
 }
 
 // ゲーム処理
@@ -52,7 +53,7 @@ int Game::Initialize(void) {
         fprintf(stderr, "TTFの初期化に失敗しました：%s\n", TTF_GetError());
         return -1;
     }
-    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1400,850,0);
+    window = SDL_CreateWindow("パズルゲーム", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDE,WINDOW_HIGH,0);
     screen = SDL_GetWindowSurface(window);
     if (screen == NULL) {
         fprintf(stderr, "画面の初期化に失敗しました：%s\n", SDL_GetError());
@@ -87,7 +88,13 @@ int Game::Initialize(void) {
         SDL_Quit();
         return -1;
     }
-
+    big_font = TTF_OpenFont("AquaKana.ttc", 36);
+    if (big_font == NULL) {
+        fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    
     return 0;
 }
 
@@ -98,6 +105,7 @@ void Game::Finalize(void) {
     SDL_FreeSurface(section_image);
     SDL_FreeSurface(particle_image);
     TTF_CloseFont(font);
+    TTF_CloseFont(big_font);
     
     // 終了する
     TTF_Quit();
@@ -186,7 +194,7 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleM
     
     // TOP画面
     if (view_type == VIEW_TOP){
-        top->Draw(screen, config, font);
+        top->Draw(screen, section_image, block_image, config, font, big_font);
     }
     
     // PLAY画面
