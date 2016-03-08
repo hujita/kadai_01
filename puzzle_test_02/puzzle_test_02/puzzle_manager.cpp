@@ -180,7 +180,7 @@ void PuzzleManager::ReCreate(Config* config, Block* blocks){
     for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index) {
         if (blocks[block_index].GetAlive() == OFF){
             blocks[block_index].ReCreate(config, block_index);
-            score += 100;
+            score += SCORE_BLOCK;
         }
     }
 }

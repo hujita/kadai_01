@@ -48,7 +48,7 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
             if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_RELEASED){
                 // ブロックを解放する
                 puzzle_manager->ReleaseBlock(sections, blocks, config, event->button.x, event->button.y);
-                if (number_of_operations <= OPERATION_MAX && puzzle_manager->GetScore() >= SCORE_CREAR){
+                if (number_of_operations <= OPERATION_MAX && puzzle_manager->GetScore() >= config->GetRow() * config->GetLine() * SCORE_BLOCK * 10){
                     play_result = ON;
                 }
             }
@@ -98,7 +98,7 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     // クリアテキスト用意
     if (number_of_operations < OPERATION_MAX){
         char buf_crear[150];
-        sprintf(buf_crear, my_text.GetCondition(), SCORE_CREAR);
+        sprintf(buf_crear, my_text.GetCondition(), config->GetRow() * config->GetLine() * SCORE_BLOCK * 10);
         word_crear = TTF_RenderUTF8_Blended(font, buf_crear, black);
     }
     if (number_of_operations > OPERATION_MAX && play_result == OFF) {

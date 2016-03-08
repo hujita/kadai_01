@@ -68,6 +68,7 @@ const int SECTION_LIMIT = 20;
 //
 const int OPERATION_MAX = 10;
 const int SCORE_CREAR = 31000;
+const int SCORE_BLOCK = 100;
 
 const string WORD_TOP_MAIN = "パズルの設定(1~9で入力)";
 const string WORD_TOP_SUB_0 = "行数を指定してください";
