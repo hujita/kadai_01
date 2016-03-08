@@ -8,13 +8,13 @@
 
 #include "config.h"
 
-Config::Config() {
-    state = 0;
-    line = 0;
-    row = 0;
-    type = 0;
-    chain = 0;
-}
+Config::Config():
+    state(0),
+    line(0),
+    row(0),
+    type(0),
+    chain(0)
+{}
 
 void Config::UpdateState(){
     // 数値入力する前にエンターキーでこの関数が呼ばれても、stateを更新しない

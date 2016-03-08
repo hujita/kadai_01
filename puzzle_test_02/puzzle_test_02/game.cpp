@@ -11,23 +11,24 @@
 
 
 // クラス初期化
-Game::Game() {
+Game::Game():
     // 画面遷移用変数(TOP:0, PLAY:1)
-    view_type = 0;
+    view_type(0),
     // 画面
-    window = NULL;
+    window(NULL),
     // 画面の描画領域
-    screen = NULL;
+    screen(NULL),
     // 区画画像
-    section_image = NULL;
+    section_image(NULL),
     // ブロック画像
-    block_image = NULL;
+    block_image(NULL),
     // 粒子画像
-    particle_image = NULL;
+    particle_image(NULL),
     // フォント
-    font = NULL;
-    big_font = NULL;
-}
+    font(NULL),
+    big_font(NULL)
+{}
+
 
 // ゲーム処理
 int Game::Start() {

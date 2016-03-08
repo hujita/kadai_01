@@ -8,28 +8,28 @@
 
 #include "play.h"
 
-Play::Play(){
+Play::Play():
     // 一度でもブロックを操作したか
-    flag_operated = OFF;
+    flag_operated(OFF),
     // ブロックを操作した回数
-    number_of_operations = 0;
+    number_of_operations(0),
     // クリアしたか失敗したか
-    play_result = OFF;
+    play_result(OFF),
     // 得点テキスト
-    word_score = NULL;
+    word_score(NULL),
     // クリア
-    word_crear = NULL;
+    word_crear(NULL),
     // 操作回数テキスト
-    word_operations = NULL;
+    word_operations(NULL),
     // 色
-    black = {0x00, 0x00, 0x00};
+    black({0x00, 0x00, 0x00}),
     // クリアテキスト描画位置
-    destrect_word_crear = { 20, 20 };
+    destrect_word_crear({ 20, 20 }),
     // 得点テキスト描画位置
-    destrect_word_score = { 20, 50 };
+    destrect_word_score({ 20, 50 }),
     // 操作回数テキスト描画位置
-    destrect_word_operations = { 20, 80 };
-}
+    destrect_word_operations({ 20, 80 })
+{}
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
     // マウス操作

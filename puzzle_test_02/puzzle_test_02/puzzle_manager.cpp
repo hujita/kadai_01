@@ -8,13 +8,13 @@
 
 #include "puzzle_manager.h"
 
-PuzzleManager::PuzzleManager(){
-    score = 0;
-    state_choice = 0;
+PuzzleManager::PuzzleManager():
+    score(0),
+    state_choice(0),
     // ドロップ中は操作不能に
-    state_drop = 0;
-    freeze = 0;
-}
+    state_drop(0),
+    freeze(0)
+{}
 
 // パズル生成
 void PuzzleManager::CreatePuzzle(Section* sections, Block* blocks, Config* config){

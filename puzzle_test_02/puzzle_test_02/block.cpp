@@ -8,32 +8,32 @@
 
 #include "block.h"
 
-Block::Block() {
+Block::Block():
     // 出力元
     // 座標 & 高さ &幅
-    source_x = 0;
-    source_y = 0;
-    source_h = BLOCK_HIGH;
-    source_w = BLOCK_WIDE;
+    source_x(0),
+    source_y(0),
+    source_h(BLOCK_HIGH),
+    source_w(BLOCK_WIDE),
     // ブロック種別
-    block_type = 0;
+    block_type(0),
     // 現在位置している区画のインデックス
-    section_index = 0;
+    section_index(0),
     // 生存
-    alive = 0;
+    alive(0),
     // アクティブ(マウス左クリックで選択されている)
-    active = 0;
+    active(0),
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    difference_x = 0;
-    difference_y = 0;
+    difference_x(0),
+    difference_y(0),
     // ブロックのクリックされている座標(アクティブ時のみ使用)
-    click_x = 0;
-    click_y = 0;
+    click_x(0),
+    click_y(0),
     // 落下分誤差
-    drop_difference = 0;
+    drop_difference(0),
     // 下方向に死んでるブロックがある
-    count_drop = 0;
-}
+    count_drop(0)
+{}
 
 // ブロック生成
 // 1列目を埋めてから2列目と埋めていく
