@@ -24,11 +24,11 @@ Play::Play(){
     // 色
     black = {0x00, 0x00, 0x00};
     // クリアテキスト描画位置
-    destrect_word_crear = { 700, 350 };
+    destrect_word_crear = { 20, 20 };
     // 得点テキスト描画位置
-    destrect_word_score = { 700, 400 };
+    destrect_word_score = { 20, 50 };
     // 操作回数テキスト描画位置
-    destrect_word_operations = { 700, 450 };
+    destrect_word_operations = { 20, 80 };
 }
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
