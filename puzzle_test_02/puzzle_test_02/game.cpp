@@ -15,18 +15,18 @@ Game::Game():
     // 画面遷移用変数(TOP:0, PLAY:1)
     view_type(0),
     // 画面
-    window(NULL),
+    window(nullptr),
     // 画面の描画領域
-    screen(NULL),
+    screen(nullptr),
     // 区画画像
-    section_image(NULL),
+    section_image(nullptr),
     // ブロック画像
-    block_image(NULL),
+    block_image(nullptr),
     // 粒子画像
-    particle_image(NULL),
+    particle_image(nullptr),
     // フォント
-    font(NULL),
-    big_font(NULL)
+    font(nullptr),
+    big_font(nullptr)
 {}
 
 

@@ -13,11 +13,11 @@ Top::Top():
     x_move_difference(0),
     x_move_amount(MOVE_AMOUNT),
     // 設定画面メインテキスト
-    word_main(NULL),
+    word_main(nullptr),
     // 設定画面サブテキスト
     word_sub(NULL),
     // 設定画面入力内容テキスト
-    word_input(NULL),
+    word_input(nullptr),
     // 色
     black({0x00, 0x00, 0x00}),
     // メインテキスト(案内)描画位置

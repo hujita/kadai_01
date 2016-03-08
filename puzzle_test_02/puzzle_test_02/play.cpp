@@ -16,11 +16,11 @@ Play::Play():
     // クリアしたか失敗したか
     play_result(OFF),
     // 得点テキスト
-    word_score(NULL),
+    word_score(nullptr),
     // クリア
-    word_crear(NULL),
+    word_crear(nullptr),
     // 操作回数テキスト
-    word_operations(NULL),
+    word_operations(nullptr),
     // 色
     black({0x00, 0x00, 0x00}),
     // クリアテキスト描画位置
