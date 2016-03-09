@@ -60,7 +60,7 @@ int Game::Initialize(void) {
     screen = SDL_GetWindowSurface(window);
     if (screen == NULL) {
         fprintf(stderr, "画面の初期化に失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     
@@ -68,19 +68,19 @@ int Game::Initialize(void) {
     section_image = IMG_Load("section_image.png");
     if (section_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     block_image = IMG_Load("block_image.png");
     if (block_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     particle_image = IMG_Load("particle_image.png");
     if (particle_image == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     
@@ -88,13 +88,13 @@ int Game::Initialize(void) {
     font = TTF_OpenFont("AquaKana.ttc", 24);
     if (font == NULL) {
         fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     big_font = TTF_OpenFont("AquaKana.ttc", 36);
     if (big_font == NULL) {
         fprintf(stderr, "big_fontの取得に失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     
@@ -104,16 +104,21 @@ int Game::Initialize(void) {
     music_main = Mix_LoadMUS("music_main.mp3");
     if (music_main == NULL) {
         fprintf(stderr, "music_mainの取得に失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
     // ブロック破壊音読み込み
     music_break = Mix_LoadWAV("music_break.mp3");
     if (music_break == NULL) {
         fprintf(stderr, "music_breakの取得に失敗しました：%s\n", SDL_GetError());
-        SDL_Quit();
+        Finalize();
         return -1;
     }
+    
+    // 音量調節
+    Mix_VolumeMusic(10);
+    Mix_Volume(-1,5);
+    
     
     return 0;
 }
