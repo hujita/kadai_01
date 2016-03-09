@@ -26,7 +26,8 @@ block_image(nullptr),
 particle_image(nullptr),
 // フォント
 font(nullptr),
-big_font(nullptr)
+big_font(nullptr),
+music_main(nullptr)
 {}
 
 
@@ -82,7 +83,7 @@ int Game::Initialize(void) {
         return -1;
     }
     
-    /* フォント読み込む */
+    // フォント読み込む
     font = TTF_OpenFont("AquaKana.ttc", 24);
     if (font == NULL) {
         fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
@@ -91,7 +92,16 @@ int Game::Initialize(void) {
     }
     big_font = TTF_OpenFont("AquaKana.ttc", 36);
     if (big_font == NULL) {
-        fprintf(stderr, "fontの取得に失敗しました：%s\n", SDL_GetError());
+        fprintf(stderr, "big_fontの取得に失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    
+    // SDL_Mixerオープン
+    Mix_OpenAudio(22050,AUDIO_S16,2,4096);
+    music_main = Mix_LoadMUS("music_main.mp3");
+    if (music_main == NULL) {
+        fprintf(stderr, "music_mainの取得に失敗しました：%s\n", SDL_GetError());
         SDL_Quit();
         return -1;
     }
@@ -107,14 +117,18 @@ void Game::Finalize(void) {
     SDL_FreeSurface(particle_image);
     TTF_CloseFont(font);
     TTF_CloseFont(big_font);
+    Mix_FreeMusic(music_main);
     
     // 終了する
     TTF_Quit();
+    Mix_CloseAudio();
     SDL_Quit();
 }
 
 // メインループ
 void Game::MainLoop(void) {
+    // 音楽再生
+    Mix_PlayMusic(music_main,-1);
     // イベント
     SDL_Event event;
     double next_frame = SDL_GetTicks();

@@ -13,6 +13,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <boost/timer.hpp>
 #include "settings.h"
@@ -39,6 +40,8 @@ class Game {
     TTF_Font* font;
     /// フォント
     TTF_Font* big_font;
+    // BGM
+    Mix_Music* music_main;
     
     // ゲーム初期化処理
     int Initialize();
