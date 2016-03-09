@@ -27,10 +27,11 @@ const int Invalid = -1;
 const int VIEW_TOP = 0;
 const int VIEW_PLAY = 1;
 // 設定
-const int CONFIG_STATE_MAX = 4;
+const int CONFIG_STATE_MAX = 5;
 const int CONFIG_LINE_MAX = 20;
 const int CONFIG_ROW_MAX = 12;
 const int CONFIG_TYPE_MAX = 9;
+const int CONFIG_TIME_MAX = 60 * 5;
 
 
 // ブロック

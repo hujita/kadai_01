@@ -9,11 +9,12 @@
 #include "config.h"
 
 Config::Config():
-    state(0),
-    line(0),
-    row(0),
-    type(0),
-    chain(0)
+state(0),
+line(0),
+row(0),
+type(0),
+chain(0),
+time(0)
 {}
 
 void Config::UpdateState(){
@@ -34,6 +35,10 @@ void Config::UpdateState(){
             break;
         case 3:
             if (chain != 0)
+                result = ON;
+            break;
+        case 4:
+            if (time != 0)
                 result = ON;
             break;
     }
@@ -68,6 +73,12 @@ void Config::Set(int value){
                 chain = line;
             }
             break;
+        case 4:
+            time = time * 10 + value;
+            if (time > CONFIG_TIME_MAX){
+                time = CONFIG_TIME_MAX;
+            }
+            break;
     }
 }
 
@@ -77,6 +88,7 @@ void Config::Reset(){
     row = OFF;
     type = OFF;
     chain = OFF;
+    time = OFF;
 }
 
 char* Config::GetQuestion(){
@@ -97,6 +109,9 @@ char* Config::GetQuestion(){
             word_sub = my_text.GetConfigQuestion3();
             break;
         case 4:
+            word_sub = my_text.GetConfigQuestion4();
+            break;
+        case 5:
             word_sub = my_text.GetConfigQuestionFinish();
             break;
     }
@@ -131,3 +146,4 @@ int Config::GetLine(){ return line; }
 int Config::GetRow(){ return row; }
 int Config::GetType(){ return type; }
 int Config::GetChain(){ return chain; }
+int Config::GetTime(){ return time; }

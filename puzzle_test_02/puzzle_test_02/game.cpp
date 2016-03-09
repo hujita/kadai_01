@@ -12,21 +12,21 @@
 
 // クラス初期化
 Game::Game():
-    // 画面遷移用変数(TOP:0, PLAY:1)
-    view_type(0),
-    // 画面
-    window(nullptr),
-    // 画面の描画領域
-    screen(nullptr),
-    // 区画画像
-    section_image(nullptr),
-    // ブロック画像
-    block_image(nullptr),
-    // 粒子画像
-    particle_image(nullptr),
-    // フォント
-    font(nullptr),
-    big_font(nullptr)
+// 画面遷移用変数(TOP:0, PLAY:1)
+view_type(0),
+// 画面
+window(nullptr),
+// 画面の描画領域
+screen(nullptr),
+// 区画画像
+section_image(nullptr),
+// ブロック画像
+block_image(nullptr),
+// 粒子画像
+particle_image(nullptr),
+// フォント
+font(nullptr),
+big_font(nullptr)
 {}
 
 
@@ -131,6 +131,8 @@ void Game::MainLoop(void) {
     Block blocks[BLOCK_MAX] = {};
     // 区画の集合
     Section sections[SECTION_MAX] = {};
+    // ストップウォッチ
+    boost::timer t;
     
     for (;;) {
         // すべてのイベントを処理する
@@ -152,7 +154,7 @@ void Game::MainLoop(void) {
             // PLAY画面
             if (view_type == VIEW_PLAY){
                 // イベント処理
-                play.Event(&event, &config, &puzzle_manager, sections, blocks);
+                play.Event(&event, &config, &puzzle_manager, sections, blocks, &t);
             }
   
             // 全画面共通
@@ -180,7 +182,7 @@ void Game::MainLoop(void) {
         if (SDL_GetTicks() >= next_frame) {
             Update(&config, &puzzle_manager, sections, &top, &play, blocks);
             // 描画
-            Draw(&config, sections, &top, &play, &puzzle_manager, blocks);
+            Draw(&config, sections, &top, &play, &puzzle_manager, blocks, &t);
             next_frame += wait;
             SDL_Delay(0);
         }
@@ -188,7 +190,7 @@ void Game::MainLoop(void) {
 }
 
 // 描画
-void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* blocks){
+void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* blocks, boost::timer* t){
     
     // 背景
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 192, 203));
@@ -200,7 +202,7 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleM
     
     // PLAY画面
     if (view_type == VIEW_PLAY){
-        play->Draw(screen, font, section_image, block_image, config, puzzle_manager, sections, blocks);
+        play->Draw(screen, font, section_image, block_image, config, puzzle_manager, sections, blocks, t);
     }
 
     // 画面を更新する

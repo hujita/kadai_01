@@ -14,6 +14,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdio.h>
+#include <boost/timer.hpp>
 #include "settings.h"
 #include "config.h"
 #include "puzzle_manager.h"
@@ -46,7 +47,7 @@ class Game {
     // メイン処理
     void MainLoop();
     // 描画処理
-    void Draw(Config* config, Section* sectinos, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* block);
+    void Draw(Config* config, Section* sectinos, Top* top, Play* play, PuzzleManager* puzzle_manager, Block* block, boost::timer* t);
     // 描画更新
     void Update(Config* config, PuzzleManager* puzzle_manager, Section* sectinos, Top* top, Play* play, Block* block);
 public:

@@ -17,6 +17,7 @@ class MyText {
     char* config_question_1;
     char* config_question_2;
     char* config_question_3;
+    char* config_question_4;
     char* config_question_finish;
     char* config_input_result;
     char* score;
@@ -24,6 +25,7 @@ class MyText {
     char* crear;
     char* game_over;
     char* condition;
+    char* time;
 public:
     MyText();
     char* GetConfigMain();
@@ -31,6 +33,7 @@ public:
     char* GetConfigQuestion1();
     char* GetConfigQuestion2();
     char* GetConfigQuestion3();
+    char* GetConfigQuestion4();
     char* GetConfigQuestionFinish();
     char* GetConfigInputResult();
     char* GetScore();
@@ -38,6 +41,7 @@ public:
     char* GetCrear();
     char* GetGameOver();
     char* GetCondition();
+    char* GetTime();
 };
 
 #endif /* defined(__puzzle_test_02__my_text__) */

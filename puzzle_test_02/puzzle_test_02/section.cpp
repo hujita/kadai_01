@@ -9,15 +9,15 @@
 #include "section.h"
 
 Section::Section():
-    // 出力元
-    // 座標 & 高さ &幅
-    source_x(SECTION_SOURCE_X),
-    source_y(SECTION_SOURCE_Y),
-    source_h(SECTION_HIGH),
-    source_w(SECTION_WIDE),
-    // 出力先座標
-    destination_x(0),
-    destination_y(0)
+// 出力元
+// 座標 & 高さ &幅
+source_x(SECTION_SOURCE_X),
+source_y(SECTION_SOURCE_Y),
+source_h(SECTION_HIGH),
+source_w(SECTION_WIDE),
+// 出力先座標
+destination_x(0),
+destination_y(0)
 {}
 
 // 区画生成

@@ -18,6 +18,7 @@
 #include "puzzle_manager.h"
 #include "section.h"
 #include "block.h"
+#include <boost/timer.hpp>
 
 class Play {
     // 一度でもブロックを操作したか
@@ -32,6 +33,8 @@ class Play {
     SDL_Surface* word_operations;
     // クリア
     SDL_Surface* word_crear;
+    // 経過時間
+    SDL_Surface* word_time;
     // 色
     SDL_Color black;
     // 得点テキスト描画位置
@@ -40,12 +43,14 @@ class Play {
     SDL_Rect destrect_word_operations;
     // 操作回数テキスト描画位置
     SDL_Rect destrect_word_crear;
+    // 操作回数テキスト描画位置
+    SDL_Rect destrect_word_time;
 public:
     Play();
     // イベント処理
-    void Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
+    void Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t);
     // 描画処理
-    void Draw(SDL_Surface* screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks);
+    void Draw(SDL_Surface* screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t);
     // Getter
     int GetFlagOperated();
     int GetNumberOfOperations();

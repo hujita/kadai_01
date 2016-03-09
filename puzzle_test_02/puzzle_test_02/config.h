@@ -22,6 +22,7 @@ class Config {
     int row;
     int type;
     int chain;
+    int time;
 public:
     Config();
     // ステータス更新
@@ -40,6 +41,7 @@ public:
     int GetRow();
     int GetType();
     int GetChain();
+    int GetTime();
 };
 
 #endif /* defined(__puzzle_test_02__config__) */

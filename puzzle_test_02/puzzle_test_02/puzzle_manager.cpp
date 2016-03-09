@@ -9,11 +9,11 @@
 #include "puzzle_manager.h"
 
 PuzzleManager::PuzzleManager():
-    score(0),
-    state_choice(0),
-    // ドロップ中は操作不能に
-    state_drop(0),
-    freeze(0)
+score(0),
+state_choice(0),
+// ドロップ中は操作不能に
+state_drop(0),
+freeze(0)
 {}
 
 // パズル生成

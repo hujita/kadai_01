@@ -9,23 +9,23 @@
 #include "top.h"
 
 Top::Top():
-    // 移動差分
-    x_move_difference(0),
-    x_move_amount(MOVE_AMOUNT),
-    // 設定画面メインテキスト
-    word_main(nullptr),
-    // 設定画面サブテキスト
-    word_sub(NULL),
-    // 設定画面入力内容テキスト
-    word_input(nullptr),
-    // 色
-    black({0x00, 0x00, 0x00}),
-    // メインテキスト(案内)描画位置
-    destrect_main_word({ 300, 210 }),
-    // サブテキスト(質問)描画位置
-    destrect_sub_word({ 300, 310 }),
-    // 入力内容描画位置
-    destrect_input_word({ 300, 390 })
+// 移動差分
+x_move_difference(0),
+x_move_amount(MOVE_AMOUNT),
+// 設定画面メインテキスト
+word_main(nullptr),
+// 設定画面サブテキスト
+word_sub(NULL),
+// 設定画面入力内容テキスト
+word_input(nullptr),
+// 色
+black({0x00, 0x00, 0x00}),
+// メインテキスト(案内)描画位置
+destrect_main_word({ 300, 210 }),
+// サブテキスト(質問)描画位置
+destrect_sub_word({ 300, 310 }),
+// 入力内容描画位置
+destrect_input_word({ 300, 390 })
 {}
 
 int Top::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks) {
@@ -118,7 +118,7 @@ void Top::Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* blo
     // 入力内容表示テキスト用意
     char buf[150];
     sprintf(buf, my_text.GetConfigInputResult(),
-            config->GetLine(), config->GetRow(), config->GetType(), config->GetChain());
+            config->GetLine(), config->GetRow(), config->GetType(), config->GetChain(), config->GetTime());
     word_input = TTF_RenderUTF8_Blended(font, buf, black);
     
     // メインテキスト描画
