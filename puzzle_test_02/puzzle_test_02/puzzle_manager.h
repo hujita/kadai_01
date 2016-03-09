@@ -15,6 +15,7 @@
 #include "section.h"
 #include "block.h"
 
+
 class PuzzleManager {
     // 得点
     int score;
@@ -37,7 +38,7 @@ public:
     // パズル生成
     void CreatePuzzle(Section* sections, Block* blocks, Config* config);
     // 連鎖成立確認
-    void CheckChain(Config* config, Block* blocks);
+    void CheckChain(Config* config, Block* blocks, Mix_Chunk* music_break);
     // 落下成立確認
     void CheckDrop(Config* config, Block* blocks);
     // 落下描画済みか確認

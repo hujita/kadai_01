@@ -37,7 +37,7 @@ void PuzzleManager::CreatePuzzle(Section* sections, Block* blocks, Config* confi
 }
 
 // 連鎖成立しているか確認
-void PuzzleManager::CheckChain(Config* config, Block* blocks){
+void PuzzleManager::CheckChain(Config* config, Block* blocks, Mix_Chunk* music_break){
     // 縦方向に連結していたらブロック消滅
     int i;
     int j;
@@ -68,6 +68,7 @@ void PuzzleManager::CheckChain(Config* config, Block* blocks){
                 if (j == (config->GetChain() - 1)){
                     for (cnt = 0; cnt < config->GetChain(); ++cnt){
                         blocks[array_row[cnt]].SetAlive(OFF);
+                        Mix_PlayChannel( -1,music_break,0 );
                     }
                 }
             }
@@ -89,6 +90,7 @@ void PuzzleManager::CheckChain(Config* config, Block* blocks){
                 if (j == (config->GetChain() - 1)){
                     for (cnt = 0; cnt < config->GetChain(); ++cnt){
                         blocks[array_line[cnt]].SetAlive(OFF);
+                        Mix_PlayChannel( -1,music_break,0 );
                     }
                 }
             }

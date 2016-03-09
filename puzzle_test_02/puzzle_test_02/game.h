@@ -42,7 +42,7 @@ class Game {
     TTF_Font* big_font;
     // BGM
     Mix_Music* music_main;
-    
+    Mix_Chunk* music_break;
     // ゲーム初期化処理
     int Initialize();
     // 終了処理

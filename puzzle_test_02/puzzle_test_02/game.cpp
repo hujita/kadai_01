@@ -27,7 +27,8 @@ particle_image(nullptr),
 // フォント
 font(nullptr),
 big_font(nullptr),
-music_main(nullptr)
+music_main(nullptr),
+music_break(nullptr)
 {}
 
 
@@ -99,9 +100,17 @@ int Game::Initialize(void) {
     
     // SDL_Mixerオープン
     Mix_OpenAudio(22050,AUDIO_S16,2,4096);
+    // BGM読み込み
     music_main = Mix_LoadMUS("music_main.mp3");
     if (music_main == NULL) {
         fprintf(stderr, "music_mainの取得に失敗しました：%s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+    // ブロック破壊音読み込み
+    music_break = Mix_LoadWAV("music_break.mp3");
+    if (music_break == NULL) {
+        fprintf(stderr, "music_breakの取得に失敗しました：%s\n", SDL_GetError());
         SDL_Quit();
         return -1;
     }
@@ -242,7 +251,7 @@ void Game::Update(Config* config, PuzzleManager* puzzle_manager, Section* sectio
             // 全て描画済みなら次の描画を始める
             if (puzzle_manager->FlagAllDropDrawn(config, blocks) == ON && puzzle_manager->GetFreeze() == 0){
                 // 連鎖チェック
-                puzzle_manager->CheckChain(config, blocks);
+                puzzle_manager->CheckChain(config, blocks, music_break);
                 // 描画位置落下補正準備
                 puzzle_manager->CheckDrop(config, blocks);
                 // 落下処理

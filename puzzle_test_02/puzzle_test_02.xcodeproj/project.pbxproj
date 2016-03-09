@@ -29,6 +29,7 @@
 		96BA209F1C7EC7D200CDE216 /* block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BA209D1C7EC7D200CDE216 /* block.cpp */; };
 		96BA71051C8FF6F200E481B5 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BA71041C8FF6F200E481B5 /* SDL2_mixer.framework */; };
 		96BA71091C8FF92E00E481B5 /* music_main.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96BA71081C8FF92E00E481B5 /* music_main.mp3 */; };
+		96BA710B1C8FFF2F00E481B5 /* music_break.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96BA710A1C8FFF2F00E481B5 /* music_break.mp3 */; };
 		96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE6681C83F7060029F2D6 /* my_math.cpp */; };
 		96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		96BA209E1C7EC7D200CDE216 /* block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = block.h; sourceTree = "<group>"; };
 		96BA71041C8FF6F200E481B5 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_mixer.framework; sourceTree = "<group>"; };
 		96BA71081C8FF92E00E481B5 /* music_main.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_main.mp3; sourceTree = "<group>"; };
+		96BA710A1C8FFF2F00E481B5 /* music_break.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_break.mp3; sourceTree = "<group>"; };
 		96BAE6681C83F7060029F2D6 /* my_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_math.cpp; sourceTree = "<group>"; };
 		96BAE6691C83F7060029F2D6 /* my_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_math.h; sourceTree = "<group>"; };
 		96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_keyboard.cpp; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 		96B860FB1C7DB3E900E0A8F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96BA710A1C8FFF2F00E481B5 /* music_break.mp3 */,
 				96BA71081C8FF92E00E481B5 /* music_main.mp3 */,
 				96B862321C88455F0062B5C7 /* particle_image.png */,
 				96B117501C868DC300E050E5 /* block_image.png */,
@@ -298,6 +301,7 @@
 			files = (
 				960B5CF61C85875500B4DE6A /* section_image.png in Resources */,
 				96B861021C7DB44900E0A8F6 /* AquaKana.ttc in Resources */,
+				96BA710B1C8FFF2F00E481B5 /* music_break.mp3 in Resources */,
 				96B860DC1C7DB33100E0A8F6 /* Images.xcassets in Resources */,
 				96B862331C88455F0062B5C7 /* particle_image.png in Resources */,
 				96BA71091C8FF92E00E481B5 /* music_main.mp3 in Resources */,
