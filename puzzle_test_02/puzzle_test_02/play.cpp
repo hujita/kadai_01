@@ -15,6 +15,8 @@ flag_operated(OFF),
 number_of_operations(0),
 // アイテムを使用した回数
 number_of_use_item(0),
+// 残り時間2倍スイッチ
+time_double(OFF),
 // クリアしたか失敗したか
 play_result(OFF),
 // 得点テキスト
@@ -50,6 +52,8 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
             ++number_of_use_item;
         }
         if (event->key.keysym.sym == SDLK_e){
+            time_double = ON;
+            ++number_of_use_item;
         }
     }
     // マウス操作
@@ -69,6 +73,7 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
             break;
         case SDL_MOUSEBUTTONUP:
             if (event->button.button == SDL_BUTTON_LEFT && event->button.state == SDL_RELEASED){
+                time_double = OFF;
                 // ブロックを解放する
                 if (puzzle_manager->GetStateChoice() == ON){
                     puzzle_manager->ReleaseBlock(sections, blocks, config, event->button.x, event->button.y);
@@ -82,8 +87,10 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
             if (puzzle_manager->GetStateChoice() == ON) {
                 puzzle_manager->MoveBlock(sections, blocks, config, event->button.x, event->button.y);
             }
-            if ( puzzle_manager->GetStateChoice() == ON && config->GetTime() - t->elapsed() <= 0 ){
+            int my_time = time_double == ON ? config->GetTime() * 2 : config->GetTime();
+            if ( puzzle_manager->GetStateChoice() == ON && my_time - t->elapsed() <= 0 ){
                 // ブロックを解放する
+                time_double = OFF;
                 puzzle_manager->ReleaseBlock(sections, blocks, config, event->button.x, event->button.y);
                 if (number_of_operations <= OPERATION_MAX && puzzle_manager->GetScore() >= config->GetRow() * config->GetLine() * SCORE_BLOCK * 10){
                     play_result = ON;
@@ -150,9 +157,10 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
         word_crear = TTF_RenderUTF8_Blended(font, my_text.GetCrear(), black);
     }
     // 残り秒数テキスト用意
-    int remain_time = (config->GetTime() - (int)(t->elapsed()));
+    int my_time = time_double == ON ? config->GetTime() * 2 : config->GetTime();
+    int remain_time = (my_time - (int)(t->elapsed()));
     if (puzzle_manager->GetStateChoice() == OFF || remain_time <= 0){
-        remain_time = 0;
+        remain_time = my_time;
     }
     char buf_time[150];
     sprintf(buf_time, my_text.GetTime(), remain_time);

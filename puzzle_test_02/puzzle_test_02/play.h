@@ -27,6 +27,8 @@ class Play {
     int number_of_operations;
     // アイテム使用回数
     int number_of_use_item;
+    // 残り時間2倍スイッチ
+    int time_double;
     // クリアしたか失敗したか
     int play_result;
     // 得点テキスト
