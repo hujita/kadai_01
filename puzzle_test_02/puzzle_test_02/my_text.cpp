@@ -27,7 +27,7 @@ item("【アイテム】"),
 item_q("Q：全ブロック消滅"),
 item_w("W：操作回数＋1"),
 item_e("E：操作時間×2"),
-rank("Rank：%d")
+rank("Rank：%c")
 {}
 
 char* MyText::GetConfigMain(){ return config_main; }

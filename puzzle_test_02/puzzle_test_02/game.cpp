@@ -200,6 +200,8 @@ void Game::MainLoop(void) {
                     play.SetNumberOfOperations(OFF);
                     // クリア状況リセット
                     play.SetPlayResult(OFF);
+                    // プレイ状況リセット
+                    play.Reset();
                     // TOP画面へ遷移
                     view_type = VIEW_TOP;
                 }

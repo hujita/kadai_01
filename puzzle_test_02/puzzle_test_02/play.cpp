@@ -13,6 +13,8 @@ Play::Play():
 flag_operated(OFF),
 // ブロックを操作した回数
 number_of_operations(0),
+// アイテムを使用した回数
+number_of_use_item(0),
 // クリアしたか失敗したか
 play_result(OFF),
 // 得点テキスト
@@ -23,13 +25,6 @@ word_operations(nullptr),
 word_crear(nullptr),
 // 残り秒数
 word_time(nullptr),
-// アイテム説明
-//word_item(nullptr),
-//word_item_q(nullptr),
-//word_item_w(nullptr),
-//word_item_e(nullptr),
-// ランクテキスト
-//word_rank(nullptr),
 // 色
 black({0x00, 0x00, 0x00}),
 // クリアテキスト描画位置
@@ -40,12 +35,6 @@ destrect_word_score({ 20, 50 }),
 destrect_word_operations({ 20, 80 }),
 // 残り秒数テキスト描画位置
 destrect_word_time({ 20, 110 })
-// アイテム説明描画位置
-//destrect_word_item_q({ 20, 140 })
-//destrect_word_item_w({ 20, 170 }),
-//destrect_word_item_e({ 20, 200 }),
-// ランク描画位置
-//destrect_word_rank({ 20, 230 })
 {}
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t) {
@@ -54,8 +43,11 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
         if (event->key.keysym.sym == SDLK_q){
             puzzle_manager->OrderAllBlockType(config, blocks, 0);
             flag_operated = OFF;
+            ++number_of_use_item;
         }
         if (event->key.keysym.sym == SDLK_w){
+            --number_of_operations;
+            ++number_of_use_item;
         }
         if (event->key.keysym.sym == SDLK_e){
         }
@@ -106,10 +98,12 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     SDL_Surface* word_item_q;
     SDL_Surface* word_item_w;
     SDL_Surface* word_item_e;
-    SDL_Rect destrect_word_item = { 20, 140 };
-    SDL_Rect destrect_word_item_q = { 20, 170 };
-    SDL_Rect destrect_word_item_w = { 20, 200 };
-    SDL_Rect destrect_word_item_e = { 20, 230 };
+    SDL_Surface* word_rank;
+    SDL_Rect destrect_word_item = { 20, 170 };
+    SDL_Rect destrect_word_item_q = { 20, 200 };
+    SDL_Rect destrect_word_item_w = { 20, 230 };
+    SDL_Rect destrect_word_item_e = { 20, 260 };
+    SDL_Rect destrect_word_rank = { 20, 140 };
     // 区画を描画
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
@@ -168,6 +162,22 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     word_item_q = TTF_RenderUTF8_Blended(font, my_text.GetItemQ(), black);
     word_item_w = TTF_RenderUTF8_Blended(font, my_text.GetItemW(), black);
     word_item_e = TTF_RenderUTF8_Blended(font, my_text.GetItemE(), black);
+    // ランク
+    char tmp_rank;
+    switch (number_of_use_item) {
+        case 0:
+            tmp_rank = 'S';
+            break;
+        case 1:
+            tmp_rank = 'A';
+            break;
+        default:
+            tmp_rank = 'B';
+            break;
+    }
+    char buf_rank[150];
+    sprintf(buf_rank, my_text.GetRank(), tmp_rank);
+    word_rank = TTF_RenderUTF8_Blended(font, buf_rank, black);
     // 得点テキスト描画
     SDL_BlitSurface(word_score, NULL, screen, &destrect_word_score);
     // 操作回数テキスト描画
@@ -181,6 +191,13 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     SDL_BlitSurface(word_item_q, NULL, screen, &destrect_word_item_q);
     SDL_BlitSurface(word_item_w, NULL, screen, &destrect_word_item_w);
     SDL_BlitSurface(word_item_e, NULL, screen, &destrect_word_item_e);
+    // ランク
+    SDL_BlitSurface(word_rank, NULL, screen, &destrect_word_rank);
+}
+
+// プレイ状況リセット
+void Play::Reset(){
+    number_of_use_item = OFF;
 }
 
 void Play::SetFlagOperated(int value){ flag_operated = value; }
