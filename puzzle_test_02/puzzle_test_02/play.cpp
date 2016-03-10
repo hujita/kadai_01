@@ -100,16 +100,16 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
     }
 }
 
-void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks, boost::timer* t) {
+void Play::Draw(SDL_Surface *screen, TTF_Font* font, TTF_Font* big_font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks, boost::timer* t) {
     SDL_Surface* word_item;
     SDL_Surface* word_item_q;
     SDL_Surface* word_item_w;
     SDL_Surface* word_item_e;
     SDL_Surface* word_rank;
-    SDL_Rect destrect_word_item = { 20, 170 };
-    SDL_Rect destrect_word_item_q = { 20, 200 };
-    SDL_Rect destrect_word_item_w = { 20, 230 };
-    SDL_Rect destrect_word_item_e = { 20, 260 };
+    SDL_Rect destrect_word_item = { 20, 180 };
+    SDL_Rect destrect_word_item_q = { 20, 210 };
+    SDL_Rect destrect_word_item_w = { 20, 240 };
+    SDL_Rect destrect_word_item_e = { 20, 270 };
     SDL_Rect destrect_word_rank = { 20, 140 };
     // 区画を描画
     int i;
@@ -185,7 +185,7 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     }
     char buf_rank[150];
     sprintf(buf_rank, my_text.GetRank(), tmp_rank);
-    word_rank = TTF_RenderUTF8_Blended(font, buf_rank, black);
+    word_rank = TTF_RenderUTF8_Blended(big_font, buf_rank, black);
     // 得点テキスト描画
     SDL_BlitSurface(word_score, NULL, screen, &destrect_word_score);
     // 操作回数テキスト描画

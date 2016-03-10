@@ -232,7 +232,7 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleM
     
     // PLAY画面
     if (view_type == VIEW_PLAY){
-        play->Draw(screen, font, section_image, block_image, config, puzzle_manager, sections, blocks, t);
+        play->Draw(screen, font, big_font, section_image, block_image, config, puzzle_manager, sections, blocks, t);
     }
 
     // 画面を更新する

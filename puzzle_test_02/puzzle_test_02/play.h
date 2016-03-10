@@ -54,7 +54,7 @@ public:
     // イベント処理
     void Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t);
     // 描画処理
-    void Draw(SDL_Surface* screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t);
+    void Draw(SDL_Surface* screen, TTF_Font* font, TTF_Font* big_font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t);
     void Reset();
     // Getter
     int GetFlagOperated();
