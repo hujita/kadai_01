@@ -57,6 +57,8 @@ public:
     void MoveBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     void AddFreeze(int value);
     void ResetScore();
+    // 全色染め
+    void OrderAllBlockType(Config* config, Block* blocks, int type);
     // Getter
     int GetStateChoice();
     int GetFreeze();

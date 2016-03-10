@@ -26,6 +26,11 @@ class MyText {
     char* game_over;
     char* condition;
     char* time;
+    char* item;
+    char* item_q;
+    char* item_w;
+    char* item_e;
+    char* rank;
 public:
     MyText();
     char* GetConfigMain();
@@ -42,6 +47,11 @@ public:
     char* GetGameOver();
     char* GetCondition();
     char* GetTime();
+    char* GetItem();
+    char* GetItemQ();
+    char* GetItemW();
+    char* GetItemE();
+    char* GetRank();
 };
 
 #endif /* defined(__puzzle_test_02__my_text__) */

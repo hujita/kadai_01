@@ -192,6 +192,17 @@ void Block::AddCountDrop(int value){
     count_drop += value;
 }
 
+void Block::ChangeType(int type){
+    // ブロック種別
+    block_type = type;
+    // 出力元
+    // 座標 & 高さ &幅
+    int position[2] = {};
+    SourcePosition(block_type, position);
+    source_x = position[0];
+    source_y = position[1];
+}
+
 // Getter
 int Block::GetActive() { return active; }
 int Block::GetSectionIndex(){ return section_index; }

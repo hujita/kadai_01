@@ -17,12 +17,19 @@ number_of_operations(0),
 play_result(OFF),
 // 得点テキスト
 word_score(nullptr),
-// クリア
-word_crear(nullptr),
-// クリア
-word_time(nullptr),
 // 操作回数テキスト
 word_operations(nullptr),
+// クリア
+word_crear(nullptr),
+// 残り秒数
+word_time(nullptr),
+// アイテム説明
+//word_item(nullptr),
+//word_item_q(nullptr),
+//word_item_w(nullptr),
+//word_item_e(nullptr),
+// ランクテキスト
+//word_rank(nullptr),
 // 色
 black({0x00, 0x00, 0x00}),
 // クリアテキスト描画位置
@@ -33,9 +40,26 @@ destrect_word_score({ 20, 50 }),
 destrect_word_operations({ 20, 80 }),
 // 残り秒数テキスト描画位置
 destrect_word_time({ 20, 110 })
+// アイテム説明描画位置
+//destrect_word_item_q({ 20, 140 })
+//destrect_word_item_w({ 20, 170 }),
+//destrect_word_item_e({ 20, 200 }),
+// ランク描画位置
+//destrect_word_rank({ 20, 230 })
 {}
 
 void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block* blocks, boost::timer* t) {
+    // キーボード操作
+    if (event->type == SDL_KEYDOWN){
+        if (event->key.keysym.sym == SDLK_q){
+            puzzle_manager->OrderAllBlockType(config, blocks, 0);
+            flag_operated = OFF;
+        }
+        if (event->key.keysym.sym == SDLK_w){
+        }
+        if (event->key.keysym.sym == SDLK_e){
+        }
+    }
     // マウス操作
     switch(event->type){
         case SDL_MOUSEBUTTONDOWN:
@@ -78,6 +102,14 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
 }
 
 void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks, boost::timer* t) {
+    SDL_Surface* word_item;
+    SDL_Surface* word_item_q;
+    SDL_Surface* word_item_w;
+    SDL_Surface* word_item_e;
+    SDL_Rect destrect_word_item = { 20, 140 };
+    SDL_Rect destrect_word_item_q = { 20, 170 };
+    SDL_Rect destrect_word_item_w = { 20, 200 };
+    SDL_Rect destrect_word_item_e = { 20, 230 };
     // 区画を描画
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
@@ -131,7 +163,11 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     char buf_time[150];
     sprintf(buf_time, my_text.GetTime(), remain_time);
     word_time = TTF_RenderUTF8_Blended(font, buf_time, black);
-    
+    // アイテム
+    word_item = TTF_RenderUTF8_Blended(font, my_text.GetItem(), black);
+    word_item_q = TTF_RenderUTF8_Blended(font, my_text.GetItemQ(), black);
+    word_item_w = TTF_RenderUTF8_Blended(font, my_text.GetItemW(), black);
+    word_item_e = TTF_RenderUTF8_Blended(font, my_text.GetItemE(), black);
     // 得点テキスト描画
     SDL_BlitSurface(word_score, NULL, screen, &destrect_word_score);
     // 操作回数テキスト描画
@@ -140,6 +176,11 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, SDL_Surface* section_image,
     SDL_BlitSurface(word_crear, NULL, screen, &destrect_word_crear);
     // 残り秒数の描画
     SDL_BlitSurface(word_time, NULL, screen, &destrect_word_time);
+    // アイテム説明テキスト描画
+    SDL_BlitSurface(word_item, NULL, screen, &destrect_word_item);
+    SDL_BlitSurface(word_item_q, NULL, screen, &destrect_word_item_q);
+    SDL_BlitSurface(word_item_w, NULL, screen, &destrect_word_item_w);
+    SDL_BlitSurface(word_item_e, NULL, screen, &destrect_word_item_e);
 }
 
 void Play::SetFlagOperated(int value){ flag_operated = value; }

@@ -340,6 +340,13 @@ void PuzzleManager::ResetScore(){
     score = 0;
 }
 
+void PuzzleManager::OrderAllBlockType(Config* config, Block* blocks, int type){
+    int i;
+    for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
+        blocks[i].ChangeType(type);
+    }
+}
+
 // Getter
 int PuzzleManager::GetStateChoice(){ return state_choice; }
 int PuzzleManager::GetFreeze(){ return freeze; }

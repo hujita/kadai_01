@@ -64,6 +64,7 @@ public:
     // ブロックの移動による座標の更新
     void Move(double event_button_x, double event_button_y);
     void AddCountDrop(int value);
+    void ChangeType(int type);
     // Getter
     int GetActive();
     int GetSectionIndex();

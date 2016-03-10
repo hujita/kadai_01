@@ -35,6 +35,13 @@ class Play {
     SDL_Surface* word_crear;
     // 経過時間
     SDL_Surface* word_time;
+    // アイテム説明テキスト
+    //SDL_Surface* word_item;
+    //SDL_Surface* word_item_q;
+    //SDL_Surface* word_item_w;
+    //SDL_Surface* word_item_e;
+    // ランクテキスト
+    //SDL_Surface* word_rank;
     // 色
     SDL_Color black;
     // 得点テキスト描画位置
@@ -45,6 +52,12 @@ class Play {
     SDL_Rect destrect_word_crear;
     // 操作回数テキスト描画位置
     SDL_Rect destrect_word_time;
+    // アイテム説明テキスト描画位置
+    //SDL_Rect destrect_word_item_q;
+    //SDL_Rect destrect_word_item_w;
+    //SDL_Rect destrect_word_item_e;
+    // ランクテキスト描画位置
+    //SDL_Rect destrect_word_rank;
 public:
     Play();
     // イベント処理

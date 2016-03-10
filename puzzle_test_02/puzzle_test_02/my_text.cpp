@@ -22,7 +22,12 @@ operations("残り操作回数：%d"),
 crear("クリアしました"),
 game_over("ゲームオーバー"),
 condition("%d点とるとクリア"),
-time("残り秒数：%d")
+time("残り秒数：%d"),
+item("【アイテム】"),
+item_q("Q：全ブロック消滅"),
+item_w("W：操作回数＋1"),
+item_e("E：操作時間×2"),
+rank("Rank：%d")
 {}
 
 char* MyText::GetConfigMain(){ return config_main; }
@@ -39,3 +44,9 @@ char* MyText::GetCrear(){ return crear;}
 char* MyText::GetGameOver(){ return game_over; }
 char* MyText::GetCondition(){ return condition; }
 char* MyText::GetTime(){ return time; }
+char* MyText::GetItem(){ return item; }
+char* MyText::GetItemQ(){ return item_q; }
+char* MyText::GetItemW(){ return item_w; }
+char* MyText::GetItemE(){ return item_e; }
+char* MyText::GetRank(){ return rank; }
+
