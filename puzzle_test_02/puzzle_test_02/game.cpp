@@ -214,7 +214,8 @@ void Game::MainLoop(void) {
             // 描画
             Draw(&config, sections, &top, &play, &puzzle_manager, blocks, &t);
             next_frame += wait;
-            SDL_Delay(0);
+            // CPU休ませる。どれくらいの数値がベスト…？
+            SDL_Delay(3);
         }
     }
 }
