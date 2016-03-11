@@ -28,14 +28,17 @@ class Section {
     // 出力先座標
     double destination_x;
     double destination_y;
+    int exist;
 public:
     Section();
     void Initialize(int i, int j, int cnt, Config* config);
     // 区画描画
-    void Draw(SDL_Surface* screen, SDL_Surface* section_image, Config* config);
+    void Draw(SDL_Surface* screen, SDL_Surface* section_image, SDL_Surface* section_image_02, Config* config);
     // Getter
     double GetDestinationX();
     double GetDestinationY();
+    // Setter
+    void SetExist(int value);
 };
 
 #endif /* defined(__puzzle_test_02__section__) */

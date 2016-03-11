@@ -32,6 +32,7 @@
 		96BA710B1C8FFF2F00E481B5 /* music_break.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96BA710A1C8FFF2F00E481B5 /* music_break.mp3 */; };
 		96BAE66A1C83F7060029F2D6 /* my_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE6681C83F7060029F2D6 /* my_math.cpp */; };
 		96BAE66D1C83F8900029F2D6 /* my_keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */; };
+		96BAF79A1C929CD700250C82 /* section_image_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BAF7991C929CD700250C82 /* section_image_02.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		96BAE6691C83F7060029F2D6 /* my_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_math.h; sourceTree = "<group>"; };
 		96BAE66B1C83F8900029F2D6 /* my_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = my_keyboard.cpp; sourceTree = "<group>"; };
 		96BAE66C1C83F8900029F2D6 /* my_keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = my_keyboard.h; sourceTree = "<group>"; };
+		96BAF7991C929CD700250C82 /* section_image_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section_image_02.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		96B860FB1C7DB3E900E0A8F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96BAF7991C929CD700250C82 /* section_image_02.png */,
 				96BA710A1C8FFF2F00E481B5 /* music_break.mp3 */,
 				96BA71081C8FF92E00E481B5 /* music_main.mp3 */,
 				96B862321C88455F0062B5C7 /* particle_image.png */,
@@ -306,6 +309,7 @@
 				96B862331C88455F0062B5C7 /* particle_image.png in Resources */,
 				96BA71091C8FF92E00E481B5 /* music_main.mp3 in Resources */,
 				96B117511C868DC300E050E5 /* block_image.png in Resources */,
+				96BAF79A1C929CD700250C82 /* section_image_02.png in Resources */,
 				96B860DF1C7DB33100E0A8F6 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

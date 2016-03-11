@@ -93,6 +93,8 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                 int index = puzzle_manager->LookForPositionBlock(sections, blocks, config, event->button.x, event->button.y);
                 blocks[index].SetAlive(OFF);
                 blocks[index].SetExist(OFF);
+                // 区画も消す
+                sections[blocks[index].GetSectionIndex()].SetExist(OFF);
             }
             if (mode == MODE_REBORN){
                 // 左クリッックされた座標から選択されたブロックを探して非実在にする
@@ -100,6 +102,8 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                 int index = puzzle_manager->LookForPositionBlock(sections, blocks, config, event->button.x, event->button.y);
                 blocks[index].SetAlive(ON);
                 blocks[index].SetExist(ON);
+                // 区画も復活
+                sections[blocks[index].GetSectionIndex()].SetExist(ON);
             }
             break;
         case SDL_MOUSEBUTTONUP:
@@ -135,7 +139,7 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
     }
 }
 
-void Play::Draw(SDL_Surface *screen, TTF_Font* font, TTF_Font* big_font, SDL_Surface* section_image, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks, boost::timer* t) {
+void Play::Draw(SDL_Surface *screen, TTF_Font* font, TTF_Font* big_font, SDL_Surface* section_image, SDL_Surface* section_image_02, SDL_Surface* block_image, Config* config, PuzzleManager* puzzle_manager, Section* sections, Block *blocks, boost::timer* t) {
     // アイテム
     SDL_Surface* word_item;
     SDL_Surface* word_item_q;
@@ -164,7 +168,7 @@ void Play::Draw(SDL_Surface *screen, TTF_Font* font, TTF_Font* big_font, SDL_Sur
     // 区画を描画
     int i;
     for (i = 0; i < config->GetLine() * config->GetRow(); ++i) {
-        sections[i].Draw(screen, section_image, config);
+        sections[i].Draw(screen, section_image, section_image_02, config);
     };
     
     // ブロックを描画

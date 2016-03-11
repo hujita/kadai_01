@@ -20,6 +20,7 @@ window(nullptr),
 screen(nullptr),
 // 区画画像
 section_image(nullptr),
+section_image_02(nullptr),
 // ブロック画像
 block_image(nullptr),
 // 粒子画像
@@ -67,6 +68,12 @@ int Game::Initialize(void) {
     /* 画像を読み込む */
     section_image = IMG_Load("section_image.png");
     if (section_image == NULL) {
+        fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
+        Finalize();
+        return -1;
+    }
+    section_image_02 = IMG_Load("section_image_02.png");
+    if (section_image_02 == NULL) {
         fprintf(stderr, "画像の読み込みに失敗しました：%s\n", SDL_GetError());
         Finalize();
         return -1;
@@ -128,6 +135,7 @@ void Game::Finalize(void) {
     // 解放する
     SDL_FreeSurface(block_image);
     SDL_FreeSurface(section_image);
+    SDL_FreeSurface(section_image_02);
     SDL_FreeSurface(particle_image);
     TTF_CloseFont(font);
     TTF_CloseFont(big_font);
@@ -233,7 +241,7 @@ void Game::Draw(Config* config, Section* sections, Top* top, Play* play, PuzzleM
     
     // PLAY画面
     if (view_type == VIEW_PLAY){
-        play->Draw(screen, font, big_font, section_image, block_image, config, puzzle_manager, sections, blocks, t);
+        play->Draw(screen, font, big_font, section_image, section_image_02, block_image, config, puzzle_manager, sections, blocks, t);
     }
 
     // 画面を更新する

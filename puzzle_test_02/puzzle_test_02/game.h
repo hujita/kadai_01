@@ -32,6 +32,7 @@ class Game {
     SDL_Surface* screen;
     // 区画画像
     SDL_Surface* section_image;
+    SDL_Surface* section_image_02;
     // ブロック画像
     SDL_Surface* block_image;
     // 粒子画像
