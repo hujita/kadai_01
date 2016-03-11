@@ -139,8 +139,28 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
     // block[i]とblock[j]は同じ列にあり、iはjよりも上の行に位置する。
     int i;
     int j;
+    int k;
     // blocks[i]
     for (i = 0; i < config->GetRow() * config->GetLine(); ++i){
+        // 下にある一番近くの機能停止区画インデックスを見つける
+        int non_exist_index = Invalid;
+        for (k = 0; k < config->GetLine() * config->GetRow(); ++k){
+            // blocks[i]より下の行、もしくは右の列、にあるblocks[j]を見つける
+            if (blocks[k].GetSectionIndex() > blocks[i].GetSectionIndex()
+                // blocks[i]とblocoks[k]は同じ列になければいけない
+                && blocks[i].GetSectionIndex() / config->GetRow() == blocks[k].GetSectionIndex() / config->GetRow()){
+                if (blocks[k].GetExist() == OFF) {
+                    if (non_exist_index == Invalid){
+                        non_exist_index = blocks[k].GetSectionIndex();
+                    }
+                    if (non_exist_index != Invalid && blocks[k].GetSectionIndex() < non_exist_index){
+                        non_exist_index = blocks[k].GetSectionIndex();
+                    }
+                }
+            }
+        }
+        
+        //
         // blocks[j]
         for (j = 0; j < config->GetLine() * config->GetRow(); ++j){
             // blocks[i]より下の行、もしくは右の列、にあるblocks[j]を見つける
@@ -149,7 +169,9 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                 && blocks[i].GetSectionIndex() / config->GetRow() == blocks[j].GetSectionIndex() / config->GetRow()){
                 // jが死んでいたらiの落下回数に +1
                 if (blocks[j].GetAlive() == OFF && blocks[j].GetExist() == ON){
+                    if (blocks[j].GetSectionIndex() < non_exist_index){
                     blocks[i].AddCountDrop(SECTION_HIGH);
+                    }
                 }
                 if (blocks[j].GetExist() == OFF) {
                     //break;
