@@ -94,7 +94,9 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                 blocks[index].SetAlive(OFF);
                 blocks[index].SetExist(OFF);
                 // 区画も消す
-                sections[blocks[index].GetSectionIndex()].SetExist(OFF);
+                if ( index != Invalid){
+                    sections[blocks[index].GetSectionIndex()].SetExist(OFF);
+                }
             }
             if (mode == MODE_REBORN){
                 // 左クリッックされた座標から選択されたブロックを探して非実在にする
@@ -103,7 +105,9 @@ void Play::Event(SDL_Event* event, Config* config, PuzzleManager* puzzle_manager
                 blocks[index].SetAlive(ON);
                 blocks[index].SetExist(ON);
                 // 区画も復活
-                sections[blocks[index].GetSectionIndex()].SetExist(ON);
+                if ( index != Invalid){
+                    sections[blocks[index].GetSectionIndex()].SetExist(ON);
+                }
             }
             break;
         case SDL_MOUSEBUTTONUP:

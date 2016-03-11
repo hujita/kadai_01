@@ -100,16 +100,17 @@ void PuzzleManager::CheckChain(Config* config, Block* blocks, Mix_Chunk* music_b
 
 // 縦の連鎖チェック
 int PuzzleManager::CheckRowChain(Config* config, Block* blocks, int before_index){
-    int i;
-    // 全ブロックの中から
-    for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
-        // 真下のブロックを見つける && そのブロックが次の行の最上段のブロックではない
-        if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + 1) && blocks[i].GetSectionIndex() % config->GetRow() != 0){
-            // ブロックの種類が同じなら真上のブロックのインデックスを返す
-            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
-                return i;
+    if (blocks[before_index].GetExist() == ON){
+        int i;
+        // 全ブロックの中から
+        for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
+            // 真下のブロックを見つける && そのブロックが次の行の最上段のブロックではない
+            if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + 1) && blocks[i].GetSectionIndex() % config->GetRow() != 0){
+                // ブロックの種類が同じなら真上のブロックのインデックスを返す
+                if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
+                    return i;
+                }
             }
-            
         }
     }
     return Invalid;
@@ -117,16 +118,17 @@ int PuzzleManager::CheckRowChain(Config* config, Block* blocks, int before_index
 
 // 縦の連鎖チェック
 int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_index){
-    int i;
-    // 全ブロックの中から
-    for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
-        // 右のブロックを見つける && そのブロックが次の列の最左のブロックではない
-        if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + config->GetRow()) && blocks[i].GetSectionIndex() % config->GetRow() < config->GetRow()){
-            // ブロックの種類が同じなら真上のブロックのインデックスを返す
-            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
-                return i;
+    if (blocks[before_index].GetExist() == ON){
+        int i;
+        // 全ブロックの中から
+        for (i = 0; i < config->GetLine() * config->GetRow(); ++i){
+            // 右のブロックを見つける && そのブロックが次の列の最左のブロックではない
+            if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + config->GetRow()) && blocks[i].GetSectionIndex() % config->GetRow() < config->GetRow()){
+                // ブロックの種類が同じなら真上のブロックのインデックスを返す
+                if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
+                    return i;
+                }
             }
-            
         }
     }
     return Invalid;
@@ -150,7 +152,10 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                     blocks[i].AddCountDrop(SECTION_HIGH);
                 }
                 if (blocks[j].GetExist() == OFF) {
-                    blocks[i].AddCountDrop(-SECTION_HIGH);
+                    //break;
+                    // これがあると停止区画より下を消したときに停止区画より上のブロックが落ちたフリをしない
+                    // これがあると停止区画より上を消したときに下にある停止区画分だけブロックが一瞬でおちる
+                    //blocks[i].AddCountDrop(-SECTION_HIGH);
                 }
             }
         }
