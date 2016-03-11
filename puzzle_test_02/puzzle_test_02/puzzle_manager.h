@@ -29,8 +29,6 @@ class PuzzleManager {
     int CheckRowChain(Config* config, Block* blocks, int before_index);
     // 右横のブロックが同種か確認
     int CheckLineChain(Config* config, Block* blocks, int before_index);
-    // 座標からブロックを見つける
-    int LookForPositionBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // 操作中のブロックを見つける
     int LookForActiveBlock(Block* blocks, Config* config);
 public:
@@ -59,6 +57,8 @@ public:
     void ResetScore();
     // 全色染め
     void OrderAllBlockType(Config* config, Block* blocks, int type);
+    // 座標からブロックを見つける
+    int LookForPositionBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y);
     // Getter
     int GetStateChoice();
     int GetFreeze();

@@ -106,7 +106,7 @@ int PuzzleManager::CheckRowChain(Config* config, Block* blocks, int before_index
         // 真下のブロックを見つける && そのブロックが次の行の最上段のブロックではない
         if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + 1) && blocks[i].GetSectionIndex() % config->GetRow() != 0){
             // ブロックの種類が同じなら真上のブロックのインデックスを返す
-            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType()){
+            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
                 return i;
             }
             
@@ -123,7 +123,7 @@ int PuzzleManager::CheckLineChain(Config* config, Block* blocks, int before_inde
         // 右のブロックを見つける && そのブロックが次の列の最左のブロックではない
         if (blocks[i].GetSectionIndex() == (blocks[before_index].GetSectionIndex() + config->GetRow()) && blocks[i].GetSectionIndex() % config->GetRow() < config->GetRow()){
             // ブロックの種類が同じなら真上のブロックのインデックスを返す
-            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType()){
+            if (blocks[i].GetBlockType() == blocks[before_index].GetBlockType() && blocks[i].GetExist() == ON){
                 return i;
             }
             
@@ -146,8 +146,12 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                 // blocks[i]とblocoks[j]は同じ列になければいけない
                 && blocks[i].GetSectionIndex() / config->GetRow() == blocks[j].GetSectionIndex() / config->GetRow()){
                 // jが死んでいたらiの落下回数に +1
-                if (blocks[j].GetAlive() == OFF){
+                if (blocks[j].GetAlive() == OFF && blocks[j].GetExist() == ON){
+                    //if (blocks[j].GetExist() == OFF){
+                    //    break;
+                    //}
                     blocks[i].AddCountDrop(SECTION_HIGH);
+                    blocks[i].AddCountExist(SECTION_HIGH);
                 }
             }
         }
@@ -180,7 +184,7 @@ void PuzzleManager::DropBlock(Config* config, Section* sections,Block* blocks){
 void PuzzleManager::ReCreate(Config* config, Block* blocks){
     int block_index;
     for (block_index = 0; block_index < config->GetLine() * config->GetRow(); ++block_index) {
-        if (blocks[block_index].GetAlive() == OFF){
+        if (blocks[block_index].GetAlive() == OFF && blocks[block_index].GetExist() == ON){
             blocks[block_index].ReCreate(config, block_index);
             score += SCORE_BLOCK;
         }
@@ -221,9 +225,11 @@ void PuzzleManager::AllDrop(Config *config, Block *blocks){
             // 死んでたらブロック上下入れ替える
             // 最上段だったら入れ替えない
             if (blocks[block_index_a].GetAlive() == OFF && section_index % config->GetRow() != 0){
-                // 所属区画を交換する
-                blocks[block_index_a].SetSectionIndex(section_index - 1);
-                blocks[block_index_b].SetSectionIndex(section_index);
+                if (blocks[block_index_a].GetExist() == ON && blocks[block_index_b].GetExist() == ON){
+                    // 所属区画を交換する
+                    blocks[block_index_a].SetSectionIndex(section_index - 1);
+                    blocks[block_index_b].SetSectionIndex(section_index);
+                }
             }
         }
     }
@@ -233,7 +239,7 @@ void PuzzleManager::AllDrop(Config *config, Block *blocks){
 void PuzzleManager::ChoiceBlock(Section* sections, Block* blocks, Config* config, double event_button_x, double event_button_y){
     // 左クリックされた座標から選択されたブロックを探す
     int position_index = LookForPositionBlock(sections, blocks, config, event_button_x, event_button_y);
-    if (position_index != Invalid){
+    if (position_index != Invalid && blocks[position_index].GetExist() == ON){
         // 選択されたブロックをアクティブにして操作対象と見做す
         blocks[position_index].Choice(sections, event_button_x, event_button_y);
         // ステータスをブロック操作中にする
@@ -299,10 +305,12 @@ void PuzzleManager::MoveBlock(Section* sections, Block* blocks, Config* config, 
     
     // 座標から取得したブロックが操作中のブロックと別のものだったら交換
     if (position_index != active_index && position_index != Invalid){
-        // 所属する区画インデックスを交換
-        target_section_index = blocks[position_index].GetSectionIndex();
-        blocks[position_index].SetSectionIndex(blocks[active_index].GetSectionIndex());
-        blocks[active_index].SetSectionIndex(target_section_index);
+        if (blocks[active_index].GetExist() == ON && blocks[position_index].GetExist() == ON) {
+            // 所属する区画インデックスを交換
+            target_section_index = blocks[position_index].GetSectionIndex();
+            blocks[position_index].SetSectionIndex(blocks[active_index].GetSectionIndex());
+            blocks[active_index].SetSectionIndex(target_section_index);
+        }
     }
 }
 

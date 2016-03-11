@@ -27,7 +27,13 @@ item("【アイテム】"),
 item_q("Q：全ブロック消滅"),
 item_w("W：操作回数＋1"),
 item_e("E：操作時間×2"),
-rank("Rank：%c")
+rank("Rank：%c"),
+mode("【モード】"),
+mode_z("Z：プレイモード"),
+mode_x("X：編集モード(停止)"),
+mode_c("C：編集モード(起動)"),
+mode_x_description("左クリックで指定した区画の機能停止"),
+mode_c_description("左クリックで指定した区画を機能させます")
 {}
 
 char* MyText::GetConfigMain(){ return config_main; }
@@ -49,4 +55,9 @@ char* MyText::GetItemQ(){ return item_q; }
 char* MyText::GetItemW(){ return item_w; }
 char* MyText::GetItemE(){ return item_e; }
 char* MyText::GetRank(){ return rank; }
-
+char* MyText::GetMode(){ return mode; }
+char* MyText::GetModeZ(){ return mode_z; }
+char* MyText::GetModeX(){ return mode_x; }
+char* MyText::GetModeC(){ return mode_c; }
+char* MyText::GetModeXDescription(){ return mode_x_description; }
+char* MyText::GetModeCDescription(){ return mode_c_description; }

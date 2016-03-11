@@ -31,6 +31,12 @@ class MyText {
     char* item_w;
     char* item_e;
     char* rank;
+    char* mode;
+    char* mode_z;
+    char* mode_x;
+    char* mode_c;
+    char* mode_x_description;
+    char* mode_c_description;
 public:
     MyText();
     char* GetConfigMain();
@@ -52,6 +58,12 @@ public:
     char* GetItemW();
     char* GetItemE();
     char* GetRank();
+    char* GetMode();
+    char* GetModeZ();
+    char* GetModeX();
+    char* GetModeC();
+    char* GetModeXDescription();
+    char* GetModeCDescription();
 };
 
 #endif /* defined(__puzzle_test_02__my_text__) */

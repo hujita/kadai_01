@@ -21,6 +21,8 @@ block_type(0),
 section_index(0),
 // 生存
 alive(0),
+// 存在
+exist(ON),
 // アクティブ(マウス左クリックで選択されている)
 active(0),
 // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
@@ -32,7 +34,9 @@ click_y(0),
 // 落下分誤差
 drop_difference(0),
 // 下方向に死んでるブロックがある
-count_drop(0)
+count_drop(0),
+// 下方向に非実在ブロックがある
+count_exist(0)
 {}
 
 // ブロック生成
@@ -157,20 +161,22 @@ void Block::Draw(SDL_Surface* screen, SDL_Surface* block_image, Section* section
     srcrect.y = source_y;
     srcrect.w = source_w;
     srcrect.h = source_h;
-
+    
     if (alive == ON){
         SDL_BlitSurface(block_image, &srcrect, screen, &desrect);
     }
 }
 
 void Block::Choice(Section* sections, double event_button_x, double event_button_y){
-    active = ON;
-    // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
-    difference_x = (event_button_x - sections[section_index].GetDestinationX());
-    difference_y = (event_button_y - sections[section_index].GetDestinationY());
-    // ブロックのクリックされている座標(アクティブ時のみ使用)
-    click_x = event_button_x;
-    click_y = event_button_y;
+    if (exist == ON){
+        active = ON;
+        // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
+        difference_x = (event_button_x - sections[section_index].GetDestinationX());
+        difference_y = (event_button_y - sections[section_index].GetDestinationY());
+        // ブロックのクリックされている座標(アクティブ時のみ使用)
+        click_x = event_button_x;
+        click_y = event_button_y;
+    }
 }
 
 void Block::Release(){
@@ -192,6 +198,10 @@ void Block::AddCountDrop(int value){
     count_drop += value;
 }
 
+void Block::AddCountExist(int value){
+    count_exist += value;
+}
+
 void Block::ChangeType(int type){
     // ブロック種別
     block_type = type;
@@ -208,8 +218,10 @@ int Block::GetActive() { return active; }
 int Block::GetSectionIndex(){ return section_index; }
 int Block::GetBlockType(){ return block_type; }
 int Block::GetAlive(){ return alive; }
+int Block::GetExist(){ return exist; }
 double Block::GetCountDrop(){ return count_drop; }
 // Setter
 void Block::SetSectionIndex(int value){ section_index = value; }
 void Block::SetAlive(int value){ alive = value; }
+void Block::SetExist(int value){ exist = value; }
 

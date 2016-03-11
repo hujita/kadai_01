@@ -32,6 +32,8 @@ class Block {
     int section_index;
     // 生存
     int alive;
+    // 存在している
+    int exist;
     // アクティブ(選択されている)
     int active;
     // 出力先座標とマウスポインタ座標の誤差(アクティブ時のみ使用)
@@ -44,6 +46,8 @@ class Block {
     double drop_difference;
     // 必要な落下距離
     double count_drop;
+    // 落下させたくない距離
+    double count_exist;
     // ブロック種別から出力元座標を取得
     void SourcePosition(int type_block, int* position);
 public:
@@ -64,16 +68,19 @@ public:
     // ブロックの移動による座標の更新
     void Move(double event_button_x, double event_button_y);
     void AddCountDrop(int value);
+    void AddCountExist(int value);
     void ChangeType(int type);
     // Getter
     int GetActive();
     int GetSectionIndex();
     int GetBlockType();
     int GetAlive();
+    int GetExist();
     double GetCountDrop();
     // Setter
     void SetSectionIndex(int value);
     void SetAlive(int value);
+    void SetExist(int value);
 };
 
 #endif /* defined(__puzzle_test_02__block__) */

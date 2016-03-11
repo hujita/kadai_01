@@ -21,6 +21,8 @@
 #include <boost/timer.hpp>
 
 class Play {
+    // モード：通常0, 機能停止1, 再起動2
+    int mode;
     // 一度でもブロックを操作したか
     int flag_operated;
     // ブロックを操作した回数

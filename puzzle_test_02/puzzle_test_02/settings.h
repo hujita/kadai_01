@@ -18,7 +18,10 @@ using namespace std;
 const int WINDOW_WIDE = 1400;
 const int WINDOW_HIGH = 850;
 const int MOVE_AMOUNT = 3;
-
+// プレイモード
+const int MODE_PLAY = 0;
+const int MODE_DELETE = 1;
+const int MODE_REBORN = 2;
 // 共通
 const int OFF = 0;
 const int ON = 1;
