@@ -151,7 +151,10 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                     //    break;
                     //}
                     blocks[i].AddCountDrop(SECTION_HIGH);
-                    blocks[i].AddCountExist(SECTION_HIGH);
+                    //blocks[i].AddCountExist(SECTION_HIGH);
+                }
+                if (blocks[j].GetExist() == OFF) {
+                    blocks[i].AddCountDrop(-SECTION_HIGH);
                 }
             }
         }

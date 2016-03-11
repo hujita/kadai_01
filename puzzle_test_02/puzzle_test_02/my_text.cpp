@@ -30,8 +30,8 @@ item_e("E：操作時間×2"),
 rank("Rank：%c"),
 mode("【モード】"),
 mode_z("Z：プレイモード"),
-mode_x("X：編集モード(停止)"),
-mode_c("C：編集モード(起動)"),
+mode_x("X：編集モード(削除)"),
+mode_c("C：編集モード(復活)"),
 mode_x_description("左クリックで指定した区画の機能停止"),
 mode_c_description("左クリックで指定した区画を機能させます")
 {}
