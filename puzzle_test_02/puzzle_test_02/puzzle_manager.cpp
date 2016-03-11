@@ -169,7 +169,7 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                 && blocks[i].GetSectionIndex() / config->GetRow() == blocks[j].GetSectionIndex() / config->GetRow()){
                 // jが死んでいたらiの落下回数に +1
                 if (blocks[j].GetAlive() == OFF && blocks[j].GetExist() == ON){
-                    if (blocks[j].GetSectionIndex() < non_exist_index){
+                    if (non_exist_index == Invalid || blocks[j].GetSectionIndex() < non_exist_index){
                     blocks[i].AddCountDrop(SECTION_HIGH);
                     }
                 }
