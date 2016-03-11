@@ -46,8 +46,6 @@ class Block {
     double drop_difference;
     // 必要な落下距離
     double count_drop;
-    // 落下させたくない距離
-    double count_exist;
     // ブロック種別から出力元座標を取得
     void SourcePosition(int type_block, int* position);
 public:
@@ -68,7 +66,6 @@ public:
     // ブロックの移動による座標の更新
     void Move(double event_button_x, double event_button_y);
     void AddCountDrop(int value);
-    void AddCountExist(int value);
     void ChangeType(int type);
     // Getter
     int GetActive();

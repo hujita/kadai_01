@@ -147,11 +147,7 @@ void PuzzleManager::CheckDrop(Config *config, Block *blocks){
                 && blocks[i].GetSectionIndex() / config->GetRow() == blocks[j].GetSectionIndex() / config->GetRow()){
                 // jが死んでいたらiの落下回数に +1
                 if (blocks[j].GetAlive() == OFF && blocks[j].GetExist() == ON){
-                    //if (blocks[j].GetExist() == OFF){
-                    //    break;
-                    //}
                     blocks[i].AddCountDrop(SECTION_HIGH);
-                    //blocks[i].AddCountExist(SECTION_HIGH);
                 }
                 if (blocks[j].GetExist() == OFF) {
                     blocks[i].AddCountDrop(-SECTION_HIGH);

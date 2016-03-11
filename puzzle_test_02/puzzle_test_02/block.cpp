@@ -34,9 +34,7 @@ click_y(0),
 // 落下分誤差
 drop_difference(0),
 // 下方向に死んでるブロックがある
-count_drop(0),
-// 下方向に非実在ブロックがある
-count_exist(0)
+count_drop(0)
 {}
 
 // ブロック生成
@@ -196,10 +194,6 @@ void Block::Move(double event_button_x, double event_button_y){
 
 void Block::AddCountDrop(int value){
     count_drop += value;
-}
-
-void Block::AddCountExist(int value){
-    count_exist += value;
 }
 
 void Block::ChangeType(int type){
