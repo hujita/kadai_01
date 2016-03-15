@@ -17,6 +17,8 @@
 		96BD6AAE1C97A7A00037AD6E /* omikujiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD6AAD1C97A7A00037AD6E /* omikujiTests.swift */; };
 		96BD6AB81C97ABA10037AD6E /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6AB71C97ABA10037AD6E /* button.png */; };
 		96BD6ABA1C97ABA80037AD6E /* omikuji.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6AB91C97ABA80037AD6E /* omikuji.png */; };
+		96BD6AC51C97D98F0037AD6E /* SocketControllerCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96BD6AC31C97D98F0037AD6E /* SocketControllerCpp.cpp */; };
+		96BD6AC81C97F01A0037AD6E /* SocketControllerObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 96BD6AC61C97F01A0037AD6E /* SocketControllerObjC.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,11 @@
 		96BD6AAD1C97A7A00037AD6E /* omikujiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = omikujiTests.swift; sourceTree = "<group>"; };
 		96BD6AB71C97ABA10037AD6E /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		96BD6AB91C97ABA80037AD6E /* omikuji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = omikuji.png; sourceTree = "<group>"; };
+		96BD6AC21C97D98F0037AD6E /* omikuji-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "omikuji-Bridging-Header.h"; sourceTree = "<group>"; };
+		96BD6AC31C97D98F0037AD6E /* SocketControllerCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SocketControllerCpp.cpp; sourceTree = "<group>"; };
+		96BD6AC41C97D98F0037AD6E /* SocketControllerCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketControllerCpp.h; sourceTree = "<group>"; };
+		96BD6AC61C97F01A0037AD6E /* SocketControllerObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SocketControllerObjC.mm; sourceTree = "<group>"; };
+		96BD6AC71C97F01A0037AD6E /* SocketControllerObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketControllerObjC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +110,11 @@
 			isa = PBXGroup;
 			children = (
 				96BD6A921C97A7A00037AD6E /* Info.plist */,
+				96BD6AC31C97D98F0037AD6E /* SocketControllerCpp.cpp */,
+				96BD6AC41C97D98F0037AD6E /* SocketControllerCpp.h */,
+				96BD6AC21C97D98F0037AD6E /* omikuji-Bridging-Header.h */,
+				96BD6AC61C97F01A0037AD6E /* SocketControllerObjC.mm */,
+				96BD6AC71C97F01A0037AD6E /* SocketControllerObjC.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -227,6 +239,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BD6AC81C97F01A0037AD6E /* SocketControllerObjC.mm in Sources */,
+				96BD6AC51C97D98F0037AD6E /* SocketControllerCpp.cpp in Sources */,
 				96BD6A981C97A7A00037AD6E /* GameScene.swift in Sources */,
 				96BD6A9A1C97A7A00037AD6E /* GameViewController.swift in Sources */,
 				96BD6A941C97A7A00037AD6E /* AppDelegate.swift in Sources */,
@@ -352,9 +366,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = omikuji/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "omikuji/omikuji-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -362,9 +379,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = omikuji/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "omikuji/omikuji-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -421,6 +440,7 @@
 				96BD6AB31C97A7A00037AD6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		96BD6AB41C97A7A00037AD6E /* Build configuration list for PBXNativeTarget "omikujiTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +449,7 @@
 				96BD6AB61C97A7A00037AD6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

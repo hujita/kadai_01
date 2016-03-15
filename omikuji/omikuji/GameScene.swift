@@ -14,6 +14,12 @@ class GameScene: SKScene {
     let myLabel = SKLabelNode(fontNamed: "Verdana-bold")
     
     override func didMoveToView(view: SKView) {
+        
+        //super.viewDidLoad()
+        let socketController = SocketControllerObjC();
+        socketController.test();
+        
+        
         // 背景表示
         self.backgroundColor = SKColor.whiteColor()
         // イラスト表示
