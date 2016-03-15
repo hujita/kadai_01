@@ -15,6 +15,8 @@
 		96BD6A9F1C97A7A00037AD6E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6A9E1C97A7A00037AD6E /* Images.xcassets */; };
 		96BD6AA21C97A7A00037AD6E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6AA01C97A7A00037AD6E /* LaunchScreen.xib */; };
 		96BD6AAE1C97A7A00037AD6E /* omikujiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BD6AAD1C97A7A00037AD6E /* omikujiTests.swift */; };
+		96BD6AB81C97ABA10037AD6E /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6AB71C97ABA10037AD6E /* button.png */; };
+		96BD6ABA1C97ABA80037AD6E /* omikuji.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BD6AB91C97ABA80037AD6E /* omikuji.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		96BD6AA71C97A7A00037AD6E /* omikujiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = omikujiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BD6AAC1C97A7A00037AD6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96BD6AAD1C97A7A00037AD6E /* omikujiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = omikujiTests.swift; sourceTree = "<group>"; };
+		96BD6AB71C97ABA10037AD6E /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
+		96BD6AB91C97ABA80037AD6E /* omikuji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = omikuji.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 		96BD6A901C97A7A00037AD6E /* omikuji */ = {
 			isa = PBXGroup;
 			children = (
+				96BD6AB91C97ABA80037AD6E /* omikuji.png */,
+				96BD6AB71C97ABA10037AD6E /* button.png */,
 				96BD6A931C97A7A00037AD6E /* AppDelegate.swift */,
 				96BD6A951C97A7A00037AD6E /* GameScene.sks */,
 				96BD6A971C97A7A00037AD6E /* GameScene.swift */,
@@ -198,7 +204,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BD6ABA1C97ABA80037AD6E /* omikuji.png in Resources */,
 				96BD6AA21C97A7A00037AD6E /* LaunchScreen.xib in Resources */,
+				96BD6AB81C97ABA10037AD6E /* button.png in Resources */,
 				96BD6A9F1C97A7A00037AD6E /* Images.xcassets in Resources */,
 				96BD6A961C97A7A00037AD6E /* GameScene.sks in Resources */,
 				96BD6A9D1C97A7A00037AD6E /* Main.storyboard in Resources */,
